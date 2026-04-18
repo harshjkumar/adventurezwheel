@@ -10,7 +10,7 @@ export function HeroSlider() {
   const [videoLoaded, setVideoLoaded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const slide = heroSlides[0];
-  const videoSrc = '/hero-video.mp4';
+  const videoSrc = 'https://pub-d188086126f842e88f76855b16e973b0.r2.dev/wheels1%20(1).mp4';
 
   // Fix for browser caching issue: onCanPlay may not fire if video is already ready
   useEffect(() => {
