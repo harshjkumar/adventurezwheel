@@ -1,0 +1,13 @@
+# default
+node_modules
+.next
+out
+.vercel
+.vscode
+.env.*
+!.env.local.example
+*.log
+coverage
+dist
+build
+.DS_Store

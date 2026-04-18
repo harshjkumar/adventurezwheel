@@ -1,0 +1,1364 @@
+# Adventures Wheel - Comprehensive Website Prompt
+
+## 1. DESIGN THEME & VISUAL IDENTITY
+
+### Color Palette
+- **Primary Background**: Pure white (#FFFFFF) and soft off-white (#F8F9FA)
+- **Accent Color**: Fresh green (#2ECC71, #27AE60, #1E8449) - used strategically throughout
+- **Text Colors**: 
+  - Dark charcoal (#2C3E50) for headings
+  - Slate gray (#5D6D7E) for body text
+  - White text on green backgrounds
+- **Supporting Colors**:
+  - Light green tints for backgrounds (#E8F8F0)
+  - Subtle gray borders (#E5E7EB)
+  - Success states in green
+  - Error states in muted red
+
+### Design Reference
+Based on https://explorajourneys.com/int/en design language:
+- Replace yellowish/gold tones with green equivalents
+- Maintain the same luxurious, spacious layout
+- Use similar full-width hero sections
+- Implement identical card hover effects
+- Replicate the smooth scrolling experience
+- Mirror the navigation transparency effects
+- Adopt the same typography hierarchy and spacing
+
+### Typography
+- **Primary Font**: Modern sans-serif (Inter, Montserrat, or Poppins)
+- **Headings**: Bold weights (600-700), large sizes with generous letter-spacing
+- **Body**: Regular weight (400), comfortable line-height (1.6-1.8)
+- **Accent Text**: Medium weight (500) for CTAs and highlights
+
+### Layout Principles
+- Generous white space throughout
+- Full-width sections with contained content (max-width: 1280px)
+- Asymmetric layouts for visual interest
+- High-quality imagery with subtle green overlays
+- Glass-morphism effects on cards (white background with slight transparency)
+- Soft shadows for depth (subtle, not harsh)
+
+---
+
+## 2. ANIMATIONS & INTERACTIONS
+
+### Page Load Animations
+- **Hero Section**: 
+  - Fade in from bottom with 0.8s duration
+  - Stagger animation for heading (0.2s delay), subtext (0.4s delay), CTA (0.6s delay)
+  - Background image subtle zoom-in effect (scale 1.05 to 1.0 over 1.5s)
+
+- **Content Sections**:
+  - Scroll-triggered fade-in-up animations
+  - Elements animate when 20% visible in viewport
+  - Stagger child elements by 0.1s each
+  - Use easing: cubic-bezier(0.4, 0.0, 0.2, 1)
+
+### Navigation Animations
+- **Navbar**:
+  - Slide down from top on page load (0.5s)
+  - Background blur and slight opacity change on scroll (white backdrop with 80% opacity + blur(10px))
+  - Smooth color transition when scrolling past hero (0.3s transition)
+  - Logo subtle pulse animation on hover (scale 1.05)
+  - Mobile menu slides in from right with backdrop fade-in
+  - Dropdown menus: fade-in with slide-down (0.2s)
+
+### Card & Component Animations
+- **Trip Cards**:
+  - Hover effect: lift up (translateY(-8px)) with shadow increase (0.3s ease-out)
+  - Image subtle zoom on hover (scale 1.1 over 0.5s)
+  - Green overlay fade-in on hover (opacity 0 to 0.15)
+  - Button slides in from bottom on card hover
+  - Info text fades in with slight delay
+
+- **Feature Cards**:
+  - Rotate slightly on hover (rotate 1deg)
+  - Icon bounce animation on hover
+  - Background color shift (white to light green tint)
+
+- **Gallery Images**:
+  - Masonry grid layout with stagger load animation
+  - Lightbox zoom-in animation (scale 0.9 to 1.0 with fade)
+  - Image expand from clicked position with backdrop blur
+
+### Button Animations
+- **Primary CTAs**:
+  - Background color slide animation (green gradient shift)
+  - Ripple effect on click
+  - Slight scale on hover (1.02)
+  - Arrow icon slide-right on hover
+  - Shadow expansion on hover
+
+- **Secondary Buttons**:
+  - Border color pulse animation
+  - Text color transition
+  - Background fill on hover (from transparent to light green)
+
+### Scroll Animations
+- **Parallax Effects**:
+  - Hero background image moves at 0.5x scroll speed
+  - Section backgrounds at 0.3x speed
+  - Decorative elements at varying speeds for depth
+
+- **Progress Indicators**:
+  - Reading progress bar at top (green fill from left to right)
+  - Scroll-to-top button: fade-in when scrolled 300px, rotate on hover
+  - Smooth scroll behavior with easing
+
+### Form Animations
+- **Input Fields**:
+  - Label float-up animation when focused
+  - Border color change (gray to green) on focus
+  - Validation checkmark slide-in from right
+  - Error shake animation (3 quick horizontal movements)
+
+### Loading States
+- **Page Transitions**:
+  - Skeleton loaders with shimmer effect (light gray to white gradient moving)
+  - Spinner with green circular animation
+  - Content fade-in after data load
+
+- **Lazy Loading**:
+  - Images fade-in when loaded (IntersectionObserver)
+  - Blur-to-sharp transition for lazy images
+
+### Micro-interactions
+- **Icon Animations**:
+  - Social icons: rotate and color change on hover
+  - Search icon: expand to search bar
+  - Heart icon: scale pulse when favorited
+  - Star ratings: fill animation from left to right
+
+- **Counter Animations**:
+  - Stats numbers count-up animation when in viewport
+  - Duration: 2s with easing
+  - Format with comma separators
+
+---
+
+## 3. PROJECT STRUCTURE
+
+### Tech Stack
+- **Frontend Framework**: Next.js 15+ (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v4
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
+- **State Management**: React hooks (useState, useContext)
+- **Database**: Supabase (PostgreSQL)
+- **Authentication**: Supabase Auth
+- **Payments**: Razorpay
+- **Media Storage**: Cloudinary
+- **Forms**: React Hook Form + Zod validation
+
+### Folder Structure
+```
+src/
+├── app/
+│   ├── (public)/
+│   │   ├── page.tsx                    # Homepage
+│   │   ├── about/page.tsx
+│   │   ├── trips/
+│   │   │   ├── page.tsx                # Trip listing
+│   │   │   └── [slug]/
+│   │   │       ├── page.tsx            # Trip detail
+│   │   │       └── book/page.tsx       # Booking flow
+│   │   ├── destinations/
+│   │   │   ├── page.tsx
+│   │   │   └── [slug]/page.tsx
+│   │   ├── gallery/page.tsx
+│   │   ├── blogs/
+│   │   │   ├── page.tsx
+│   │   │   └── [slug]/page.tsx
+│   │   ├── contact/page.tsx
+│   │   ├── faq/page.tsx
+│   │   └── policies/
+│   ├── (auth)/
+│   │   ├── login/page.tsx
+│   │   └── register/page.tsx
+│   ├── dashboard/page.tsx
+│   ├── (admin)/
+│   │   └── admin/
+│   │       ├── page.tsx
+│   │       ├── trips/
+│   │       ├── bookings/
+│   │       ├── enquiries/
+│   │       ├── blogs/
+│   │       ├── gallery/
+│   │       └── settings/
+│   └── api/
+│       ├── auth/
+│       ├── payment/
+│       └── admin/
+├── components/
+│   ├── layout/
+│   │   ├── Navbar.tsx
+│   │   ├── Footer.tsx
+│   │   └── ScrollToTop.tsx
+│   ├── sections/
+│   │   ├── HeroSlider.tsx
+│   │   ├── FeaturedTrips.tsx
+│   │   ├── DestinationShowcase.tsx
+│   │   ├── GallerySection.tsx
+│   │   ├── TestimonialsSection.tsx
+│   │   ├── WhyChooseUs.tsx
+│   │   └── CTABanner.tsx
+│   └── ui/
+│       ├── Button.tsx
+│       ├── Card.tsx
+│       ├── Input.tsx
+│       └── Modal.tsx
+├── lib/
+│   ├── supabase/
+│   ├── data/
+│   └── utils/
+└── types/
+    └── index.ts
+```
+
+---
+
+## 4. PAGE-BY-PAGE SPECIFICATIONS
+
+### Homepage (/)
+
+#### Hero Section
+- **Design**: Full-viewport height slider with 3-5 adventure images
+- **Elements**:
+  - Large bold heading: "Discover Your Next Adventure"
+  - Animated subheading with typing effect
+  - Two CTAs: "Explore Trips" (green solid) and "Plan Custom Trip" (outline)
+  - Scroll indicator with bounce animation at bottom
+  - Slide navigation dots (green active state)
+- **Animations**:
+  - Auto-play slider (5s interval)
+  - Ken Burns effect on images (slow zoom + pan)
+  - Text fade-in-up on slide change
+  - Parallax on scroll
+
+#### Featured Adventures Section
+- **Layout**: 3-column grid on desktop, 1-column on mobile
+- **Card Design**:
+  - Large image with green gradient overlay
+  - Trip category badge (top-left, green background)
+  - Trip title (overlay on image)
+  - Quick stats row (duration, difficulty, price)
+  - "View Details" button (appears on hover)
+- **Animations**:
+  - Cards appear with stagger on scroll-in
+  - Hover lift and shadow expansion
+  - Image zoom on hover
+
+#### Destinations Spotlight
+- **Layout**: 2-column asymmetric grid
+- **Content**: 
+  - Left: Large featured destination image
+  - Right: Two stacked smaller destination cards
+- **Interactive**: Click to navigate to destination page
+- **Animation**: Parallax depth effect, image reveal on scroll
+
+#### Why Adventures Wheel
+- **Layout**: 4-column icon grid
+- **Features**:
+  - Expert guides
+  - Safety first
+  - Small groups
+  - Sustainable travel
+- **Each Card**:
+  - Green icon (animated on hover)
+  - Bold title
+  - Short description
+- **Animation**: Icons rotate/bounce on scroll-in
+
+#### Gallery Preview
+- **Layout**: Masonry grid (4 columns)
+- **Images**: 8-12 curated adventure photos
+- **Interaction**: Lightbox on click
+- **CTA**: "View Full Gallery" centered button
+- **Animation**: Images fade-in with stagger, shuffle on hover
+
+#### Testimonials
+- **Design**: Carousel with 3 visible cards on desktop
+- **Card Content**:
+  - 5-star rating (green stars)
+  - Quote text
+  - Traveler name and photo
+  - Trip reference
+- **Navigation**: Arrow buttons + auto-play
+- **Animation**: Slide transition with fade
+
+#### Newsletter/CTA Banner
+- **Design**: Full-width green gradient section
+- **Content**:
+  - Heading: "Ready for Your Adventure?"
+  - Email capture form (white input, white button)
+  - Or "Browse All Trips" link
+- **Animation**: Background parallax, form slide-in
+
+---
+
+### Trips Listing Page (/trips)
+
+#### Header
+- **Design**: Medium hero with filter overlay
+- **Breadcrumbs**: Home > Trips
+- **Search/Filter Bar**:
+  - Search input (with icon)
+  - Destination dropdown
+  - Duration filter
+  - Difficulty filter
+  - Price range slider
+  - "Apply Filters" green button
+
+#### Trip Grid
+- **Layout**: 3-column grid with sidebar filters on desktop
+- **Card Design**:
+  - Landscape image (16:9)
+  - Trip category chip
+  - Title (h3)
+  - Short description (2 lines truncated)
+  - Details row: duration, difficulty, group size
+  - Price badge (bottom-right overlay)
+  - "Book Now" button (full-width on mobile)
+- **Sorting**: Dropdown (Featured, Price Low-High, Duration, Rating)
+- **Pagination**: Load more button or infinite scroll
+
+---
+
+### Trip Detail Page (/trips/[slug])
+
+#### Hero
+- **Design**: Full-width image gallery carousel
+- **Overlay**: Trip title, price, difficulty badge
+- **Sticky Booking Widget**: Fixed on scroll (right side on desktop)
+
+#### Content Tabs
+- **Overview Tab**:
+  - Description
+  - Highlights (bulleted with green checkmarks)
+  - What's included/excluded
+  - Meeting point
+
+- **Itinerary Tab**:
+  - Day-by-day accordion
+  - Each day: Title, description, meals, accommodation
+  - Animated expand/collapse
+
+- **Dates & Pricing Tab**:
+  - Upcoming departure dates table
+  - Pricing tiers (solo, double, group)
+  - "Check Availability" for each date
+
+- **Photos Tab**:
+  - Grid gallery with lightbox
+  - Full-screen slideshow
+
+- **Reviews Tab**:
+  - Star rating summary
+  - Individual review cards
+  - "Write a Review" CTA (if logged in)
+
+#### Booking Widget (Sticky)
+- **Elements**:
+  - Price display
+  - Date selector
+  - Travelers count
+  - Add-ons checkboxes
+  - Total calculation
+  - "Book Now" green button
+  - WhatsApp inquiry button (outline)
+
+---
+
+### Booking Flow (/trips/[slug]/book)
+
+#### Multi-Step Form
+**Step 1: Trip Details Review**
+- Selected date, travelers, add-ons
+- Edit link back to trip page
+- "Continue" button
+
+**Step 2: Traveler Information**
+- Form fields per traveler (name, age, gender, ID proof)
+- Accordion for each traveler
+- Validation with inline errors
+
+**Step 3: Contact & Payment**
+- Lead traveler contact (email, phone)
+- Payment options: Full/Partial (₹1000 minimum)
+- Razorpay integration
+- Terms checkbox
+
+**Step 4: Confirmation**
+- Booking summary
+- Payment receipt
+- Booking ID
+- Email confirmation message
+- "View Booking" link to dashboard
+
+#### Progress Indicator
+- Top bar showing steps with green fill for completed
+
+---
+
+### Gallery Page (/gallery)
+
+#### Layout
+- **Header**: Simple title and filter chips (All, Mountains, Valleys, Culture, Adventure)
+- **Grid**: Responsive masonry layout
+- **Images**: Various sizes with captions on hover
+- **Lightbox**: Full-screen slideshow with navigation
+- **Load More**: Infinite scroll or button
+
+---
+
+### Blog Listing (/blogs)
+
+#### Featured Post
+- **Design**: Large hero card (1/2 page width)
+- **Content**: Image, category, title, excerpt, author, date
+- **CTA**: "Read More" link
+
+#### Blog Grid
+- **Layout**: 3-column cards
+- **Card Design**:
+  - Featured image
+  - Category badge (green)
+  - Title
+  - Excerpt (3 lines)
+  - Author avatar + name
+  - Read time
+  - Date
+- **Sidebar**: Categories, popular posts, search
+
+---
+
+### Blog Article (/blogs/[slug])
+
+#### Article Header
+- **Design**: Full-width featured image
+- **Overlay**: Title, author info, date, read time, share buttons
+
+#### Content
+- **Typography**: Large readable font
+- **Images**: Full-width or inline with captions
+- **Quotes**: Highlighted pullquotes with green accent
+- **Related Posts**: 3-card grid at bottom
+
+---
+
+### Contact Page (/contact)
+
+#### Split Layout
+- **Left Side (40%)**:
+  - Contact info cards (phone, email, address)
+  - Social media links
+  - Office hours
+  
+- **Right Side (60%)**:
+  - Contact form:
+    - Name, email, phone
+    - Trip interest dropdown
+    - Message textarea
+    - "Send Message" green button
+  - WhatsApp quick contact button
+
+#### Map Section
+- Embedded Google Map (if office location)
+
+---
+
+### User Dashboard (/dashboard)
+
+#### Sidebar Navigation
+- Profile
+- My Bookings
+- Wishlist
+- Reviews
+- Settings
+- Logout
+
+#### My Bookings Section
+- **Card for Each Booking**:
+  - Trip thumbnail
+  - Trip name, date
+  - Booking ID
+  - Payment status badge (Paid/Pending)
+  - Total/remaining amount
+  - "View Details" button
+  - "Download Invoice" link
+
+#### Profile Section
+- Editable user info form
+- Profile photo upload
+- Password change
+
+---
+
+### Admin Panel (/admin/*)
+
+#### Dashboard
+- **Metrics Cards**:
+  - Total bookings (green background)
+  - Revenue this month
+  - Pending enquiries
+  - Active trips
+- **Charts**:
+  - Bookings over time (line chart)
+  - Revenue by trip (bar chart)
+- **Recent Activity Feed**
+
+#### Trip Management
+- **List View**: Data table with search, filter, sort
+- **Actions**: Edit, Deactivate, Delete
+- **Create/Edit**: Multi-tab form (General, Itinerary, Pricing, Dates, Gallery, SEO)
+
+#### Booking Management
+- **Detailed View**: Split screen (booking info + actions)
+- **Status Updates**: Dropdown to change status
+- **Payment Tracking**: Amount paid, remaining, payment history
+
+#### Content Management
+- Blog posts (draft/publish)
+- Gallery images (upload, organize, activate)
+- Homepage sections (hero slides, testimonials, stats)
+
+---
+
+## 5. KEY FUNCTIONALITIES
+
+### Authentication
+- Email/password registration via Supabase Auth
+- Login with session management
+- Password reset flow
+- Protected routes (dashboard, admin)
+- Role-based access (admin table check)
+
+### Search & Filtering
+- Real-time trip search by keywords
+- Multi-criteria filtering:
+  - Destination
+  - Duration (days)
+  - Difficulty level
+  - Price range
+  - Departure month
+- Filter persistence in URL params
+- Reset filters button
+
+### Booking System
+- Multi-step booking wizard
+- Date availability check
+- Dynamic pricing calculation:
+  - Base price per occupancy type
+  - Add-ons
+  - GST (5%)
+- Razorpay payment integration:
+  - Full payment
+  - Partial payment (minimum booking amount)
+- Booking confirmation email
+- Order tracking via booking ID
+
+### Payment Integration
+- Razorpay checkout modal
+- Signature verification (HMAC)
+- Order creation with metadata
+- Payment receipt generation
+- Refund handling (admin)
+
+### User Features
+- Booking history with filters
+- Trip wishlist (save for later)
+- Review submission after trip completion
+- Profile management
+- Password change
+
+### Admin Features
+- Trip CRUD operations:
+  - Create with nested data (itinerary, pricing, dates)
+  - Update with relation management
+  - Soft delete (deactivate)
+- Category management
+- Blog publishing workflow
+- Gallery organization
+- Enquiry triage (status workflow)
+- Booking oversight and status updates
+- Revenue tracking and reporting
+- Homepage content management
+
+### Data Management
+- Supabase PostgreSQL database
+- Server-side data fetching in pages
+- API routes for mutations
+- Fallback to local data if DB unavailable
+- Image optimization via Cloudinary
+
+---
+
+## 6. DATABASE SCHEMA
+
+### Tables
+
+**hero_slides**
+- id (uuid, primary key)
+- title (text)
+- subtitle (text)
+- image_url (text)
+- cta_text (text)
+- cta_link (text)
+- order_index (integer)
+- is_active (boolean)
+
+**trip_categories**
+- id (uuid, primary key)
+- name (text, unique)
+- slug (text, unique)
+- description (text)
+- icon (text)
+- is_active (boolean)
+
+**trips**
+- id (uuid, primary key)
+- title (text)
+- slug (text, unique)
+- category_id (uuid, foreign key)
+- short_description (text)
+- full_description (text)
+- duration_days (integer)
+- duration_nights (integer)
+- difficulty_level (text: easy/moderate/difficult)
+- group_size_min (integer)
+- group_size_max (integer)
+- age_requirement (text)
+- hero_image (text)
+- gallery_images (text[])
+- highlights (text[])
+- inclusions (text[])
+- exclusions (text[])
+- things_to_carry (text[])
+- meeting_point (text)
+- is_active (boolean)
+- created_at (timestamp)
+
+**trip_itinerary**
+- id (uuid, primary key)
+- trip_id (uuid, foreign key)
+- day_number (integer)
+- title (text)
+- description (text)
+- meals (text[])
+- accommodation (text)
+
+**trip_pricing**
+- id (uuid, primary key)
+- trip_id (uuid, foreign key)
+- occupancy_type (text: solo/double/triple)
+- price_per_person (decimal)
+- is_active (boolean)
+
+**trip_departures**
+- id (uuid, primary key)
+- trip_id (uuid, foreign key)
+- departure_date (date)
+- return_date (date)
+- available_seats (integer)
+- is_active (boolean)
+
+**bookings**
+- id (uuid, primary key)
+- booking_id (text, unique)
+- user_id (uuid, foreign key, nullable)
+- trip_title (text)
+- trip_slug (text)
+- customer_name (text)
+- customer_email (text)
+- customer_phone (text)
+- departure_date (date)
+- occupancy_rule (text)
+- total_persons (integer)
+- packages (jsonb)
+- riders (jsonb)
+- subtotal (decimal)
+- gst (decimal)
+- total_payable (decimal)
+- amount_paid (decimal)
+- remaining_amount (decimal)
+- payment_type (text: full/custom)
+- razorpay_order_id (text)
+- razorpay_payment_id (text)
+- booking_status (text: pending/confirmed/cancelled)
+- payment_status (text: pending/paid/partial)
+- created_at (timestamp)
+
+**blog_posts**
+- id (uuid, primary key)
+- title (text)
+- slug (text, unique)
+- excerpt (text)
+- content (text)
+- featured_image (text)
+- author_name (text)
+- author_avatar (text)
+- category (text)
+- read_time (integer)
+- is_published (boolean)
+- published_at (timestamp)
+- created_at (timestamp)
+
+**gallery_images**
+- id (uuid, primary key)
+- title (text)
+- image_url (text)
+- category (text)
+- is_active (boolean)
+- order_index (integer)
+
+**enquiries**
+- id (uuid, primary key)
+- name (text)
+- email (text)
+- phone (text)
+- trip_interest (text)
+- message (text)
+- status (text: new/contacted/converted/closed)
+- created_at (timestamp)
+
+**profiles**
+- id (uuid, primary key, foreign key to auth.users)
+- email (text)
+- full_name (text)
+- phone (text)
+- avatar_url (text)
+- created_at (timestamp)
+
+**admin_users**
+- id (uuid, primary key, foreign key to auth.users)
+- created_at (timestamp)
+
+**stats**
+- id (uuid, primary key)
+- label (text)
+- value (text)
+- icon (text)
+- order_index (integer)
+
+**how_it_works**
+- id (uuid, primary key)
+- title (text)
+- description (text)
+- icon (text)
+- order_index (integer)
+
+**testimonials**
+- id (uuid, primary key)
+- name (text)
+- avatar_url (text)
+- rating (integer)
+- comment (text)
+- trip_reference (text)
+- is_active (boolean)
+- order_index (integer)
+
+---
+
+## 7. API ENDPOINTS
+
+### Public APIs
+
+**POST /api/auth/register**
+- Create new user account
+- Body: { email, password, name, phone }
+- Returns: { success, user }
+
+**POST /api/payment/create-order**
+- Create Razorpay order
+- Body: { amount, tripTitle, tripSlug, customerName, customerEmail, customerPhone, totalPayable, riders }
+- Returns: { orderId, amount, currency, keyId }
+
+**POST /api/payment/verify**
+- Verify payment signature and save booking
+- Body: { razorpay_order_id, razorpay_payment_id, razorpay_signature, bookingDetails }
+- Returns: { success, verified, dbSaved, bookingId, paymentId, orderId }
+
+**POST /api/contact**
+- Submit contact form / enquiry
+- Body: { name, email, phone, tripInterest, message }
+- Returns: { success, enquiryId }
+
+### Admin APIs
+
+**GET /api/admin/trips**
+- List all trips with relations
+- Query: ?category=...&status=...
+- Returns: { trips[] }
+
+**POST /api/admin/trips**
+- Create new trip
+- Body: { trip data, itinerary[], pricing[], departures[] }
+- Returns: { success, trip }
+
+**GET /api/admin/trips/:id**
+- Get single trip details
+- Returns: { trip }
+
+**PUT /api/admin/trips/:id**
+- Update trip
+- Body: { trip data, itinerary[], pricing[], departures[] }
+- Returns: { success, trip }
+
+**DELETE /api/admin/trips/:id**
+- Soft delete trip (set is_active = false)
+- Returns: { success }
+
+**GET /api/admin/bookings**
+- List all bookings
+- Query: ?status=...&from=...&to=...
+- Returns: { bookings[], totalRevenue, pendingAmount }
+
+**PUT /api/admin/bookings/:id**
+- Update booking status
+- Body: { booking_status, payment_status }
+- Returns: { success }
+
+**GET /api/admin/enquiries**
+- List enquiries
+- Query: ?status=...
+- Returns: { enquiries[] }
+
+**PUT /api/admin/enquiries/:id**
+- Update enquiry status
+- Body: { status }
+- Returns: { success }
+
+**GET /api/admin/blogs**
+- List all blog posts
+- Returns: { blogs[] }
+
+**POST /api/admin/blogs**
+- Create new blog post
+- Body: { title, slug, excerpt, content, featured_image, author_name, category }
+- Returns: { success, blog }
+
+**PUT /api/admin/blogs/:id**
+- Update blog post
+- Body: { blog data, is_published }
+- Returns: { success }
+
+**DELETE /api/admin/blogs/:id**
+- Delete blog post
+- Returns: { success }
+
+**GET /api/admin/gallery**
+- List gallery images
+- Returns: { images[] }
+
+**POST /api/admin/gallery**
+- Upload new image
+- Body: FormData with image file
+- Returns: { success, image }
+
+**DELETE /api/admin/gallery/:id**
+- Delete gallery image
+- Returns: { success }
+
+**GET /api/admin/homepage**
+- Get homepage sections
+- Returns: { heroSlides[], stats[], howItWorks[], testimonials[] }
+
+**PUT /api/admin/homepage**
+- Update homepage sections
+- Body: { section_name, items[] }
+- Returns: { success }
+
+---
+
+## 8. RESPONSIVE DESIGN BREAKPOINTS
+
+### Mobile First Approach
+- **Mobile**: < 640px
+  - Single column layouts
+  - Hamburger menu
+  - Stacked cards
+  - Full-width images
+  - Bottom-fixed booking widget
+
+- **Tablet**: 640px - 1024px
+  - 2-column grids
+  - Side drawer menu
+  - Card grid with 2 columns
+
+- **Desktop**: > 1024px
+  - 3-4 column grids
+  - Horizontal mega menu
+  - Sidebar filters
+  - Sticky elements
+
+- **Large Desktop**: > 1280px
+  - Max content width: 1280px
+  - Centered layouts
+  - Enhanced spacing
+
+---
+
+## 9. PERFORMANCE OPTIMIZATIONS
+
+### Image Optimization
+- Next.js Image component for all images
+- Cloudinary responsive images with auto format
+- Lazy loading below fold
+- Blur placeholder for hero images
+- WebP with fallback
+
+### Code Splitting
+- Dynamic imports for heavy components
+- Route-based code splitting (automatic in Next.js)
+- Lazy load admin panel completely
+- Defer non-critical scripts
+
+### Caching Strategy
+- Static generation for marketing pages
+- ISR (Incremental Static Regeneration) for trip listings (revalidate: 3600)
+- Client-side caching for filter states
+- API response caching headers
+
+### Loading States
+- Skeleton screens for content
+- Optimistic UI updates
+- Progressive image loading
+- Suspense boundaries
+
+---
+
+## 10. SEO & METADATA
+
+### Meta Tags (per page)
+- Unique title (50-60 chars)
+- Meta description (150-160 chars)
+- Open Graph tags (og:title, og:description, og:image)
+- Twitter Card tags
+- Canonical URLs
+
+### Structured Data
+- Organization schema
+- LocalBusiness schema
+- TravelAction schema for trips
+- Review schema for testimonials
+- BreadcrumbList schema
+
+### Sitemap & Robots
+- Dynamic sitemap.xml generation
+- Robots.txt configuration
+- Proper noindex for admin/dashboard
+
+---
+
+## 11. ACCESSIBILITY (A11Y)
+
+### WCAG 2.1 AA Compliance
+- Semantic HTML elements
+- Proper heading hierarchy (h1-h6)
+- Alt text for all images
+- ARIA labels for interactive elements
+- Keyboard navigation support
+- Focus visible styles (green outline)
+- Color contrast ratios > 4.5:1
+- Skip to main content link
+- Screen reader announcements for dynamic content
+
+---
+
+## 12. SECURITY MEASURES
+
+### Authentication Security
+- Supabase Auth with email verification
+- Password strength requirements (min 6 chars)
+- Session timeout for admin (1 hour)
+- Secure cookie flags (httpOnly, secure, sameSite)
+
+### API Security
+- CSRF protection
+- Rate limiting on public endpoints
+- Input validation with Zod schemas
+- SQL injection protection (parameterized queries)
+- XSS prevention (sanitized inputs)
+
+### Payment Security
+- Razorpay signature verification (HMAC SHA-256)
+- No card data storage
+- PCI DSS compliance via Razorpay
+- Secure webhook endpoints
+
+### Environment Variables
+- Server-only secrets (SUPABASE_SERVICE_ROLE_KEY, RAZORPAY_KEY_SECRET)
+- Public keys prefixed with NEXT_PUBLIC_
+- No hardcoded credentials in code
+- .env.local in .gitignore
+
+---
+
+## 13. THIRD-PARTY INTEGRATIONS
+
+### Supabase
+- PostgreSQL database
+- Row Level Security policies
+- Email/password authentication
+- Real-time subscriptions (optional for admin)
+
+### Razorpay
+- Payment gateway for bookings
+- Order creation API
+- Checkout SDK script
+- Webhook for payment confirmations
+
+### Cloudinary
+- Image hosting and optimization
+- Automatic format conversion
+- Responsive image URLs
+- Image upload API (admin)
+
+### WhatsApp Business
+- Click-to-chat with pre-filled message
+- Lead capture integration
+- Format: wa.me/[NUMBER]?text=[MESSAGE]
+
+### Google Services
+- Google Maps embed (contact page)
+- Google Analytics (optional)
+- Google Tag Manager (optional)
+
+### Email Service (Optional)
+- SendGrid or Resend for transactional emails
+- Booking confirmations
+- Password resets
+- Admin notifications
+
+---
+
+## 14. ANIMATION LIBRARY SPECIFICS (Framer Motion)
+
+### Common Animation Variants
+```javascript
+// Fade in from bottom
+const fadeInUp = {
+  hidden: { opacity: 0, y: 60 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" }
+  }
+}
+
+// Stagger children
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2
+    }
+  }
+}
+
+// Scale on hover
+const scaleOnHover = {
+  rest: { scale: 1 },
+  hover: { 
+    scale: 1.05,
+    transition: { duration: 0.3 }
+  }
+}
+
+// Slide from side
+const slideFromLeft = {
+  hidden: { x: -100, opacity: 0 },
+  visible: { 
+    x: 0, 
+    opacity: 1,
+    transition: { type: "spring", stiffness: 100 }
+  }
+}
+```
+
+### Scroll-triggered Animations
+- Use `whileInView` prop
+- Set `viewport={{ once: true, amount: 0.2 }}`
+- Apply to section containers
+
+### Page Transitions
+- Framer Motion's AnimatePresence for route changes
+- Fade out/in with slight scale
+- Exit animations for modals
+
+---
+
+## 15. DEPLOYMENT CHECKLIST
+
+### Pre-deployment
+- [ ] Environment variables set in hosting platform
+- [ ] Supabase database migrations applied
+- [ ] Admin user created via script
+- [ ] Payment gateway in live mode
+- [ ] All images uploaded to Cloudinary
+- [ ] Content seeded (trips, categories, blog posts)
+- [ ] SEO metadata configured
+- [ ] Sitemap generated
+- [ ] Analytics connected
+
+### Post-deployment
+- [ ] Test complete booking flow
+- [ ] Verify payment webhooks
+- [ ] Check responsive design on devices
+- [ ] Run Lighthouse audit (target: 90+ scores)
+- [ ] Test admin panel functionality
+- [ ] Verify email notifications
+- [ ] SSL certificate active
+- [ ] Custom domain connected
+- [ ] Backup strategy in place
+
+---
+
+## 16. CONTENT REQUIREMENTS
+
+### Homepage Content
+- **Hero Slides**: 3-5 high-quality adventure images (min 1920x1080)
+- **Featured Trips**: 6 trips minimum
+- **Testimonials**: 5-10 customer reviews
+- **Stats**: 4 key numbers (trips completed, happy travelers, destinations, years experience)
+
+### Trip Content (per trip)
+- High-quality hero image
+- 8-12 gallery images
+- Detailed itinerary (day-by-day)
+- Comprehensive description (500+ words)
+- Highlights list (5-10 points)
+- Inclusions/exclusions lists
+- Pricing for all occupancy types
+- Minimum 3 upcoming departure dates
+
+### Blog Content
+- 10-15 initial blog posts
+- Featured images for each (min 1200x630)
+- Categories: Travel Tips, Destination Guides, Adventure Stories, Gear Reviews
+- Author profiles with avatars
+
+### About Page
+- Company story (300-500 words)
+- Team member profiles (3-5 people)
+- Mission and values
+- Certifications/affiliations
+
+---
+
+## 17. UNIQUE FEATURES (Adventures Wheel Specific)
+
+### Adventure Difficulty Calculator
+- Interactive quiz to determine user's fitness level
+- Recommends suitable trips based on results
+- Animated progress through quiz steps
+
+### Weather Forecast Integration
+- Show weather for departure dates
+- Best time to visit indicators
+- Packing suggestions based on forecast
+
+### Virtual Tour Preview
+- 360° images for select trips
+- Embedded video walkthroughs
+- Interactive destination maps
+
+### Group Booking Management
+- Special pricing for groups (6+ people)
+- Group coordinator dashboard
+- Split payment options among group members
+
+### Gear Checklist Generator
+- Trip-specific packing lists
+- Printable PDF export
+- Checkbox tracking
+
+### Live Availability Calendar
+- Real-time seat availability
+- Visual calendar with color coding (full/available/limited)
+- Waitlist option for full dates
+
+---
+
+## 18. MOBILE APP CONSIDERATIONS (Future)
+
+### Progressive Web App (PWA)
+- Service worker for offline access
+- Install prompt for mobile
+- Push notifications for booking updates
+- App-like experience with splash screen
+
+### Mobile-First Features
+- Thumb-friendly tap targets (min 44x44px)
+- Bottom navigation for key actions
+- Swipe gestures for galleries
+- Native share API integration
+
+---
+
+## 19. ANALYTICS & TRACKING
+
+### Events to Track
+- Page views (all pages)
+- Trip detail views
+- Booking initiation
+- Booking completion (conversion)
+- Filter usage
+- Search queries
+- Enquiry form submissions
+- Social share clicks
+- Video/gallery interactions
+
+### Conversion Funnels
+1. Homepage → Trip listing → Trip detail → Booking start → Payment → Confirmation
+2. Blog → Related trip → Booking
+3. Destination page → Trip → Booking
+
+### Custom Dashboards
+- Admin analytics view
+- Revenue trends
+- Popular trips
+- Conversion rates
+- Traffic sources
+
+---
+
+## 20. TESTING REQUIREMENTS
+
+### Unit Tests
+- Utility functions
+- Form validation logic
+- Price calculation functions
+- API route handlers
+
+### Integration Tests
+- Authentication flow
+- Booking process end-to-end
+- Payment verification
+- Admin CRUD operations
+
+### E2E Tests (Playwright/Cypress)
+- User registration and login
+- Complete booking journey
+- Admin trip creation
+- Search and filter functionality
+
+### Browser Testing
+- Chrome, Firefox, Safari, Edge (latest 2 versions)
+- Mobile: iOS Safari, Android Chrome
+- Responsive breakpoints
+
+### Performance Testing
+- Page load times < 3s
+- Time to Interactive < 5s
+- Lighthouse scores 90+
+- Core Web Vitals pass
+
+---
+
+## 21. MAINTENANCE & UPDATES
+
+### Regular Tasks
+- Update trip departure dates monthly
+- Refresh gallery images quarterly
+- Publish 2-4 blog posts per month
+- Review and respond to enquiries daily
+- Process bookings within 24 hours
+- Backup database weekly
+- Monitor error logs daily
+- Update dependencies monthly
+
+### Seasonal Updates
+- Create seasonal trip packages
+- Update homepage hero for seasons
+- Adjust pricing for peak/off-peak
+- Launch promotional campaigns
+
+---
+
+## 22. DESIGN ASSETS NEEDED
+
+### Logos
+- Primary logo (full color, white, green versions)
+- Favicon (multiple sizes: 16x16, 32x32, 180x180, 512x512)
+- Social media profile images
+
+### Icons
+- Custom adventure category icons (SVG)
+- Difficulty level icons
+- Weather condition icons
+- Amenity icons (wifi, meals, transport, etc.)
+
+### Illustrations
+- Empty state graphics
+- Error page illustrations
+- Loading animations
+- Success confirmation graphics
+
+### Photography
+- Hero images for all trips
+- Destination landscape shots
+- Activity/adventure action photos
+- Team and guide photos
+- Office/facilities photos
+- Customer testimonial photos
+
+---
+
+## 23. COPYWRITING GUIDELINES
+
+### Tone of Voice
+- **Adventurous**: Exciting, inspiring, bold
+- **Trustworthy**: Professional, safe, reliable
+- **Friendly**: Warm, approachable, helpful
+- **Passionate**: Enthusiastic about travel and nature
+
+### Call-to-Action Examples
+- "Start Your Adventure"
+- "Discover More"
+- "Book Your Journey"
+- "Explore Destinations"
+- "Plan Your Trip"
+- "Join the Adventure"
+- "Get Started"
+
+### Writing Style
+- Use active voice
+- Short, punchy sentences for headings
+- Descriptive, vivid language for trip descriptions
+- Clear, simple language for instructions
+- Bullet points for easy scanning
+- Include emotive words (breathtaking, thrilling, serene)
+
+---
+
+## 24. GREEN THEME COLOR VARIATIONS
+
+### Primary Green Palette
+- **Primary**: #2ECC71 (Medium Spring Green)
+- **Dark**: #27AE60 (Nephritis)
+- **Darker**: #1E8449 (Forest Green)
+- **Light**: #58D68D (Emerald)
+- **Lighter**: #A9DFBF (Celadon)
+- **Tint**: #E8F8F0 (Mint Cream)
+
+### Usage Guidelines
+- **#2ECC71**: Primary buttons, links, active states
+- **#27AE60**: Button hover states, important badges
+- **#1E8449**: Text on white backgrounds, icons
+- **#58D68D**: Secondary buttons, accents
+- **#A9DFBF**: Light backgrounds, hover states
+- **#E8F8F0**: Section backgrounds, card backgrounds
+
+### Gradient Combinations
+- Hero overlay: `linear-gradient(135deg, #1E8449 0%, #2ECC71 100%)`
+- Button gradient: `linear-gradient(90deg, #27AE60 0%, #2ECC71 100%)`
+- Section divider: `linear-gradient(to right, transparent, #2ECC71, transparent)`
+
+---
+
+This comprehensive prompt provides all specifications needed to build the Adventures Wheel website with a white/light theme and green accents, following the design inspiration from Explora Journeys while maintaining the same robust functionality as K2K Adventurez.
