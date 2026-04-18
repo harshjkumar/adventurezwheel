@@ -7,6 +7,7 @@ export type TripCardData = {
   price: string;
   image: string;
   description: string;
+  badge?: string;
 };
 
 export type DestinationCardData = {
