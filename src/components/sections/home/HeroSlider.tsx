@@ -8,19 +8,29 @@ import { heroSlides } from '@/data/home';
 
 export function HeroSlider() {
   const [videoLoaded, setVideoLoaded] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const slide = heroSlides[0];
-  const videoSrc = '/wheels1 (1).mp4';
+  const videoSrc = '/hero-video.mp4';
+
+  // Fix for browser caching issue: onCanPlay may not fire if video is already ready
+  useEffect(() => {
+    if (videoRef.current && videoRef.current.readyState >= 3) {
+      setVideoLoaded(true);
+    }
+  }, []);
 
   return (
     <section className="relative h-screen w-full overflow-hidden bg-[#122822]">
       {/* Video background */}
       <video
+        ref={videoRef}
         autoPlay
         muted
         loop
         playsInline
+        onLoadedData={() => setVideoLoaded(true)}
         onCanPlay={() => setVideoLoaded(true)}
-        className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
+        className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 z-0 ${
           videoLoaded ? 'opacity-100' : 'opacity-0'
         }`}
       >
