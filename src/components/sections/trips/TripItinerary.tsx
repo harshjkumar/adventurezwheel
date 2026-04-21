@@ -35,27 +35,27 @@ export function TripItinerary({ itinerary, coverImage }: { itinerary: ItineraryD
                 {/* Number badge */}
                 <div className="hidden md:flex absolute left-0 top-0 w-12 bg-[#faf7f2] justify-center py-2">
                   <div className="w-12 h-16 border border-[#122822]/20 flex flex-col items-center justify-center bg-white text-[#122822]">
-                    <span className="text-2xl font-[family-name:var(--font-heading)] leading-none">{item.day}</span>
+                    <span className="text-3xl font-bold leading-none" style={{ fontFamily: '"vaccine", serif' }}>{item.day}</span>
                   </div>
                 </div>
 
                 <div className="bg-[#faf7f2] md:bg-transparent">
-                  <span className="text-sm font-bold uppercase tracking-widest text-[#122822]/60 mb-2 block md:hidden">
+                  <span className="text-[12px] font-bold uppercase tracking-widest text-[#122822]/60 mb-2 block md:hidden" style={{ fontFamily: '"vaccine", serif' }}>
                     Day {String(item.day).padStart(2, '0')}
                   </span>
-                  <h3 className="font-[family-name:var(--font-heading)] text-xl font-medium text-[#122822] uppercase tracking-wide mb-4">
+                  <h3 className="text-2xl font-normal text-[#122822] uppercase tracking-wide mb-4" style={{ fontFamily: '"vaccine", serif' }}>
                     {item.title}
                   </h3>
                   
-                  <div className="text-sm leading-relaxed text-[#122822]/80 space-y-4">
+                  <div className="text-lg leading-relaxed text-[#122822]/80 space-y-4 font-medium" style={{ fontFamily: '"vaccine", serif' }}>
                     <p className="whitespace-pre-line">{item.description}</p>
                     
                     {item.highlights && item.highlights.length > 0 && (
                       <div className="mt-4 pt-4">
                         <ul className="space-y-2">
                           {item.highlights.map((h, i) => (
-                            <li key={i} className="flex items-start gap-2 text-[#122822]/90 font-medium">
-                              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#122822]" />
+                            <li key={i} className="flex items-start gap-2 text-[#122822]/90 text-lg font-medium">
+                              <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#122822]" />
                               {h}
                             </li>
                           ))}
@@ -64,7 +64,7 @@ export function TripItinerary({ itinerary, coverImage }: { itinerary: ItineraryD
                     )}
                     
                     {/* Meta info */}
-                    <div className="mt-6 pt-4 flex flex-wrap gap-4 text-xs tracking-wider text-[#122822]/60">
+                    <div className="mt-6 pt-4 flex flex-wrap gap-4 text-sm font-bold tracking-widest text-[#122822]/60 uppercase" style={{ fontFamily: '"vaccine", serif' }}>
                       {item.altitude && (
                         <div className="flex items-center gap-1">
                            <span>Altitude: {item.altitude}</span>

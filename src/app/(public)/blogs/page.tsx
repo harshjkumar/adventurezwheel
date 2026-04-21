@@ -50,7 +50,7 @@ export default function BlogsPage() {
               placeholder="Search articles..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-2xl border border-slate-200 bg-[#f8f9fa] py-3.5 pl-12 pr-4 text-sm focus:border-[#2596be] focus:outline-none focus:ring-1 focus:ring-[#2596be]"
+              className="w-full rounded-2xl border border-slate-200 bg-[#f8f9fa] py-3.5 pl-12 pr-4 text-sm focus:border-[#122822] focus:outline-none focus:ring-1 focus:ring-[#122822]"
             />
           </div>
 
@@ -63,7 +63,7 @@ export default function BlogsPage() {
                 className={`rounded-full border px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.18em] transition-all ${
                   tag === activeTag
                     ? 'border-[#122822] bg-[#122822] text-white'
-                    : 'border-slate-300 bg-white text-[#122822] hover:border-[#2596be]'
+                    : 'border-slate-300 bg-white text-[#122822] hover:border-[#122822]'
                 }`}
               >
                 {tag}
@@ -91,7 +91,7 @@ export default function BlogsPage() {
                   >
                     <div className="relative aspect-[16/10] lg:aspect-auto">
                       <Image src={featured.image} alt={featured.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="50vw" />
-                      <span className="absolute left-4 top-4 rounded-md bg-[#2596be] px-3 py-1 text-xs font-semibold text-white">
+                      <span className="absolute left-4 top-4 rounded-md bg-[#122822] px-3 py-1 text-xs font-semibold text-white">
                         {featured.category}
                       </span>
                     </div>
@@ -104,7 +104,7 @@ export default function BlogsPage() {
                         {featured.title}
                       </h2>
                       <p className="mt-4 text-sm leading-7 text-slate-600">{featured.excerpt}</p>
-                      <div className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#2596be]">
+                      <div className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#122822]">
                         Read Article <ArrowRight className="h-4 w-4" />
                       </div>
                     </div>
@@ -128,7 +128,7 @@ export default function BlogsPage() {
                     >
                       <div className="relative aspect-[16/10] overflow-hidden">
                         <Image src={post.image} alt={post.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="33vw" />
-                        <span className="absolute left-3 top-3 rounded-md bg-[#2596be] px-3 py-1 text-xs font-semibold text-white">
+                        <span className="absolute left-3 top-3 rounded-md bg-[#122822] px-3 py-1 text-xs font-semibold text-white">
                           {post.category}
                         </span>
                       </div>

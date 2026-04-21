@@ -46,7 +46,7 @@ export default function FAQPage() {
               placeholder="Search questions..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-2xl border border-slate-200 bg-[#f8f9fa] py-4 pl-12 pr-4 text-sm focus:border-[#2596be] focus:outline-none focus:ring-1 focus:ring-[#2596be]"
+              className="w-full rounded-2xl border border-slate-200 bg-[#f8f9fa] py-4 pl-12 pr-4 text-sm focus:border-[#122822] focus:outline-none focus:ring-1 focus:ring-[#122822]"
             />
           </div>
 
@@ -59,7 +59,7 @@ export default function FAQPage() {
                   className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left transition-colors hover:bg-slate-100"
                 >
                   <span className="text-lg font-semibold text-[#122822]">{faq.question}</span>
-                  <ChevronDown className={`h-5 w-5 shrink-0 text-[#2596be] transition-transform duration-200 ${openIndex === i ? 'rotate-180' : ''}`} />
+                  <ChevronDown className={`h-5 w-5 shrink-0 text-[#122822] transition-transform duration-200 ${openIndex === i ? 'rotate-180' : ''}`} />
                 </button>
                 <AnimatePresence>
                   {openIndex === i && (

@@ -16,7 +16,8 @@ export function WhereToNext() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="font-[family-name:var(--font-heading)] text-4xl font-light uppercase tracking-wide text-[#122822] sm:text-5xl md:text-6xl lg:text-7xl"
+            className="text-4xl font-normal uppercase tracking-wide text-[#122822] sm:text-5xl md:text-6xl lg:text-7xl"
+            style={{ fontFamily: '"vaccine", serif' }}
           >
             Where to next?
           </motion.h2>
@@ -61,7 +62,7 @@ export function WhereToNext() {
                 </div>
                 {/* Title + description below image */}
                 <div className="mt-5">
-                  <h3 className="font-[family-name:var(--font-heading)] text-xl font-medium text-[#122822] transition-colors group-hover:text-[#122822]/70 lg:text-2xl">
+                  <h3 className="text-xl font-normal text-[#122822] transition-colors group-hover:text-[#122822]/70 lg:text-2xl" style={{ fontFamily: '"vaccine", serif' }}>
                     {dest.title}
                   </h3>
                   <p className="mt-2 text-sm leading-6 text-[#122822]/50">

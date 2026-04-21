@@ -13,6 +13,15 @@ export interface ItineraryDay {
   highlights?: string[];
 }
 
+export interface DepartureDate {
+  id: string;
+  startDate: string;
+  endDate: string;
+  availableSeats: number;
+  bookedSeats: number;
+  status: string;
+}
+
 export interface PricingOption {
   label: string;
   price: number;
@@ -47,6 +56,7 @@ export interface TripData {
   contactPhone: string;
   contactEmail: string;
   contactInstagram: string;
+  departures?: DepartureDate[];
 }
 
 // ── Images ────────────────────────────────────────────────────

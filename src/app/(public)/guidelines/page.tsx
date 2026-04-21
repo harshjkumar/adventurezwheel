@@ -119,7 +119,7 @@ export default function GuidelinesPage() {
                 className="rounded-2xl border border-slate-100 bg-[#f8f9fa] p-7"
               >
                 <div className="flex items-center gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#2596be]/10 text-[#2596be]">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#122822]/10 text-[#122822]">
                     <g.icon className="h-6 w-6" />
                   </div>
                   <h3 className="text-lg font-bold text-[#122822]">{g.title}</h3>
@@ -127,7 +127,7 @@ export default function GuidelinesPage() {
                 <ul className="mt-4 space-y-2">
                   {g.details.map((detail, j) => (
                     <li key={j} className="flex items-start gap-3 text-sm leading-7 text-slate-600">
-                      <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#2596be]" />
+                      <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#122822]" />
                       {detail}
                     </li>
                   ))}

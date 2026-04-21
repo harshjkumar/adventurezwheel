@@ -40,10 +40,10 @@ export function TripShowcaseSlider() {
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.4 }}
               >
-                <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-[#122822]/40 md:text-xs">
+                <p className="mb-3 text-[12px] font-medium uppercase tracking-[0.4em] text-[#122822]/40 md:text-xs" style={{ fontFamily: '"vaccine", serif' }}>
                   {currentTrip.region}
                 </p>
-                <h2 className="font-[family-name:var(--font-heading)] text-4xl font-light uppercase tracking-wide text-[#122822] sm:text-5xl md:text-6xl lg:text-7xl">
+                <h2 className="text-4xl font-normal uppercase tracking-wide text-[#122822] sm:text-5xl md:text-6xl lg:text-7xl" style={{ fontFamily: '"vaccine", serif' }}>
                   {currentTrip.displayTitle.split(' ')[0]} {/* Shorten title slightly for big display */}
                   <span className="block text-2xl sm:text-3xl lg:text-4xl mt-2 text-[#122822]/70">{currentTrip.title}</span>
                 </h2>
@@ -66,7 +66,8 @@ export function TripShowcaseSlider() {
                 </p>
                 <Link
                   href={`/trips/${currentTrip.slug}`}
-                  className="mt-4 inline-flex text-sm font-semibold uppercase tracking-[0.2em] text-[#122822] transition-colors hover:text-[#122822]/60 border-b border-[#122822] pb-1"
+                  className="mt-4 inline-flex text-sm font-bold uppercase tracking-[0.2em] text-[#122822] transition-colors hover:text-[#122822]/60 border-b-2 border-[#122822] pb-1"
+                  style={{ fontFamily: '"vaccine", serif' }}
                 >
                   Explore Tour →
                 </Link>

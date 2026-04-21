@@ -2,245 +2,341 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { ChevronDown, Menu, User, X } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { Search, ChevronRight, Menu, X, Globe, Map, Navigation, Compass, MapPin, ChevronDown, ArrowRight } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [domesticDestinations, setDomesticDestinations] = useState<any[]>([]);
+  const [internationalDestinations, setInternationalDestinations] = useState<any[]>([]);
+  
+  const [isDomesticHovered, setIsDomesticHovered] = useState(false);
+  const [isInternationalHovered, setIsInternationalHovered] = useState(false);
+  const [hoveredDestImage, setHoveredDestImage] = useState<string | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDomesticOpen, setIsDomesticOpen] = useState(false);
-  const [isInternationalOpen, setIsInternationalOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [user, setUser] = useState<any>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const pathname = usePathname();
+
+  const isHome = pathname === '/';
+  const isLightBgPage = pathname.includes('/book') || pathname.includes('/admin') || pathname.includes('/dashboard') || pathname.includes('/login') || pathname.includes('/register') || pathname.includes('/contact');
+  
+  const useDarkText = isScrolled || !isHome || isLightBgPage;
+  const textColorClass = useDarkText ? 'text-[#122822]' : 'text-white';
+  const strokeColorClass = useDarkText ? 'bg-[#122822]' : 'bg-white';
+  const logoGreen = '#122822';
+
+  // Fetch categories
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch('/api/categories');
+        const data = await res.json();
+        setDomesticDestinations(data.domestic || []);
+        setInternationalDestinations(data.international || []);
+      } catch (err) {
+        console.error('Failed to load categories', err);
+      }
+    };
+    fetchCategories();
+  }, []);
+
+  // Auth Listener
+  useEffect(() => {
+    const initAuth = async () => {
+      const { createClient } = await import('@/lib/supabase/client');
+      const supabase = createClient();
+      
+      supabase.auth.getUser().then(({ data }) => {
+        if (data.user) {
+          setUser(data.user);
+          setIsAdmin(data.user.email?.toLowerCase() === 'amit@adventureswheel.com');
+        }
+      });
+
+      const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+        setUser(session?.user || null);
+        setIsAdmin(session?.user?.email?.toLowerCase() === 'amit@adventureswheel.com');
+      });
+
+      return () => {
+        authListener.subscription.unsubscribe();
+      };
+    };
+    initAuth();
+  }, []);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 24);
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => {
-    const close = () => { setIsDomesticOpen(false); setIsInternationalOpen(false); setIsMenuOpen(false); };
-    window.addEventListener('popstate', close);
-    return () => window.removeEventListener('popstate', close);
-  }, []);
+    setIsMenuOpen(false);
+    setIsDomesticHovered(false);
+    setIsInternationalHovered(false);
+  }, [pathname]);
 
   return (
     <>
-      <header
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-          isScrolled
-            ? 'bg-white/90 shadow-[0_4px_30px_rgba(15,23,42,0.08)] backdrop-blur-2xl'
-            : 'bg-transparent'
-        }`}
-      >
-        <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-4 px-4 py-2 sm:px-6 lg:px-12">
+      <header className={`fixed inset-x-0 top-0 z-[100] transition-all duration-500 ${
+        isScrolled || !isHome ? 'bg-white/95 backdrop-blur-md shadow-lg border-b border-slate-100 py-2' : 'bg-transparent py-4'
+      }`}>
+        <div className="mx-auto flex max-w-[1440px] items-center justify-between px-6 lg:px-12">
           {/* Logo */}
-          <Link href="/" className="group flex items-center transition-all duration-500 hover:scale-[1.02]">
-            <Image
-              src="/logo/Artboard 1@3x-8.png"
-              alt="Adventures Wheel Logo"
-              width={260}
-              height={80}
-              className={`w-auto object-contain transition-all duration-500 ${
-                isScrolled ? 'h-12 sm:h-14' : 'h-24 sm:h-28'
-              }`}
-              priority
-            />
+          <Link href="/" className="flex items-center">
+            <div className={`relative transition-all duration-500 ${isScrolled || !isHome ? 'h-12 w-48' : 'h-20 w-64'}`}>
+              <Image
+                src="/logo/Artboard 1@3x-8.png"
+                alt="Adventures Wheel Logo"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
           </Link>
 
-          {/* Desktop Nav */}
-          <nav className="hidden items-center gap-1 lg:flex">
-            {/* Domestic Trips with Dropdown */}
-            <div 
-              className="relative"
-              onMouseEnter={() => setIsDomesticOpen(true)}
-              onMouseLeave={() => setIsDomesticOpen(false)}
+          {/* Desktop Navigation */}
+          <nav className={`hidden lg:flex items-center gap-12 text-[16px] font-medium tracking-widest ${textColorClass}`} style={{ fontFamily: '"vaccine", serif' }}>
+            {/* Domestic */}
+            <div
+              className="relative py-4"
+              onMouseEnter={() => setIsDomesticHovered(true)}
+              onMouseLeave={() => setIsDomesticHovered(false)}
             >
-              <Link
-                href="/domestic-trips"
-                className={`flex items-center gap-1.5 rounded-lg px-4 py-2.5 text-[0.8rem] font-semibold uppercase tracking-[0.2em] transition-all duration-300 ${
-                  isScrolled ? 'text-[#122822] hover:bg-slate-100' : 'text-white hover:bg-white/10'
-                }`}
-              >
-                Domestic Trips
-                <ChevronDown className={`h-4 w-4 transition-transform duration-300 ${isDomesticOpen ? 'rotate-180' : ''}`} />
+              <Link href="/domestic-trips" className="flex items-center gap-1.5 transition-opacity hover:opacity-70">
+                Domestic <ChevronDown size={12} className={`transition-transform duration-300 ${isDomesticHovered ? 'rotate-180' : ''}`} />
               </Link>
-
-              {/* Hover Dropdown */}
-              <AnimatePresence>
-                {isDomesticOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 15, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                    transition={{ duration: 0.2, ease: "easeOut" }}
-                    className="absolute left-0 top-full pt-3"
-                  >
-                    <div className="w-56 overflow-hidden rounded-xl bg-white shadow-[0_20px_60px_rgba(15,23,42,0.15)] ring-1 ring-slate-900/5">
-                      <div className="flex flex-col py-3">
-                        <Link href="/destinations/leh-ladakh" className="px-6 py-2.5 text-[0.75rem] font-semibold uppercase tracking-[0.2em] text-[#1e3428] hover:bg-slate-50 hover:text-[#D4AF37] transition-colors">
-                          Leh Ladakh
-                        </Link>
-                        <Link href="/destinations/spiti" className="px-6 py-2.5 text-[0.75rem] font-semibold uppercase tracking-[0.2em] text-[#1e3428] hover:bg-slate-50 hover:text-[#D4AF37] transition-colors">
-                          Spiti Valley
-                        </Link>
-                        <Link href="/destinations/meghalaya" className="px-6 py-2.5 text-[0.75rem] font-semibold uppercase tracking-[0.2em] text-[#1e3428] hover:bg-slate-50 hover:text-[#D4AF37] transition-colors">
-                          Meghalaya
-                        </Link>
-                        <Link href="/destinations/tawang" className="px-6 py-2.5 text-[0.75rem] font-semibold uppercase tracking-[0.2em] text-[#1e3428] hover:bg-slate-50 hover:text-[#D4AF37] transition-colors">
-                          Tawang
-                        </Link>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
             </div>
 
-            <div 
-              className="relative"
-              onMouseEnter={() => setIsInternationalOpen(true)}
-              onMouseLeave={() => setIsInternationalOpen(false)}
+            {/* International */}
+            <div
+              className="relative py-4"
+              onMouseEnter={() => setIsInternationalHovered(true)}
+              onMouseLeave={() => setIsInternationalHovered(false)}
             >
-              <Link
-                href="/international-trips"
-                className={`flex items-center gap-1.5 rounded-lg px-4 py-2.5 text-[0.8rem] font-semibold uppercase tracking-[0.2em] transition-all duration-300 ${
-                  isScrolled ? 'text-[#122822] hover:bg-slate-100' : 'text-white hover:bg-white/10'
-                }`}
-              >
-                International Trips
-                <ChevronDown className={`h-4 w-4 transition-transform duration-300 ${isInternationalOpen ? 'rotate-180' : ''}`} />
+              <Link href="/international-trips" className="flex items-center gap-1.5 transition-opacity hover:opacity-70">
+                International <ChevronDown size={12} className={`transition-transform duration-300 ${isInternationalHovered ? 'rotate-180' : ''}`} />
               </Link>
-              
-              <AnimatePresence>
-                {isInternationalOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 15, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                    transition={{ duration: 0.2, ease: "easeOut" }}
-                    className="absolute left-0 top-full pt-3"
-                  >
-                    <div className="w-56 overflow-hidden rounded-xl bg-white shadow-[0_20px_60px_rgba(15,23,42,0.15)] ring-1 ring-slate-900/5">
-                      <div className="flex flex-col py-3">
-                        <Link href="/trips/bali-explorer" className="px-6 py-2.5 text-[0.75rem] font-semibold uppercase tracking-[0.2em] text-[#1e3428] hover:bg-slate-50 hover:text-[#D4AF37] transition-colors">
-                          Bali
-                        </Link>
-                        <Link href="/trips/thailand-adventure" className="px-6 py-2.5 text-[0.75rem] font-semibold uppercase tracking-[0.2em] text-[#1e3428] hover:bg-slate-50 hover:text-[#D4AF37] transition-colors">
-                          Thailand
-                        </Link>
-                        <Link href="/trips/vietnam-journey" className="px-6 py-2.5 text-[0.75rem] font-semibold uppercase tracking-[0.2em] text-[#1e3428] hover:bg-slate-50 hover:text-[#D4AF37] transition-colors">
-                          Vietnam
-                        </Link>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
             </div>
-            
-            <Link
-              href="/about"
-              className={`rounded-lg px-4 py-2.5 text-[0.8rem] font-semibold uppercase tracking-[0.2em] transition-all duration-300 ${
-                isScrolled ? 'text-[#122822] hover:bg-slate-100' : 'text-white hover:bg-white/10'
-              }`}
-            >
-              Our Story
-            </Link>
 
-            <Link
-              href="/blogs"
-              className={`rounded-lg px-4 py-2.5 text-[0.8rem] font-semibold uppercase tracking-[0.2em] transition-all duration-300 ${
-                isScrolled ? 'text-[#122822] hover:bg-slate-100' : 'text-white hover:bg-white/10'
-              }`}
-            >
-              Blog
-            </Link>
-
-            <Link
-              href="/contact"
-              className={`rounded-lg px-4 py-2.5 text-[0.8rem] font-semibold uppercase tracking-[0.2em] transition-all duration-300 ${
-                isScrolled ? 'text-[#122822] hover:bg-slate-100' : 'text-white hover:bg-white/10'
-              }`}
-            >
-              Contact Us
-            </Link>
+            <Link href="/contact" className="transition-opacity hover:opacity-70">Contact</Link>
           </nav>
 
           {/* Right Actions */}
-          <div className="flex items-center gap-2.5">
-            <Link
-              href="/dashboard"
-              className={`hidden h-11 w-11 items-center justify-center rounded-full border transition-all duration-300 lg:flex ${
-                isScrolled
-                  ? 'border-slate-200 bg-white text-[#122822] hover:border-[#122822] hover:bg-[#122822] hover:text-white'
-                  : 'border-white/30 bg-white/10 text-white hover:bg-white/20'
-              }`}
-              aria-label="User Profile"
-              title="Login / Dashboard"
-            >
-              <User className="h-5 w-5" />
-            </Link>
+          <div className={`flex items-center gap-6 ${textColorClass}`}>
+            <button aria-label="Search" className="hidden sm:block transition-all hover:scale-110">
+              <Search size={20} />
+            </button>
+            
+            {user ? (
+              <Link
+                href={isAdmin ? "/admin" : "/dashboard"}
+                className={`hidden md:block rounded-full px-12 py-3.5 text-[14px] tracking-widest transition-all duration-300 active:scale-95 ${
+                  useDarkText 
+                    ? 'bg-[#122822] text-white hover:shadow-lg hover:shadow-[#122822]/20' 
+                    : 'bg-white text-[#122822] hover:shadow-lg hover:shadow-white/20'
+                }`}
+                style={{ fontFamily: '"vaccine", serif', fontWeight: 600 }}
+              >
+                Profile
+              </Link>
+            ) : (
+              <Link
+                href="/login"
+                className={`hidden md:block rounded-full px-12 py-3.5 text-[14px] tracking-widest transition-all duration-300 active:scale-95 ${
+                  useDarkText 
+                    ? 'bg-[#122822] text-white hover:shadow-lg hover:shadow-[#122822]/20' 
+                    : 'bg-white text-[#122822] hover:shadow-lg hover:shadow-white/20'
+                }`}
+                style={{ fontFamily: '"vaccine", serif', fontWeight: 600 }}
+              >
+                Login
+              </Link>
+            )}
 
-            {/* Mobile toggle */}
+            {/* Hamburger Icon */}
             <button
-              type="button"
-              className={`inline-flex h-11 w-11 items-center justify-center rounded-full border transition-all lg:hidden ${
-                isScrolled
-                  ? 'border-slate-200 bg-white text-slate-900'
-                  : 'border-white/30 bg-white/10 text-white'
-              }`}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              aria-label="Toggle menu"
+              className="group flex flex-col justify-center items-center w-10 h-10 space-y-1.5 focus:outline-none"
+              aria-label="Menu"
             >
-              {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              <span className={`block w-6 h-0.5 transition-all duration-300 ${strokeColorClass} ${isMenuOpen ? 'rotate-45 translate-y-[8px]' : 'group-hover:w-8'}`}></span>
+              <span className={`block w-8 h-0.5 transition-all duration-300 ${strokeColorClass} ${isMenuOpen ? 'opacity-0' : ''}`}></span>
+              <span className={`block w-6 h-0.5 transition-all duration-300 ${strokeColorClass} ${isMenuOpen ? '-rotate-45 -translate-y-[8px]' : 'group-hover:w-8'}`}></span>
             </button>
           </div>
         </div>
 
-        {/* Mobile menu */}
+        {/* Mega Menu Dropdowns */}
         <AnimatePresence>
-          {isMenuOpen && (
+          {(isDomesticHovered || isInternationalHovered) && (
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="overflow-hidden border-t border-slate-200/70 bg-white/95 backdrop-blur-xl lg:hidden"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute left-0 top-full w-full bg-[#fcfaf7] shadow-2xl border-t border-[#122822]/5"
+              onMouseEnter={() => isDomesticHovered ? setIsDomesticHovered(true) : setIsInternationalHovered(true)}
+              onMouseLeave={() => { setIsDomesticHovered(false); setIsInternationalHovered(false); }}
             >
-              <div className="mx-auto flex max-w-[1440px] flex-col gap-1 px-4 py-4 sm:px-6">
-                <div className="mb-2">
-                  <Link href="/domestic-trips" onClick={() => setIsMenuOpen(false)} className="block px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-slate-400 hover:text-[#D4AF37]">Domestic Trips</Link>
-                  <div className="grid grid-cols-2 gap-2 px-4">
-                    <Link href="/destinations/leh-ladakh" onClick={() => setIsMenuOpen(false)} className="rounded-xl px-4 py-3 text-sm font-semibold text-[#122822] bg-slate-50 hover:bg-slate-100">Leh Ladakh</Link>
-                    <Link href="/destinations/spiti" onClick={() => setIsMenuOpen(false)} className="rounded-xl px-4 py-3 text-sm font-semibold text-[#122822] bg-slate-50 hover:bg-slate-100">Spiti Valley</Link>
-                    <Link href="/destinations/meghalaya" onClick={() => setIsMenuOpen(false)} className="rounded-xl px-4 py-3 text-sm font-semibold text-[#122822] bg-slate-50 hover:bg-slate-100">Meghalaya</Link>
-                    <Link href="/destinations/tawang" onClick={() => setIsMenuOpen(false)} className="rounded-xl px-4 py-3 text-sm font-semibold text-[#122822] bg-slate-50 hover:bg-slate-100">Tawang</Link>
+              <div className="mx-auto max-w-[1440px] flex overflow-hidden min-h-[400px]">
+                {/* Left: Featured Image */}
+                <div className="relative w-1/3 overflow-hidden group">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={hoveredDestImage || (isDomesticHovered ? "domestic-default" : "international-default")}
+                      initial={{ opacity: 0, scale: 1.1 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      transition={{ duration: 0.6 }}
+                      className="absolute inset-0"
+                    >
+                      <Image
+                        src={hoveredDestImage || (isDomesticHovered ? "https://images.unsplash.com/photo-1506461883276-594a12b11cf3?q=80&w=2070&auto=format&fit=crop" : "https://images.unsplash.com/photo-1528181304800-2f140819898f?q=80&w=2070&auto=format&fit=crop")}
+                        alt="Featured"
+                        fill
+                        className="object-cover"
+                      />
+                    </motion.div>
+                  </AnimatePresence>
+                  <div className="absolute inset-0 bg-black/40" />
+                  <div className="absolute inset-0 flex flex-col justify-end p-12">
+                    <span className="text-white/70 text-[12px] uppercase tracking-[0.4em] mb-2" style={{ fontFamily: '"vaccine", serif', fontWeight: 400 }}>Featured Selection</span>
+                    <h3 className="text-white text-5xl leading-tight" style={{ fontFamily: '"vaccine", serif', fontWeight: 700 }}>
+                      {isDomesticHovered ? "Untamed Himalayas" : "Tropical Escapes"}
+                    </h3>
                   </div>
                 </div>
-                
-                <div className="mb-2 mt-2">
-                  <Link href="/international-trips" onClick={() => setIsMenuOpen(false)} className="block px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-slate-400 hover:text-[#D4AF37]">International Trips</Link>
-                  <div className="grid grid-cols-2 gap-2 px-4">
-                    <Link href="/trips/bali-explorer" onClick={() => setIsMenuOpen(false)} className="rounded-xl px-4 py-3 text-sm font-semibold text-[#122822] bg-slate-50 hover:bg-slate-100">Bali</Link>
-                    <Link href="/trips/thailand-adventure" onClick={() => setIsMenuOpen(false)} className="rounded-xl px-4 py-3 text-sm font-semibold text-[#122822] bg-slate-50 hover:bg-slate-100">Thailand</Link>
-                    <Link href="/trips/vietnam-journey" onClick={() => setIsMenuOpen(false)} className="rounded-xl px-4 py-3 text-sm font-semibold text-[#122822] bg-slate-50 hover:bg-slate-100">Vietnam</Link>
+
+                {/* Right: Destination List */}
+                <div className="flex-1 px-16 py-16 grid grid-cols-2 gap-x-12">
+                  <div>
+                    <h4 className="text-[#122822]/40 text-[12px] uppercase tracking-[0.5em] mb-8" style={{ fontFamily: '"vaccine", serif', fontWeight: 400 }}>Popular Destinations</h4>
+                    <div className="flex flex-col gap-5">
+                      {(isDomesticHovered ? domesticDestinations : internationalDestinations).map((dest) => (
+                        <Link
+                          key={dest.name}
+                          href={dest.href}
+                          onMouseEnter={() => setHoveredDestImage(dest.image)}
+                          onMouseLeave={() => setHoveredDestImage(null)}
+                          className="group flex items-center justify-between border-b border-[#122822]/5 pb-3 transition-all hover:border-[#122822]/20"
+                        >
+                          <span className="text-3xl text-[#122822] transition-all group-hover:translate-x-2" style={{ fontFamily: '"vaccine", serif' }}>
+                            {dest.name}
+                          </span>
+                          <ChevronRight size={16} className="text-[#122822]/20 transition-all group-hover:text-[#D4AF37] group-hover:translate-x-1" />
+                        </Link>
+                      ))}
+                      {(isDomesticHovered ? domesticDestinations : internationalDestinations).length === 0 && (
+                        <p className="text-[#122822]/40" style={{ fontFamily: '"vaccine", serif' }}>No destinations found.</p>
+                      )}
+                    </div>
                   </div>
-                </div>
-                <Link href="/about" onClick={() => setIsMenuOpen(false)} className="rounded-xl px-4 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-[#122822] hover:bg-slate-50">Our Story</Link>
-                <Link href="/blogs" onClick={() => setIsMenuOpen(false)} className="rounded-xl px-4 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-[#122822] hover:bg-slate-50">Blog</Link>
-                <Link href="/contact" onClick={() => setIsMenuOpen(false)} className="rounded-xl px-4 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-[#122822] hover:bg-slate-50">Contact Us</Link>
-                
-                <div className="mt-4 border-t border-slate-100 pt-4">
-                  <Link href="/dashboard" onClick={() => setIsMenuOpen(false)} className="mx-4 flex items-center justify-center gap-2 rounded-xl bg-[#122822] px-4 py-3 text-center text-sm font-semibold uppercase tracking-[0.22em] text-white">
-                    <User className="h-4 w-4" /> Account Login
-                  </Link>
+
+                  <div className="flex flex-col justify-between border-l border-[#122822]/10 pl-12">
+                    <div>
+                      <h4 className="text-[#122822]/40 text-[12px] uppercase tracking-[0.5em] mb-6" style={{ fontFamily: '"vaccine", serif', fontWeight: 400 }}>Why Travel With Us</h4>
+                      <ul className="space-y-4">
+                        <li className="flex items-center gap-3 text-lg text-[#122822]/70" style={{ fontFamily: '"vaccine", serif' }}>
+                          <span className="h-2 w-2 rounded-full bg-[#D4AF37]" /> Expert Local Captains
+                        </li>
+                        <li className="flex items-center gap-3 text-lg text-[#122822]/70" style={{ fontFamily: '"vaccine", serif' }}>
+                          <span className="h-2 w-2 rounded-full bg-[#D4AF37]" /> Boutique Accommodations
+                        </li>
+                        <li className="flex items-center gap-3 text-lg text-[#122822]/70" style={{ fontFamily: '"vaccine", serif' }}>
+                          <span className="h-2 w-2 rounded-full bg-[#D4AF37]" /> Small Group Dynamics
+                        </li>
+                      </ul>
+                    </div>
+                    
+                    <Link 
+                      href={isDomesticHovered ? '/trips?type=domestic' : '/trips?type=international'} 
+                      className="mt-8 flex items-center justify-center gap-3 bg-[#122822] text-white py-5 rounded-xl text-[12px] uppercase tracking-[0.2em] transition-all hover:bg-[#1d3d35]"
+                      style={{ fontFamily: '"vaccine", serif', fontWeight: 600 }}
+                    >
+                      Browse All Adventures <ArrowRight size={14} className="text-[#D4AF37]" />
+                    </Link>
+                  </div>
                 </div>
               </div>
             </motion.div>
           )}
         </AnimatePresence>
       </header>
+
+      {/* Full Screen Overlay Menu */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, x: '100%' }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: '100%' }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-0 z-[110] flex flex-col bg-[#122822] text-white"
+          >
+            <div className="flex h-24 items-center justify-between px-6 lg:px-12">
+              <Link href="/">
+                <div className="relative h-12 w-48">
+                  <Image src="/logo/Artboard 1@3x-8.png" alt="Logo" fill className="object-contain brightness-0 invert" />
+                </div>
+              </Link>
+              <button onClick={() => setIsMenuOpen(false)} className="group flex h-12 w-12 items-center justify-center rounded-full border border-white/20 hover:bg-white/10">
+                <X size={24} />
+              </button>
+            </div>
+
+            <div className="flex flex-1 flex-col justify-start pt-12 lg:pt-20 px-6 lg:px-24 overflow-y-auto">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
+                <nav className="flex flex-col gap-4 lg:gap-6">
+                  {[
+                    { label: 'Domestic Trips', href: '/trips?type=domestic' },
+                    { label: 'International Trips', href: '/trips?type=international' },
+                    { label: 'Blog and News', href: '/blogs' },
+                    { label: 'Our Story', href: '/about' },
+                    { label: 'FAQ', href: '/faq' },
+                    { label: 'Policies', href: '/policies' },
+                    { label: 'Contact Us', href: '/contact' }
+                  ].map((item, i) => (
+                    <motion.div
+                      key={item.label}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 + i * 0.05 }}
+                    >
+                      <Link
+                        href={item.href}
+                        className="text-5xl sm:text-6xl lg:text-8xl font-bold tracking-tight transition-all hover:text-[#D4AF37] hover:translate-x-4"
+                        style={{ fontFamily: '"vaccine", serif' }}
+                      >
+                        {item.label}
+                      </Link>
+                    </motion.div>
+                  ))}
+                </nav>
+
+                <div className="flex flex-col justify-end gap-12 border-l border-white/10 pl-12 hidden lg:flex">
+                  <div>
+                    <p className="text-[12px] font-medium uppercase tracking-[0.4em] text-white/40 mb-4" style={{ fontFamily: '"vaccine", serif' }}>Connect with us</p>
+                    <div className="flex flex-col gap-4 text-3xl font-light" style={{ fontFamily: '"vaccine", serif' }}>
+                      <a href="https://www.instagram.com/adventureswheel/?hl=en" target="_blank" rel="noopener noreferrer" className="hover:text-[#D4AF37]">Instagram</a>
+                      <a href="https://www.facebook.com/AdventuresWheel" target="_blank" rel="noopener noreferrer" className="hover:text-[#D4AF37]">Facebook</a>
+                    </div>
+                  </div>
+                  <div>
+                    <p className="text-[12px] font-medium uppercase tracking-[0.4em] text-white/40 mb-4" style={{ fontFamily: '"vaccine", serif' }}>Inquiries</p>
+                    <a href="mailto:explore@adventureswheel.com" className="text-3xl font-light hover:text-[#D4AF37]" style={{ fontFamily: '"vaccine", serif' }}>explore@adventureswheel.com</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

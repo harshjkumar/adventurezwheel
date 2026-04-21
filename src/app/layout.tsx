@@ -1,20 +1,11 @@
 import type { Metadata } from 'next';
-import { Cormorant_Garamond, Inter } from 'next/font/google';
 import { Navbar } from '@/components/site/navbar';
 import { Footer } from '@/components/site/footer';
 import { ScrollToTop } from '@/components/site/scroll-to-top';
+import { WhatsAppButton } from '@/components/site/WhatsAppButton';
 import './globals.css';
 
-const headingFont = Cormorant_Garamond({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-heading',
-});
-
-const bodyFont = Inter({
-  subsets: ['latin'],
-  variable: '--font-body',
-});
+// Fonts are loaded via Adobe Typekit in the <head>
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://adventureswheel.com'),
@@ -33,7 +24,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={`${headingFont.variable} ${bodyFont.variable} bg-[#f8f9fa] text-slate-800 antialiased`}>
+      <head>
+        <link rel="stylesheet" href="https://use.typekit.net/qlv0vgt.css" />
+      </head>
+      <body className="bg-[#f8f9fa] text-slate-800 antialiased font-serif">
         <a
           href="#main-content"
           className="sr-only rounded-full bg-emerald-700 px-4 py-3 text-sm font-semibold text-white focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60]"
@@ -44,6 +38,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         {children}
         <Footer />
         <ScrollToTop />
+        <WhatsAppButton />
       </body>
     </html>
   );

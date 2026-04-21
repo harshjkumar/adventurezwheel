@@ -14,8 +14,9 @@
   --color-cream: #faf7f2;
   --color-warm-gray: #7a7570;
 
-  --font-serif: 'Cormorant Garamond', 'Georgia', serif;
-  --font-sans: 'Inter', 'Helvetica Neue', sans-serif;
+  --font-serif: 'vaccine', serif;
+  --font-sans: 'vaccine', serif;
+  --font-mono: 'vaccine', serif;
 
   --ease-luxury: cubic-bezier(0.16, 1, 0.3, 1);
 
@@ -68,7 +69,7 @@ body {
   margin: 0;
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans), sans-serif;
+  font-family: var(--font-serif);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -113,14 +114,14 @@ img {
 }
 
 .font-nav {
-  font-family: 'Montserrat', var(--font-sans), sans-serif;
+  font-family: var(--font-sans);
 }
 
 .nav-link {
-  font-family: 'Montserrat', var(--font-sans), sans-serif;
-  font-size: 0.7rem;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
   font-weight: 500;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   transition: color 0.3s ease, opacity 0.3s ease;
 }

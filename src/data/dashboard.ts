@@ -18,7 +18,5 @@ export const bookings = [
 export const dashboardLinks = [
   'Profile',
   'My Bookings',
-  'Wishlist',
-  'Reviews',
   'Settings',
 ] as const;

@@ -47,7 +47,7 @@ export default function WhyUsPage() {
                 transition={{ delay: i * 0.05, duration: 0.5 }}
                 className="group rounded-2xl border border-slate-100 bg-[#f8f9fa] p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_50px_rgba(15,23,42,0.08)]"
               >
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#2596be]/10 text-[#2596be] transition-all duration-300 group-hover:bg-[#2596be] group-hover:text-white">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#122822]/10 text-[#122822] transition-all duration-300 group-hover:bg-[#122822] group-hover:text-white">
                   <r.icon className="h-6 w-6" />
                 </div>
                 <h3 className="mt-5 text-lg font-bold text-[#122822]">{r.title}</h3>
@@ -59,14 +59,14 @@ export default function WhyUsPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-[#2596be] px-6 py-16 lg:px-12">
+      <section className="bg-[#122822] px-6 py-16 lg:px-12">
         <div className="mx-auto max-w-[1440px] text-center text-white">
           <h2 className="font-[family-name:var(--font-heading)] text-[clamp(2.5rem,5vw,4rem)] leading-tight">
             Convinced? Let&apos;s plan your trip.
           </h2>
           <p className="mt-4 text-lg text-white/80">Browse our curated trips or reach out to our team.</p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <Link href="/trips" className="inline-flex items-center gap-2 rounded-xl bg-white px-7 py-4 text-sm font-semibold uppercase tracking-[0.2em] text-[#2596be] transition-all hover:bg-slate-50">
+            <Link href="/trips" className="inline-flex items-center gap-2 rounded-xl bg-white px-7 py-4 text-sm font-semibold uppercase tracking-[0.2em] text-[#122822] transition-all hover:bg-slate-50">
               Explore Trips <ArrowRight className="h-4 w-4" />
             </Link>
             <Link href="/contact" className="inline-flex items-center gap-2 rounded-xl border border-white/30 px-7 py-4 text-sm font-semibold uppercase tracking-[0.2em] text-white transition-all hover:bg-white/10">

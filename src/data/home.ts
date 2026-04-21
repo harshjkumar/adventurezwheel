@@ -247,10 +247,8 @@ export const footerLinks = {
     { label: 'Cancellation Policy', href: '/policies#cancellation' },
   ],
   social: [
-    { label: 'Facebook', href: '#', icon: 'facebook' },
-    { label: 'Instagram', href: '#', icon: 'instagram' },
-    { label: 'LinkedIn', href: '#', icon: 'linkedin' },
-    { label: 'YouTube', href: '#', icon: 'youtube' },
+    { label: 'Facebook', href: 'https://www.facebook.com/AdventuresWheel', icon: 'facebook' },
+    { label: 'Instagram', href: 'https://www.instagram.com/adventureswheel/?hl=en', icon: 'instagram' },
   ],
 } as const;
 

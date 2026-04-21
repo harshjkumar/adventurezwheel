@@ -40,7 +40,7 @@ export default function GalleryPage() {
                 className={`rounded-full border px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.18em] transition-all ${
                   cat === active
                     ? 'border-[#122822] bg-[#122822] text-white'
-                    : 'border-slate-300 bg-white text-[#122822] hover:border-[#2596be]'
+                    : 'border-slate-300 bg-white text-[#122822] hover:border-[#122822]'
                 }`}
               >
                 {cat}

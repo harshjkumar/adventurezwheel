@@ -31,15 +31,15 @@ export function TripPricing({ pricing, inclusions, exclusions }: TripPricingProp
             onClick={() => document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth', block: 'center' })}
             className="group flex cursor-pointer flex-col justify-center rounded-sm border border-[#122822]/10 bg-[#faf7f2] p-8 text-center transition-all hover:border-[#122822] hover:shadow-md"
           >
-            <h4 className="mb-2 text-sm font-semibold uppercase tracking-widest text-[#122822]/60 transition-colors group-hover:text-[#122822]">
+            <h4 className="mb-2 text-lg font-bold uppercase tracking-widest text-[#122822]/60 transition-colors group-hover:text-[#122822]" style={{ fontFamily: '"vaccine", serif' }}>
               {option.label}
             </h4>
-            <div className="mb-2 text-4xl font-bold tracking-tight text-[#122822] transition-colors group-hover:text-[#122822]">
+            <div className="mb-2 text-4xl font-bold tracking-tight text-[#122822] transition-colors group-hover:text-[#122822]" style={{ fontFamily: '"vaccine", serif' }}>
               ₹{option.price.toLocaleString('en-IN')}
-              <span className="ml-1 text-sm font-normal text-[#122822]/50">/ person</span>
+              <span className="ml-1 text-base font-normal text-[#122822]/50">/ person</span>
             </div>
             {option.description && (
-              <p className="text-xs text-[#122822]/40">{option.description}</p>
+              <p className="text-sm text-[#122822]/40 font-medium" style={{ fontFamily: '"vaccine", serif' }}>{option.description}</p>
             )}
           </motion.div>
         ))}
@@ -52,8 +52,8 @@ export function TripPricing({ pricing, inclusions, exclusions }: TripPricingProp
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
       >
-        <p className="font-[family-name:var(--font-heading)] text-lg leading-relaxed text-[#122822]">
-          <strong className="mb-2 block text-xs font-semibold uppercase tracking-widest text-[#122822]/60">
+        <p className="text-xl leading-relaxed text-[#122822] font-medium" style={{ fontFamily: '"vaccine", serif' }}>
+          <strong className="mb-2 block text-[12px] font-bold uppercase tracking-widest text-[#122822]/60">
             Important Note
           </strong>
           Participants who opt for the <span className="font-bold">Bike + Fuel Package</span> are required
@@ -70,14 +70,14 @@ export function TripPricing({ pricing, inclusions, exclusions }: TripPricingProp
           viewport={{ once: true, margin: '-50px' }}
           transition={{ duration: 0.6 }}
         >
-          <h4 className="mb-6 flex items-center gap-2 font-[family-name:var(--font-heading)] text-xl text-[#122822]">
-            <CheckCircle2 className="text-[#122822]" size={24} /> What&apos;s Included
+          <h4 className="mb-6 flex items-center gap-2 text-2xl font-normal text-[#122822]" style={{ fontFamily: '"vaccine", serif' }}>
+            <CheckCircle2 className="text-[#122822]" size={28} /> What&apos;s Included
           </h4>
           <ul className="space-y-4">
             {inclusions.map((item, idx) => (
-              <li key={idx} className="relative pl-7 text-sm leading-relaxed text-[#122822]/70 md:text-base">
-                <span className="absolute left-0 top-1.5 flex h-4 w-4 items-center justify-center rounded-full border border-[#122822]/20 bg-[#122822]/10">
-                  <div className="h-1.5 w-1.5 rounded-full bg-[#122822]" />
+              <li key={idx} className="relative pl-7 text-lg leading-relaxed text-[#122822]/70 font-medium" style={{ fontFamily: '"vaccine", serif' }}>
+                <span className="absolute left-0 top-1.5 flex h-5 w-5 items-center justify-center rounded-full border border-[#122822]/20 bg-[#122822]/10">
+                  <div className="h-2 w-2 rounded-full bg-[#122822]" />
                 </span>
                 {item}
               </li>
@@ -90,14 +90,14 @@ export function TripPricing({ pricing, inclusions, exclusions }: TripPricingProp
           viewport={{ once: true, margin: '-50px' }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <h4 className="mb-6 flex items-center gap-2 font-[family-name:var(--font-heading)] text-xl text-[#122822]">
-            <XCircle className="text-[#122822]/40" size={24} /> What&apos;s Not Included
+          <h4 className="mb-6 flex items-center gap-2 text-2xl font-normal text-[#122822]" style={{ fontFamily: '"vaccine", serif' }}>
+            <XCircle className="text-[#122822]/40" size={28} /> What&apos;s Not Included
           </h4>
           <ul className="space-y-4">
             {exclusions.map((item, idx) => (
-              <li key={idx} className="relative pl-7 text-sm leading-relaxed text-[#122822]/50 md:text-base">
-                <span className="absolute left-0 top-1.5 flex h-4 w-4 items-center justify-center">
-                  <div className="h-1.5 w-1.5 rounded-full bg-[#122822]/20" />
+              <li key={idx} className="relative pl-7 text-lg leading-relaxed text-[#122822]/50 font-medium" style={{ fontFamily: '"vaccine", serif' }}>
+                <span className="absolute left-0 top-1.5 flex h-5 w-5 items-center justify-center">
+                  <div className="h-2 w-2 rounded-full bg-[#122822]/20" />
                 </span>
                 {item}
               </li>

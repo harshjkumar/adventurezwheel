@@ -51,10 +51,10 @@ function StatItem({ value, label }: { value: string; label: string }) {
 
   return (
     <div ref={ref} className="text-center">
-      <div className="font-[family-name:var(--font-heading)] text-[clamp(2.5rem,5vw,4.5rem)] font-bold text-[#122822]">
+      <div className="font-[family-name:var(--font-heading)] text-[clamp(2.5rem,5vw,4.5rem)] font-bold text-white">
         {count}{suffix}
       </div>
-      <div className="mt-2 text-xs font-semibold uppercase tracking-[0.3em] text-[#122822]/40">
+      <div className="mt-2 text-xs font-semibold uppercase tracking-[0.3em] text-white/50">
         {label}
       </div>
     </div>
@@ -63,11 +63,11 @@ function StatItem({ value, label }: { value: string; label: string }) {
 
 export function StatsBanner() {
   return (
-    <section className="relative overflow-hidden bg-[#faf7f2] px-6 py-20 lg:px-12">
+    <section className="relative overflow-hidden bg-[#122822] px-6 py-24 lg:px-12">
       {/* Pattern overlay */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
-          backgroundImage: 'radial-gradient(circle, #122822 1px, transparent 1px)',
+          backgroundImage: 'radial-gradient(circle, #ffffff 1px, transparent 1px)',
           backgroundSize: '30px 30px',
         }} />
       </div>

@@ -5,9 +5,9 @@ import Link from 'next/link';
 import { ChevronLeft, ChevronRight, Tag, Clock, MapPin } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useState, useCallback, useEffect, useRef } from 'react';
-import { featuredTrips } from '@/data/home';
+// import { featuredTrips } from '@/data/home';
 
-export function FeaturedTrips() {
+export function FeaturedTrips({ trips }: { trips: any[] }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -44,7 +44,7 @@ export function FeaturedTrips() {
             viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 0.8, type: "spring", bounce: 0.4 }}
           >
-            <h2 className="font-[family-name:var(--font-heading)] text-4xl font-semibold uppercase tracking-tight text-[#122822] sm:text-5xl lg:text-6xl">
+            <h2 className="text-4xl font-normal uppercase tracking-tight text-[#122822] sm:text-5xl lg:text-6xl" style={{ fontFamily: '"vaccine", serif' }}>
               Featured Adventures
             </h2>
           </motion.div>
@@ -52,22 +52,20 @@ export function FeaturedTrips() {
             <button
               onClick={() => scroll('left')}
               disabled={!canScrollLeft}
-              className={`flex h-12 w-12 items-center justify-center border transition-all ${
-                !canScrollLeft
+              className={`flex h-12 w-12 items-center justify-center border transition-all ${!canScrollLeft
                   ? 'border-gray-200 text-gray-300'
                   : 'border-[#122822]/30 text-[#122822] hover:border-[#122822] hover:bg-[#122822] hover:text-white'
-              }`}
+                }`}
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
             <button
               onClick={() => scroll('right')}
               disabled={!canScrollRight}
-              className={`flex h-12 w-12 items-center justify-center border transition-all ${
-                !canScrollRight
+              className={`flex h-12 w-12 items-center justify-center border transition-all ${!canScrollRight
                   ? 'border-gray-200 text-gray-300'
                   : 'border-[#122822]/30 text-[#122822] hover:border-[#122822] hover:bg-[#122822] hover:text-white'
-              }`}
+                }`}
             >
               <ChevronRight className="h-5 w-5" />
             </button>
@@ -79,7 +77,7 @@ export function FeaturedTrips() {
           ref={scrollRef}
           className="hide-scrollbar flex gap-6 overflow-x-auto pb-4 lg:gap-8"
         >
-          {featuredTrips.map((trip, i) => (
+          {trips.map((trip, i) => (
             <motion.div
               key={trip.slug}
               initial={{ opacity: 0, y: 20 }}
@@ -93,40 +91,39 @@ export function FeaturedTrips() {
                   {/* Image */}
                   <div className="relative aspect-[4/3] w-full overflow-hidden">
                     <Image
-                      src={trip.image}
+                      src={trip.image || '/placeholder.jpg'}
                       alt={trip.title}
                       fill
                       className="object-cover transition-transform duration-700 ease-in-out group-hover:scale-105"
                       sizes="(max-width: 640px) 320px, (max-width: 1024px) 360px, 400px"
                     />
-                    <div className="absolute bottom-3 left-3 rounded-sm bg-white/95 px-2 py-1 text-[0.65rem] font-bold uppercase tracking-widest text-[#122822] shadow-sm backdrop-blur-sm">
+                    <div className="absolute bottom-3 left-3 rounded-sm bg-white/95 px-2.5 py-1.5 text-[11px] font-bold uppercase tracking-widest text-[#122822] shadow-sm backdrop-blur-sm" style={{ fontFamily: '"vaccine", serif' }}>
                       {trip.badge || 'FEATURED'}
                     </div>
                   </div>
 
                   {/* Content */}
                   <div className="flex flex-1 flex-col px-6 py-6 pb-5 font-sans">
-                    <h3 className="font-[family-name:var(--font-heading)] text-3xl font-semibold tracking-tight leading-tight text-[#122822] transition-colors duration-300 group-hover:text-[#1d3d35]">
+                    <h3 className="text-2xl font-normal tracking-tight leading-tight text-[#122822] transition-colors duration-300 group-hover:text-[#1d3d35]" style={{ fontFamily: '"vaccine", serif' }}>
                       {trip.title}
                     </h3>
 
-                    <div className="mt-4 flex flex-wrap gap-2 text-[0.65rem] uppercase tracking-widest text-[#122822]">
-                      <span className="rounded-sm border border-[#122822]/30 px-2.5 py-1 font-semibold">{trip.badge}</span>
-                      <span className="rounded-sm border border-[#122822]/30 px-2.5 py-1 font-semibold">CIRCUIT</span>
+                    <div className="mt-4 flex flex-wrap gap-2 text-[11px] uppercase tracking-widest text-[#122822]" style={{ fontFamily: '"vaccine", serif' }}>
+                      <span className="rounded-sm border border-[#122822]/30 px-2.5 py-1 font-bold">{trip.badge}</span>
+                      <span className="rounded-sm border border-[#122822]/30 px-2.5 py-1 font-bold">CIRCUIT</span>
                     </div>
 
                     <div className="mt-auto pt-6">
                       <div className="grid grid-cols-[1fr_auto] border-t-2 border-dotted border-[#122822]/20 pt-5">
-                        <ul className="space-y-1.5 text-sm font-medium text-[#122822] pr-4">
-                          {trip.stats.slice(0, 3).map((stat) => (
+                        <ul className="space-y-1.5 text-sm font-normal text-[#122822] pr-4" style={{ fontFamily: '"vaccine", serif' }}>
+                          {trip.stats?.map((stat: string) => (
                             <li key={stat} className="flex items-center gap-2.5"><span className="h-1.5 w-1.5 rounded-full bg-[#122822]"></span> {stat}</li>
                           ))}
                         </ul>
                         <div className="relative flex flex-col justify-center pl-6 text-[#122822]">
-                          <div className="absolute left-0 top-0 bottom-0 w-px border-l-2 border-dotted border-[#122822]/20" />
-                          <div className="text-sm mb-1 text-[#122822]/80">From :</div>
-                          <div className="text-2xl font-bold tracking-tight">
-                            {trip.price}*
+                          <div className="text-[12px] mb-1 text-[#122822]/80 font-bold uppercase tracking-widest" style={{ fontFamily: '"vaccine", serif' }}>From :</div>
+                          <div className="text-2xl font-bold tracking-tight" style={{ fontFamily: '"vaccine", serif' }}>
+                            ₹{trip.price?.toLocaleString('en-IN') || 'N/A'}*
                           </div>
                         </div>
                       </div>
