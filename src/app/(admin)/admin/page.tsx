@@ -125,7 +125,7 @@ export default async function AdminDashboard() {
       {/* Quick Actions */}
       <div>
         <h2 className="text-xl font-[family-name:var(--font-heading)] text-slate-800 mb-4">Quick Actions</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           <Link href="/admin/trips?action=new" className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm hover:border-emerald-200 hover:shadow-md transition-all text-center">
             <Mountain className="mx-auto text-emerald-600 mb-2" size={24} />
             <p className="text-sm font-medium text-slate-700">Add New Trip</p>
@@ -137,10 +137,6 @@ export default async function AdminDashboard() {
           <Link href="/admin/enquiries" className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm hover:border-emerald-200 hover:shadow-md transition-all text-center">
             <MessageSquare className="mx-auto text-emerald-600 mb-2" size={24} />
             <p className="text-sm font-medium text-slate-700">View Enquiries</p>
-          </Link>
-          <Link href="/api/seed" className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm hover:border-amber-200 hover:shadow-md transition-all text-center">
-            <TrendingUp className="mx-auto text-amber-600 mb-2" size={24} />
-            <p className="text-sm font-medium text-slate-700">Seed Data</p>
           </Link>
         </div>
       </div>

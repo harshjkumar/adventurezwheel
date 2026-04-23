@@ -106,6 +106,7 @@ CREATE TABLE IF NOT EXISTS trips (
   contact_email TEXT DEFAULT 'explore@adventureswheel.com',
   contact_instagram TEXT DEFAULT 'adventures_wheel_travel',
   is_featured BOOLEAN NOT NULL DEFAULT false,
+  featured_order INT DEFAULT NULL,
   is_active BOOLEAN NOT NULL DEFAULT true,
   meta_title TEXT,
   meta_description TEXT,

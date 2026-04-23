@@ -5,14 +5,16 @@ import { usePathname, useRouter } from 'next/navigation';
 import {
   LayoutDashboard, Map as MapIcon, Tags, MessageSquare, BookOpen,
   Image as ImageIcon, Settings, LogOut, ExternalLink, CreditCard,
-  Star, SlidersHorizontal, HelpCircle, Wallet, FileText,
+  Star, SlidersHorizontal, HelpCircle, Wallet, FileText, Trophy,
 } from 'lucide-react';
 import { ReactNode } from 'react';
 import { createClient } from '@/lib/supabase/client';
+import { AutoLogout } from '@/components/admin/AutoLogout';
 
 const navItems = [
   { label: 'Dashboard', href: '/admin', icon: LayoutDashboard, exact: true },
   { label: 'Trips', href: '/admin/trips', icon: MapIcon },
+  { label: 'Featured', href: '/admin/featured', icon: Trophy },
   { label: 'Categories', href: '/admin/categories', icon: Tags },
   { label: 'Bookings', href: '/admin/bookings', icon: CreditCard },
   { label: 'Payments', href: '/admin/payments', icon: Wallet },
@@ -38,6 +40,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex h-screen bg-[#F8F9FA] text-slate-800 font-sans">
+      <AutoLogout timeoutMinutes={60} />
       {/* Sidebar */}
       <aside className="w-64 bg-white border-r border-gray-200 flex flex-col shrink-0">
         <div className="h-16 flex items-center px-6 border-b border-gray-200 shrink-0">

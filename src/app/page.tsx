@@ -4,7 +4,7 @@ import { getFeaturedTrips, getHeroSlides } from '@/lib/queries';
 export default async function HomePage() {
   const [dbFeaturedTrips, dbHeroSlides] = await Promise.all([
     getFeaturedTrips(),
-    getHeroSlides(),
+    getHeroSlides('homepage'),
   ]);
 
   const mappedFeaturedTrips = dbFeaturedTrips.map((trip: any) => {
@@ -27,6 +27,7 @@ export default async function HomePage() {
         image: slide.image,
         title: slide.title,
         subtitle: slide.subtitle,
+        media_type: slide.media_type,
       }))
     : [];
 

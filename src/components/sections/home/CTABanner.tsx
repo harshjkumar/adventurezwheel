@@ -3,10 +3,29 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Phone, MessageCircle } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 export function CTABanner() {
   const [form, setForm] = useState({ name: '', phone: '', trip: '', message: '' });
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handleMetadataLoaded = () => {
+    if (videoRef.current) {
+      videoRef.current.playbackRate = 1.25;
+      // Skip the first half of the video
+      if (videoRef.current.duration) {
+        videoRef.current.currentTime = videoRef.current.duration / 2;
+      }
+    }
+  };
+
+  const handleVideoEnded = () => {
+    if (videoRef.current && videoRef.current.duration) {
+      // Loop back to the 50% mark instead of the beginning
+      videoRef.current.currentTime = videoRef.current.duration / 2;
+      videoRef.current.play();
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -74,16 +93,31 @@ export function CTABanner() {
             </div>
           </div>
 
-          {/* Image side */}
-          <div className="relative min-h-[28rem] lg:min-h-[34rem]">
-            <Image
-              src="/a5d102a5-a64d-4cf9-92e2-de28b52ad661.JPG"
-              alt="Adventure landscape"
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 55vw"
+          {/* Video side */}
+          <div className="relative min-h-[28rem] lg:min-h-[34rem] overflow-hidden flex items-center justify-center bg-[#0a1512]">
+            <video
+              ref={videoRef}
+              onLoadedMetadata={handleMetadataLoaded}
+              onEnded={handleVideoEnded}
+              src="/IMG_4061.MOV"
+              autoPlay
+              muted
+              playsInline
+              className="absolute w-auto h-[135%] max-w-none object-contain -rotate-90"
             />
-            <div className="absolute inset-0 bg-gradient-to-br from-[#122822]/20 to-transparent" />
+            
+            {/* Top Right Logo (moved further down into the frame) */}
+            <div className="absolute top-16 right-6 lg:top-24 lg:right-10 z-10 w-24 lg:w-32 opacity-90 drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]">
+              <Image
+                src="/logo/Artboard%201@3x-8.png"
+                alt="Adventures Wheel Logo"
+                width={200}
+                height={80}
+                className="w-full h-auto"
+              />
+            </div>
+
+            <div className="absolute inset-0 bg-gradient-to-br from-[#122822]/40 to-transparent pointer-events-none" />
           </div>
         </div>
       </div>

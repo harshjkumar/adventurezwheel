@@ -3,6 +3,7 @@
 import { useEffect, useState, use } from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft, Save, Upload } from 'lucide-react';
+import { ImagePreview } from '@/components/admin/ImagePreview';
 
 export default function EditBlogPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
@@ -75,7 +76,7 @@ export default function EditBlogPage({ params }: { params: Promise<{ id: string 
         <div><label className="block text-xs font-medium text-slate-500 uppercase tracking-wider mb-1.5">Excerpt</label><textarea value={excerpt} onChange={(e) => setExcerpt(e.target.value)} rows={2} className="admin-input" /></div>
         <div><label className="block text-xs font-medium text-slate-500 uppercase tracking-wider mb-1.5">Content (Markdown/HTML)</label><textarea value={content} onChange={(e) => setContent(e.target.value)} rows={15} className="admin-input font-mono text-xs" /></div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div><label className="block text-xs font-medium text-slate-500 uppercase tracking-wider mb-1.5">Cover Image URL</label><input type="text" value={coverImage} onChange={(e) => setCoverImage(e.target.value)} className="admin-input" /></div>
+          <div><label className="block text-xs font-medium text-slate-500 uppercase tracking-wider mb-1.5">Cover Image URL</label><input type="text" value={coverImage} onChange={(e) => setCoverImage(e.target.value)} className="admin-input" /><ImagePreview url={coverImage} /></div>
           <div><label className="block text-xs font-medium text-slate-500 uppercase tracking-wider mb-1.5">Category</label><input type="text" value={category} onChange={(e) => setCategory(e.target.value)} className="admin-input" /></div>
           <div><label className="block text-xs font-medium text-slate-500 uppercase tracking-wider mb-1.5">Read Time (min)</label><input type="number" value={readTime} onChange={(e) => setReadTime(Number(e.target.value))} className="admin-input" /></div>
         </div>

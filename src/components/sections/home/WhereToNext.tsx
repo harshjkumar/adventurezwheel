@@ -7,7 +7,7 @@ import { destinationCards } from '@/data/home';
 
 export function WhereToNext() {
   return (
-    <section className="bg-[#faf7f2] px-6 py-24 lg:px-12 lg:py-32">
+    <section className="bg-transparent px-6 py-24 lg:px-12 lg:py-32">
       <div className="mx-auto max-w-[1440px]">
         {/* Header */}
         <div className="mb-14 flex flex-col gap-4 md:flex-row md:items-end md:justify-between lg:mb-16">

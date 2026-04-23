@@ -1,0 +1,11 @@
+--- CURRENT TRIPS IN DATABASE ---
+[2026-04-23T19:56:47.066564+00:00] Spiti Valley Circuit Expedition (spiti-valley-circuit-expedition) - ID: 1902d566-2b20-44ee-a7fe-460df830fa08
+[2026-04-23T19:56:46.820725+00:00] Meghalaya Bike Expedition (meghalaya-bike-expedition-standalone) - ID: 7c49be51-76be-4cb6-b83b-4984c5826404
+[2026-04-23T19:56:05.794474+00:00] Meghalaya Bike Expedition with Kaziranga (meghalaya-bike-expedition-with-kaziranga) - ID: c4f484ce-761a-42c2-bd42-363de010a36e
+[2026-04-23T19:56:05.519557+00:00] Leh to Leh, Ladakh Bike Expedition (leh-to-leh-ladakh-bike-expedition) - ID: 4efc11e5-aaf7-4588-925c-aeae853c3526
+[2026-04-23T17:44:37.527144+00:00] Ultimate Tawang Bike & Backpacking Expedition (ultimate-tawang-expedition-8d7n) - ID: 138baa2e-ac3c-48ee-8edc-ea576cc1ecbe
+[2026-04-23T17:44:37.328344+00:00] Ultimate Tawang Bike & Backpacking Expedition (ultimate-tawang-expedition-9d8n) - ID: b1278864-9954-4802-992d-2b23dc41a101
+[2026-04-21T18:54:22.134489+00:00] Vietnam Journey (vietnam-journey) - ID: 65bb2387-a216-4bfa-b291-e2640b7cb6d9
+[2026-04-21T18:54:21.458776+00:00] Thailand Adventure (thailand-adventure) - ID: f8e954ef-e1bc-4a30-8aaa-db73ee104493
+[2026-04-21T18:54:21.102187+00:00] Bali Explorer (bali-explorer) - ID: 40f283d1-3385-4a50-93f8-5b72e505db9e
+Total: 9

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Plus, Search, Edit, Trash2, Eye, EyeOff } from 'lucide-react';
+import { Plus, Search, Edit, Trash2, Eye, EyeOff, Trophy } from 'lucide-react';
 
 interface Trip {
   id: string;
@@ -13,14 +13,18 @@ interface Trip {
   is_active: boolean;
   is_featured: boolean;
   duration_days: number;
+  category_label: string;
   trip_categories: { name: string } | null;
   trip_pricing: { price: number }[];
 }
+
+const categoryFilters = ['All', 'Domestic', 'International', 'Road Trip'] as const;
 
 export default function AdminTripsPage() {
   const [trips, setTrips] = useState<Trip[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
+  const [catFilter, setCatFilter] = useState<string>('All');
 
   useEffect(() => { fetchTrips(); }, []);
 
@@ -49,11 +53,17 @@ export default function AdminTripsPage() {
     fetchTrips();
   };
 
-  const filtered = trips.filter((t) =>
-    t.title.toLowerCase().includes(search.toLowerCase()) ||
-    t.region?.toLowerCase().includes(search.toLowerCase()) ||
-    t.slug?.toLowerCase().includes(search.toLowerCase())
-  );
+  const filtered = trips
+    .filter((t) => {
+      if (catFilter === 'All') return true;
+      if (catFilter === 'Road Trip') return (t.category_label || '').toLowerCase() === 'domestic';
+      return (t.category_label || '').toLowerCase() === catFilter.toLowerCase();
+    })
+    .filter((t) =>
+      t.title.toLowerCase().includes(search.toLowerCase()) ||
+      t.region?.toLowerCase().includes(search.toLowerCase()) ||
+      t.slug?.toLowerCase().includes(search.toLowerCase())
+    );
 
   const getMinPrice = (t: Trip) => {
     if (!t.trip_pricing?.length) return '—';
@@ -65,12 +75,27 @@ export default function AdminTripsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-[family-name:var(--font-heading)] text-slate-800">Trips</h1>
-        <Link
-          href="/admin/trips/new"
-          className="flex items-center gap-2 px-5 py-2.5 bg-emerald-600 text-white text-sm font-medium rounded-lg hover:bg-emerald-700 transition-colors"
-        >
-          <Plus size={16} /> New Trip
-        </Link>
+        <div className="flex items-center gap-3">
+          <Link
+            href="/admin/featured"
+            className="flex items-center gap-2 px-5 py-2.5 bg-amber-50 text-amber-700 text-sm font-medium rounded-lg hover:bg-amber-100 transition-colors border border-amber-200"
+          >
+            <Trophy size={16} /> Manage Featured
+          </Link>
+          <Link
+            href="/admin/trips/new"
+            className="flex items-center gap-2 px-5 py-2.5 bg-emerald-600 text-white text-sm font-medium rounded-lg hover:bg-emerald-700 transition-colors"
+          >
+            <Plus size={16} /> New Trip
+          </Link>
+        </div>
+      </div>
+
+      {/* Category Filter Tabs */}
+      <div className="flex flex-wrap items-center gap-2">
+        {categoryFilters.map((f) => (
+          <button key={f} onClick={() => setCatFilter(f)} className={`px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition-all ${catFilter === f ? 'bg-emerald-600 text-white shadow' : 'bg-white text-slate-600 border border-gray-200 hover:border-emerald-300'}`}>{f}</button>
+        ))}
       </div>
 
       <div className="relative max-w-md">
@@ -109,7 +134,12 @@ export default function AdminTripsPage() {
                     </Link>
                     <p className="text-[10px] text-slate-400 mt-0.5">/{t.slug}</p>
                   </td>
-                  <td className="p-4 text-slate-500">{t.trip_categories?.name || '—'}</td>
+                  <td className="p-4">
+                    <span className={`inline-flex px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
+                      (t.category_label || '').toLowerCase() === 'international' ? 'bg-blue-50 text-blue-700' : 'bg-emerald-50 text-emerald-700'
+                    }`}>{t.category_label || 'Domestic'}</span>
+                    {t.trip_categories?.name && <span className="ml-1 text-xs text-slate-400">{t.trip_categories.name}</span>}
+                  </td>
                   <td className="p-4 text-slate-500">{t.region || '—'}</td>
                   <td className="p-4 text-slate-500">{t.duration_days}D</td>
                   <td className="p-4 font-medium text-slate-700">{getMinPrice(t)}</td>

@@ -12,46 +12,49 @@ import { TripBookingWidget } from './TripBookingWidget';
 import { TripGallery } from './TripGallery';
 
 export default function TripDetailClient({ trip }: { trip: TripData }) {
+  const heroImg = trip.heroImage || '/1b5b2c1e-434e-4ee7-8559-453e6fb84421.JPG';
+  const coverImg = trip.coverImage || heroImg;
   return (
     <div className="relative min-h-screen bg-[#faf7f2]">
       <div className="relative z-10">
 
         {/* ── Hero Banner (Card Style) ───────────────────────── */}
-        <div className="relative mb-8 w-full border-b border-[#122822]/10 pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden">
+        <div className="relative mb-12 w-full border-b border-[#122822]/10 pt-28 pb-20 md:pt-40 md:pb-32 overflow-hidden">
           {/* Main Background Image - Blurred */}
           <div className="absolute inset-0 h-full w-full">
             <Image
-              src={trip.heroImage}
+              src={heroImg}
               alt="Background"
               fill
               priority
-              className="object-cover blur-[8px] scale-105"
+              className="object-cover blur-[10px] scale-110 opacity-60"
               sizes="100vw"
             />
-            <div className="absolute inset-0 bg-[#faf7f2]/40 backdrop-blur-[2px]" />
+            <div className="absolute inset-0 bg-[#faf7f2]/50 backdrop-blur-[4px]" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#faf7f2] via-transparent to-transparent" />
           </div>
 
-          <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="bg-[#eef2f3] rounded-lg shadow-2xl p-3 sm:p-5 mx-auto max-w-4xl"
+              className="bg-[#eef2f3] rounded-xl shadow-2xl p-4 sm:p-6 mx-auto max-w-5xl"
             >
               {/* Inner Image Container */}
-              <div className="relative h-[50vh] md:h-[60vh] w-full rounded-md overflow-hidden">
+              <div className="relative h-[70vh] md:h-[85vh] w-full rounded-lg overflow-hidden">
                 <Image
-                  src={trip.heroImage}
+                  src={heroImg}
                   alt={trip.title}
                   fill
                   priority
                   className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 1024px"
+                  sizes="(max-width: 1280px) 100vw, 1280px"
                 />
-                <div className="absolute bottom-4 left-4">
-                  <button className="bg-white/90 backdrop-blur-sm px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-[#122822] rounded-sm hover:bg-white transition-colors">
-                    Show All Photos
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                <div className="absolute bottom-6 left-6">
+                  <button className="bg-white/95 backdrop-blur-sm px-6 py-3 text-[11px] font-bold uppercase tracking-[0.2em] text-[#122822] rounded-sm hover:bg-white transition-all shadow-lg active:scale-95">
+                    Explore Gallery
                   </button>
                 </div>
               </div>
@@ -89,7 +92,7 @@ export default function TripDetailClient({ trip }: { trip: TripData }) {
             
             {/* Title / Header below the card */}
             <div className="text-center mt-12 mb-4">
-               <h1 className="text-4xl md:text-6xl lg:text-7xl font-normal text-[#122822] drop-shadow-sm" style={{ fontFamily: '"vaccine", serif' }}>
+               <h1 className="text-5xl md:text-7xl lg:text-8xl font-normal text-[#122822] drop-shadow-sm leading-[1.1]" style={{ fontFamily: '"vaccine", serif' }}>
                  {trip.title}
                </h1>
             </div>
@@ -190,7 +193,7 @@ export default function TripDetailClient({ trip }: { trip: TripData }) {
                       Detailed Itinerary
                     </h2>
                   </div>
-                  <TripItinerary itinerary={trip.itinerary} coverImage={trip.coverImage} />
+                  <TripItinerary itinerary={trip.itinerary} coverImage={coverImg} />
                 </motion.div>
               )}
 

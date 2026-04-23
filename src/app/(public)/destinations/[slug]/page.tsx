@@ -1,4 +1,4 @@
-import { getTrips } from '@/lib/queries';
+import { getTrips, getCategoryBySlug, getHeroSlides } from '@/lib/queries';
 import DestinationDetailClient from './DestinationDetailClient';
 import { destinationCards } from '@/data/home';
 import { notFound } from 'next/navigation';
@@ -10,6 +10,17 @@ export default async function DestinationDetailPage({ params }: { params: Promis
   if (!destMetadata) {
     notFound();
   }
+
+  // Fetch category and hero data
+  const [category, heroSlides] = await Promise.all([
+    getCategoryBySlug(slug),
+    getHeroSlides(slug)
+  ]);
+
+  const heroData = heroSlides?.[0] || null;
+  const categoryHeroImage = heroData?.image || category?.cover_image || '';
+  const heroTitle = heroData?.title || destMetadata.title;
+  const heroSubtitle = heroData?.subtitle || 'Discover the beauty of';
 
   const trips = await getTrips();
   
@@ -40,7 +51,10 @@ export default async function DestinationDetailPage({ params }: { params: Promis
     <DestinationDetailClient 
       slug={slug} 
       destMetadata={destMetadata} 
-      initialTrips={destinationTrips} 
+      initialTrips={destinationTrips}
+      categoryHeroImage={categoryHeroImage}
+      heroTitle={heroTitle}
+      heroSubtitle={heroSubtitle}
     />
   );
 }

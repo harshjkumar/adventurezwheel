@@ -62,7 +62,7 @@ export default async function TripDetailPage({ params }: { params: Promise<{ slu
       })),
     inclusions: trip.inclusions || [],
     exclusions: trip.exclusions || [],
-    galleryImages: trip.gallery_images || [],
+    galleryImages: (Array.isArray(trip.gallery_images) ? trip.gallery_images : (trip.gallery_images || '').split(/\s+/)).filter((img: string) => img && img.trim()),
     mealsIncluded: trip.meals_included || '',
     contactPhone: trip.contact_phone || '+91-7015760563',
     contactEmail: trip.contact_email || 'explore@adventureswheel.com',

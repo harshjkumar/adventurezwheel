@@ -7,10 +7,10 @@ export function AboutStory() {
   return (
     <section className="relative w-full bg-[#f4f5f6] py-24 sm:py-32 overflow-visible">
       <div className="mx-auto flex max-w-[1440px] flex-col px-6 lg:flex-row lg:items-start lg:gap-20 lg:px-12">
-        
+
         {/* Left Side: Sticky Image */}
         <div className="relative w-full lg:sticky lg:top-32 lg:h-[70vh] lg:w-5/12 mb-12 lg:mb-0">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
@@ -35,10 +35,10 @@ export function AboutStory() {
 
         {/* Right Side: Scrolling Text */}
         <div className="flex w-full flex-col lg:w-7/12 lg:pb-[20vh] lg:pt-[10vh]">
-          
+
           {/* Story Section */}
           <div className="flex min-h-[60vh] flex-col justify-center pb-24">
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -47,7 +47,7 @@ export function AboutStory() {
             >
               Our Story
             </motion.p>
-            <motion.h2 
+            <motion.h2
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -57,7 +57,7 @@ export function AboutStory() {
             >
               Launched in <span className="font-bold text-[#122822]">2021</span>, we set out to make the world's most breathtaking landscapes accessible.
             </motion.h2>
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -70,7 +70,7 @@ export function AboutStory() {
 
           {/* Values Section - Highlighted and scrolling up */}
           <div className="flex flex-col justify-center pt-24 lg:pt-32">
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -79,7 +79,7 @@ export function AboutStory() {
             >
               Our Core Values
             </motion.p>
-            
+
             <div className="space-y-8 lg:space-y-12">
               {[
                 { word: 'Authenticity', color: '#122822' },

@@ -22,7 +22,7 @@ export function TripShowcaseSlider() {
   const prevSlide = () => setCurrentIndex((prev) => (prev - 1 + allTrips.length) % allTrips.length);
 
   const currentTrip = allTrips[currentIndex];
-  
+
   // Create an array of 11 images by repeating the gallery images if needed
   const displayImages = Array(11).fill(currentTrip.galleryImages).flat().slice(0, 11);
 
@@ -50,7 +50,7 @@ export function TripShowcaseSlider() {
               </motion.div>
             </AnimatePresence>
           </div>
-          
+
           <div className="flex flex-col md:items-end gap-6 max-w-md">
             <AnimatePresence mode="wait">
               <motion.div
@@ -76,7 +76,7 @@ export function TripShowcaseSlider() {
 
             {/* Manual Navigation Controls */}
             <div className="flex items-center gap-3">
-              <button 
+              <button
                 onClick={prevSlide}
                 className="flex h-12 w-12 items-center justify-center rounded-full border border-[#122822]/20 text-[#122822] transition-colors hover:bg-[#122822] hover:text-white"
                 aria-label="Previous trip"
@@ -88,14 +88,13 @@ export function TripShowcaseSlider() {
                   <button
                     key={trip.slug}
                     onClick={() => setCurrentIndex(idx)}
-                    className={`h-1.5 rounded-full transition-all duration-300 ${
-                      idx === currentIndex ? 'w-8 bg-[#122822]' : 'w-2 bg-[#122822]/20 hover:bg-[#122822]/50'
-                    }`}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${idx === currentIndex ? 'w-8 bg-[#122822]' : 'w-2 bg-[#122822]/20 hover:bg-[#122822]/50'
+                      }`}
                     aria-label={`Go to ${trip.title}`}
                   />
                 ))}
               </div>
-              <button 
+              <button
                 onClick={nextSlide}
                 className="flex h-12 w-12 items-center justify-center rounded-full border border-[#122822]/20 text-[#122822] transition-colors hover:bg-[#122822] hover:text-white"
                 aria-label="Next trip"
@@ -108,12 +107,12 @@ export function TripShowcaseSlider() {
 
         {/* Dynamic Masonry-style image grid */}
         <AnimatePresence mode="wait">
-          <motion.div 
-             key={currentTrip.slug}
-             initial={{ opacity: 0, scale: 0.98 }}
-             animate={{ opacity: 1, scale: 1 }}
-             exit={{ opacity: 0, scale: 0.98 }}
-             transition={{ duration: 0.6 }}
+          <motion.div
+            key={currentTrip.slug}
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.98 }}
+            transition={{ duration: 0.6 }}
           >
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {/* Large featured image — spans 2 cols and 2 rows */}

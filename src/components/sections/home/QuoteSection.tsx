@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 export function QuoteSection() {
   return (
-    <section className="bg-white px-6 pt-12 pb-4 lg:px-12 lg:pt-16 lg:pb-6">
+    <section className="bg-transparent px-6 pt-24 pb-16 lg:px-12 lg:pt-32 lg:pb-24">
       <div className="mx-auto max-w-4xl text-center">
         <motion.div
           initial={{ opacity: 0, y: 15 }}
@@ -13,8 +13,8 @@ export function QuoteSection() {
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <h2 
-            className="text-xl sm:text-2xl lg:text-3xl italic leading-relaxed text-[#122822]/60"
-            style={{ fontFamily: 'vaccine, serif', fontWeight: 200 }}
+            className="text-lg sm:text-xl lg:text-2xl leading-relaxed text-[#122822]/90 font-bold"
+            style={{ fontFamily: '"courier-new", sans-serif', fontWeight: 600, fontStyle: 'normal' }}
           >
             "From roads we've ridden to stays we've lived — every journey crafted by experts, built to leave a mark on your soul."
           </h2>

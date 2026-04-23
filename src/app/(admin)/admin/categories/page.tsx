@@ -1,12 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Plus, Trash2, Save, X } from 'lucide-react';
+import { Plus, Trash2, Save, X, Upload } from 'lucide-react';
+import { ImagePreview } from '@/components/admin/ImagePreview';
 
 interface Category {
   id: string; name: string; slug: string; description: string; icon: string;
   region: string; cover_image: string; order: number; is_active: boolean;
-  parent_type: 'domestic' | 'international';
+  parent_type: 'domestic' | 'international' | 'road-trip';
   is_featured: boolean;
 }
 
@@ -15,6 +16,20 @@ export default function AdminCategoriesPage() {
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState<Partial<Category> | null>(null);
   const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
+
+  const uploadImage = async (file: File, setter: (url: string) => void) => {
+    setUploading(true);
+    try {
+      const fd = new FormData();
+      fd.append('file', file);
+      const res = await fetch('/api/upload', { method: 'POST', body: fd });
+      const { url, error } = await res.json();
+      if (error) throw new Error(error);
+      setter(url);
+    } catch (err: any) { alert('Upload failed: ' + err.message); }
+    finally { setUploading(false); }
+  };
 
   useEffect(() => { fetchCategories(); }, []);
 
@@ -48,6 +63,7 @@ export default function AdminCategoriesPage() {
 
   const domesticCats = categories.filter(c => c.parent_type === 'domestic');
   const internationalCats = categories.filter(c => c.parent_type === 'international');
+  const roadTripCats = categories.filter(c => c.parent_type === 'road-trip');
 
   const renderTable = (cats: Category[]) => (
     <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
@@ -104,13 +120,24 @@ export default function AdminCategoriesPage() {
               <select value={editing.parent_type || 'domestic'} onChange={(e) => setEditing({ ...editing, parent_type: e.target.value as any })} className="admin-input">
                 <option value="domestic">Domestic</option>
                 <option value="international">International</option>
+                <option value="road-trip">Road Trip</option>
               </select>
             </div>
             <div><label className="block text-xs font-medium text-slate-500 uppercase tracking-wider mb-1">Name</label><input type="text" value={editing.name || ''} onChange={(e) => setEditing({ ...editing, name: e.target.value })} className="admin-input" placeholder="e.g. Leh-Ladakh" /></div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div><label className="block text-xs font-medium text-slate-500 uppercase tracking-wider mb-1">Region</label><input type="text" value={editing.region || ''} onChange={(e) => setEditing({ ...editing, region: e.target.value })} className="admin-input" /></div>
-            <div><label className="block text-xs font-medium text-slate-500 uppercase tracking-wider mb-1">Cover Image URL</label><input type="text" value={editing.cover_image || ''} onChange={(e) => setEditing({ ...editing, cover_image: e.target.value })} className="admin-input" /></div>
+            <div>
+              <label className="block text-xs font-medium text-slate-500 uppercase tracking-wider mb-1">Cover Image URL</label>
+              <div className="flex gap-2">
+                <input type="text" value={editing.cover_image || ''} onChange={(e) => setEditing({ ...editing, cover_image: e.target.value })} className="admin-input flex-1" />
+                <label className={`flex items-center gap-1 px-3 py-2 bg-emerald-50 text-emerald-700 text-xs font-medium rounded-lg hover:bg-emerald-100 cursor-pointer transition-colors ${uploading ? 'opacity-50' : ''}`}>
+                  <Upload size={14} /> Upload
+                  <input type="file" accept="image/*" className="hidden" onChange={(e) => e.target.files?.[0] && uploadImage(e.target.files[0], (url) => setEditing({ ...editing, cover_image: url }))} />
+                </label>
+              </div>
+              <ImagePreview url={editing.cover_image || ''} />
+            </div>
           </div>
           <div><label className="block text-xs font-medium text-slate-500 uppercase tracking-wider mb-1">Description</label><textarea value={editing.description || ''} onChange={(e) => setEditing({ ...editing, description: e.target.value })} className="admin-input" rows={2} /></div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -142,6 +169,12 @@ export default function AdminCategoriesPage() {
               <span className="w-2 h-2 rounded-full bg-blue-500"></span> International Subcategories
             </h2>
             {renderTable(internationalCats)}
+          </div>
+          <div>
+            <h2 className="text-xl font-semibold text-slate-800 mb-3 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-orange-500"></span> Road Trip Subcategories
+            </h2>
+            {renderTable(roadTripCats)}
           </div>
         </div>
       )}

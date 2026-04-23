@@ -22,11 +22,17 @@ const filterChips = ['Individual Travel', 'Circuit', 'Group Trip', 'Stay', 'Exte
 export default function DestinationDetailClient({ 
   slug, 
   destMetadata, 
-  initialTrips 
+  initialTrips,
+  categoryHeroImage,
+  heroTitle,
+  heroSubtitle
 }: { 
   slug: string; 
   destMetadata: any; 
-  initialTrips: Trip[] 
+  initialTrips: Trip[];
+  categoryHeroImage?: string;
+  heroTitle?: string;
+  heroSubtitle?: string;
 }) {
   const [activeChips, setActiveChips] = useState<string[]>([]);
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
@@ -36,6 +42,8 @@ export default function DestinationDetailClient({
   };
 
   const displayName = destMetadata.title;
+  // Use category hero image from admin if available, fallback to static metadata
+  const heroImageSrc = categoryHeroImage || destMetadata.image;
 
   return (
     <main id="main-content">
@@ -58,7 +66,7 @@ export default function DestinationDetailClient({
               <source src="/DJI_20250814145813_0158_D.mp4" type="video/mp4" />
             </video>
           ) : (
-            <Image src={destMetadata.image} alt={displayName} fill className="object-cover" sizes="100vw" priority />
+            <Image src={heroImageSrc} alt={displayName} fill className="object-cover" sizes="100vw" priority />
           )}
         </motion.div>
         
@@ -71,10 +79,10 @@ export default function DestinationDetailClient({
              transition={{ duration: 1, type: "spring", bounce: 0.4 }}
           >
             <p className="text-sm font-bold uppercase tracking-[0.25em] text-white/80 drop-shadow-md">
-              Discover the beauty of
+              {heroSubtitle}
             </p>
             <h1 className="mt-4 font-[family-name:var(--font-heading)] text-6xl font-semibold uppercase tracking-tight text-white drop-shadow-2xl sm:text-7xl md:text-8xl lg:text-[7rem] leading-none">
-              {displayName}
+              {heroTitle}
             </h1>
           </motion.div>
 

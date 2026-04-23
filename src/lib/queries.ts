@@ -6,7 +6,7 @@ export async function getTrips() {
   const supabase = createServerSupabase();
   const { data, error } = await supabase
     .from('trips')
-    .select('*, trip_pricing(*), trip_categories(*)')
+    .select('*, trip_pricing(*), trip_categories(*), trip_tags(*)')
     .eq('is_active', true)
     .order('created_at', { ascending: false });
 
@@ -14,13 +14,27 @@ export async function getTrips() {
   return data || [];
 }
 
+export async function getTripsByRegion(regionKeyword: string) {
+  const supabase = createServerSupabase();
+  const { data, error } = await supabase
+    .from('trips')
+    .select('*, trip_pricing(*), trip_categories(*), trip_tags(*)')
+    .eq('is_active', true)
+    .ilike('region', `%${regionKeyword}%`)
+    .order('duration_days', { ascending: true });
+
+  if (error) { console.error('getTripsByRegion error:', error); return []; }
+  return data || [];
+}
+
 export async function getFeaturedTrips() {
   const supabase = createServerSupabase();
   const { data, error } = await supabase
     .from('trips')
-    .select('*, trip_pricing(*), trip_categories(*)')
+    .select('*, trip_pricing(*), trip_categories(*), trip_tags(*)')
     .eq('is_active', true)
     .eq('is_featured', true)
+    .order('featured_order', { ascending: true, nullsFirst: false })
     .order('created_at', { ascending: false })
     .limit(6);
 
@@ -32,7 +46,7 @@ export async function getTripBySlug(slug: string) {
   const supabase = createServerSupabase();
   const { data, error } = await supabase
     .from('trips')
-    .select('*, trip_pricing(*), trip_itinerary(*), trip_departures(*), trip_categories(*)')
+    .select('*, trip_pricing(*), trip_itinerary(*), trip_departures(*), trip_categories(*), trip_tags(*)')
     .eq('slug', slug)
     .eq('is_active', true)
     .single();
@@ -110,13 +124,18 @@ export async function getCategories() {
 
 // ─── Hero Slides ─────────────────────────────────────────────
 
-export async function getHeroSlides() {
+export async function getHeroSlides(page?: string) {
   const supabase = createServerSupabase();
-  const { data, error } = await supabase
+  let query = supabase
     .from('hero_slides')
     .select('*')
-    .eq('is_active', true)
-    .order('"order"', { ascending: true });
+    .eq('is_active', true);
+
+  if (page) {
+    query = query.eq('page', page);
+  }
+
+  const { data, error } = await query.order('"order"', { ascending: true });
 
   if (error) { console.error('getHeroSlides error:', error); return []; }
   return data || [];

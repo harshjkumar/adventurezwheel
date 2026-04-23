@@ -3,6 +3,7 @@
 import { useEffect, useState, use } from 'react';
 import { useRouter } from 'next/navigation';
 import { Save, ArrowLeft, Plus, Trash2, Upload } from 'lucide-react';
+import { ImagePreview } from '@/components/admin/ImagePreview';
 
 const TABS = ['General', 'Itinerary', 'Pricing', 'Departures', 'Gallery', 'SEO'] as const;
 type Tab = (typeof TABS)[number];
@@ -21,6 +22,10 @@ export default function EditTripPage({ params }: { params: Promise<{ id: string 
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(!isNew);
   const [categories, setCategories] = useState<any[]>([]);
+
+  // Multi-select tags state
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedSubcategories, setSelectedSubcategories] = useState<string[]>([]);
 
   const [title, setTitle] = useState('');
   const [slug, setSlug] = useState('');
@@ -108,6 +113,17 @@ export default function EditTripPage({ params }: { params: Promise<{ id: string 
       setDepartures(
         (t.trip_departures || []).map((d: any) => ({ start_date: d.start_date, end_date: d.end_date, available_seats: d.available_seats || 20, booked_seats: d.booked_seats || 0, status: d.status || 'available' }))
       );
+
+      // Fetch Tags
+      try {
+        const tagsRes = await fetch(`/api/admin/trip-tags?trip_id=${t.id}`);
+        if (tagsRes.ok) {
+          const tags = await tagsRes.json();
+          setSelectedCategories(tags.filter((tag: any) => tag.tag_type === 'category').map((tag: any) => tag.tag_value));
+          setSelectedSubcategories(tags.filter((tag: any) => tag.tag_type === 'subcategory').map((tag: any) => tag.tag_value));
+        }
+      } catch (err) { console.error('Failed to load tags:', err); }
+
     } catch (err) { console.error(err); }
     finally { setLoading(false); }
   };
@@ -156,6 +172,19 @@ export default function EditTripPage({ params }: { params: Promise<{ id: string 
       const res = await fetch(url, { method: isNew ? 'POST' : 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
       if (!res.ok) { const e = await res.json().catch(() => ({})); throw new Error(e.error || 'Save failed'); }
       const saved = await res.json();
+
+      // Save tags
+      const tripIdToTag = isNew ? saved.id : id;
+      await fetch('/api/admin/trip-tags', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          trip_id: tripIdToTag,
+          categories: selectedCategories,
+          subcategories: selectedSubcategories
+        })
+      });
+
       if (isNew) { router.push(`/admin/trips/${saved.id}`); } else { alert('Trip saved!'); }
     } catch (err: any) { alert(err.message || 'Failed to save'); }
     finally { setSaving(false); }
@@ -207,20 +236,47 @@ export default function EditTripPage({ params }: { params: Promise<{ id: string 
             </div>
             <Field label="Tagline"><input type="text" value={tagline} onChange={(e) => setTagline(e.target.value)} className="admin-input" /></Field>
             <Field label="Description"><textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={4} className="admin-input" /></Field>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Field label="Category" required>
-                <select value={categoryLabel.toLowerCase()} onChange={(e) => { setCategoryLabel(e.target.value === 'international' ? 'International' : 'Domestic'); setCategoryId(''); }} className="admin-input">
-                  <option value="">Select category...</option>
-                  <option value="domestic">Domestic</option>
-                  <option value="international">International</option>
-                </select>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <Field label="Categories" required>
+                <div className="flex flex-wrap gap-3 mt-2">
+                  {['Domestic', 'International', 'Road Trip'].map(cat => (
+                    <label key={cat} className="flex items-center gap-2 bg-gray-50 px-3 py-2 rounded-lg border border-gray-200 cursor-pointer hover:bg-gray-100">
+                      <input 
+                        type="checkbox" 
+                        checked={selectedCategories.includes(cat)}
+                        onChange={(e) => {
+                          if (e.target.checked) setSelectedCategories(prev => [...prev, cat]);
+                          else setSelectedCategories(prev => prev.filter(c => c !== cat));
+                          // Also set legacy field for backward compatibility
+                          if (e.target.checked && !categoryLabel) setCategoryLabel(cat);
+                        }}
+                        className="rounded text-[#122822] focus:ring-[#122822] w-4 h-4"
+                      />
+                      <span className="text-sm font-medium">{cat}</span>
+                    </label>
+                  ))}
+                </div>
               </Field>
-              <Field label="Subcategory (Optional)">
-                <select value={categoryId} onChange={(e) => setCategoryId(e.target.value)} className="admin-input" disabled={!categoryLabel}>
-                  <option value="">Select subcategory...</option>
-                  {categories.filter((c: any) => c.parent_type === categoryLabel.toLowerCase()).map((c: any) => <option key={c.id} value={c.id}>{c.name}</option>)}
-                </select>
+              <Field label="Subcategories (Locations)">
+                <div className="flex flex-wrap gap-3 mt-2">
+                  {['Leh', 'Spiti', 'Meghalaya', 'Tawang', 'Vietnam', 'Thailand', 'Bali'].map(sub => (
+                    <label key={sub} className="flex items-center gap-2 bg-gray-50 px-3 py-2 rounded-lg border border-gray-200 cursor-pointer hover:bg-gray-100">
+                      <input 
+                        type="checkbox" 
+                        checked={selectedSubcategories.includes(sub)}
+                        onChange={(e) => {
+                          if (e.target.checked) setSelectedSubcategories(prev => [...prev, sub]);
+                          else setSelectedSubcategories(prev => prev.filter(s => s !== sub));
+                        }}
+                        className="rounded text-[#122822] focus:ring-[#122822] w-4 h-4"
+                      />
+                      <span className="text-sm font-medium">{sub}</span>
+                    </label>
+                  ))}
+                </div>
               </Field>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Field label="Badge"><input type="text" value={badge} onChange={(e) => setBadge(e.target.value)} placeholder="e.g. Bestseller" className="admin-input" /></Field>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
@@ -259,6 +315,7 @@ export default function EditTripPage({ params }: { params: Promise<{ id: string 
                     <input type="file" accept="image/*" className="hidden" onChange={(e) => e.target.files?.[0] && uploadImage(e.target.files[0], setCoverImage)} />
                   </label>
                 </div>
+                <ImagePreview url={coverImage} />
               </Field>
               <Field label="Hero Image URL">
                 <div className="flex gap-2">
@@ -268,6 +325,7 @@ export default function EditTripPage({ params }: { params: Promise<{ id: string 
                     <input type="file" accept="image/*" className="hidden" onChange={(e) => e.target.files?.[0] && uploadImage(e.target.files[0], setHeroImage)} />
                   </label>
                 </div>
+                <ImagePreview url={heroImage} />
               </Field>
             </div>
             <Field label="Highlights (one per line)"><textarea value={highlightsStr} onChange={(e) => setHighlightsStr(e.target.value)} rows={4} className="admin-input" /></Field>
@@ -315,6 +373,7 @@ export default function EditTripPage({ params }: { params: Promise<{ id: string 
                       }} />
                     </label>
                   </div>
+                  <ImagePreview url={day.image || ''} maxWidth={200} maxHeight={140} />
                 </Field>
               </div>
             ))}

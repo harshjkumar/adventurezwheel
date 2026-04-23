@@ -34,7 +34,7 @@ export function FeaturedTrips({ trips }: { trips: any[] }) {
   };
 
   return (
-    <section className="bg-white px-6 pb-24 pt-6 lg:px-12 lg:pb-32 lg:pt-8">
+    <section className="relative px-6 pb-24 pt-6 lg:px-12 lg:pb-32 lg:pt-8 bg-transparent">
       <div className="mx-auto max-w-[1440px]">
         {/* Header — matching "Where to Next?" style */}
         <div className="mb-14 flex flex-col gap-6 md:flex-row md:items-end md:justify-between lg:mb-16">
@@ -97,7 +97,7 @@ export function FeaturedTrips({ trips }: { trips: any[] }) {
                       className="object-cover transition-transform duration-700 ease-in-out group-hover:scale-105"
                       sizes="(max-width: 640px) 320px, (max-width: 1024px) 360px, 400px"
                     />
-                    <div className="absolute bottom-3 left-3 rounded-sm bg-white/95 px-2.5 py-1.5 text-[11px] font-bold uppercase tracking-widest text-[#122822] shadow-sm backdrop-blur-sm" style={{ fontFamily: '"vaccine", serif' }}>
+                    <div className="absolute bottom-3 left-3 rounded-sm bg-white/95 px-2.5 py-1.5 text-[11px] font-bold uppercase tracking-widest text-[#122822] shadow-sm backdrop-blur-sm" style={{ fontFamily: '"courier-new", sans-serif', fontWeight: 400, fontStyle: 'normal' }}>
                       {trip.badge || 'FEATURED'}
                     </div>
                   </div>
@@ -111,7 +111,7 @@ export function FeaturedTrips({ trips }: { trips: any[] }) {
                 </Link>
 
                 <div className="flex flex-1 flex-col px-6 pb-5 font-sans">
-                  <div className="mt-4 flex flex-wrap gap-2 text-[11px] uppercase tracking-widest text-[#122822]" style={{ fontFamily: '"vaccine", serif' }}>
+                  <div className="mt-4 flex flex-wrap gap-2 text-[11px] uppercase tracking-widest text-[#122822]" style={{ fontFamily: '"courier-new", sans-serif', fontWeight: 400, fontStyle: 'normal' }}>
                     <span className="rounded-sm border border-[#122822]/30 px-2.5 py-1 font-bold">{trip.badge}</span>
                     <span className="rounded-sm border border-[#122822]/30 px-2.5 py-1 font-bold">CIRCUIT</span>
                   </div>
@@ -124,7 +124,7 @@ export function FeaturedTrips({ trips }: { trips: any[] }) {
                         ))}
                       </ul>
                       <div className="relative flex flex-col justify-center pl-6 text-[#122822]">
-                        <div className="text-[12px] mb-1 text-[#122822]/80 font-bold uppercase tracking-widest" style={{ fontFamily: '"vaccine", serif' }}>From :</div>
+                        <div className="text-[12px] mb-1 text-[#122822]/80 font-bold uppercase tracking-widest" style={{ fontFamily: '"courier-new", sans-serif', fontWeight: 400, fontStyle: 'normal' }}>From :</div>
                         <div className="text-2xl font-bold tracking-tight" style={{ fontFamily: '"vaccine", serif' }}>
                           ₹{trip.price?.toLocaleString('en-IN') || 'N/A'}*
                         </div>
