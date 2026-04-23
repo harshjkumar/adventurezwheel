@@ -74,7 +74,7 @@ export function HeroSlider({ initialSlides }: { initialSlides: any[] }) {
       <div className="absolute inset-0 bg-black/20" />
 
       {/* Content */}
-      <div className="relative z-10 flex h-full flex-col justify-end px-5 pb-32 sm:px-12 sm:pb-48 lg:px-24">
+      <div className="relative z-10 flex h-full flex-col justify-center pt-32 px-5 pb-32 sm:px-12 sm:pb-48 lg:px-24">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
@@ -94,7 +94,7 @@ export function HeroSlider({ initialSlides }: { initialSlides: any[] }) {
             </div>
           </motion.div>
 
-          <h1 className="mt-4 text-[40px] font-normal leading-[1.05] tracking-tight text-white sm:text-6xl md:text-8xl lg:text-[110px] max-w-[90%] min-h-[120px] sm:min-h-[180px] lg:min-h-[300px]" style={{ fontFamily: '"vaccine", serif' }}>
+          <h1 className="mt-4 text-[40px] font-normal leading-[1.05] tracking-tight text-white sm:text-6xl md:text-8xl lg:text-[80px] max-w-[90%] min-h-[120px] sm:min-h-[180px] lg:min-h-[200px]" style={{ fontFamily: '"vaccine", serif' }}>
             <AnimatePresence mode="wait">
               <motion.span
                 key={currentTitleIdx}

@@ -124,6 +124,7 @@ export function Navbar() {
               </Link>
             </div>
 
+            <Link href="/about" className="transition-opacity hover:opacity-70">About Us</Link>
             <Link href="/contact" className="transition-opacity hover:opacity-70">Contact</Link>
           </nav>
 
@@ -246,7 +247,7 @@ export function Navbar() {
                           <span className="h-2 w-2 rounded-full bg-[#D4AF37]" /> Expert Local Captains
                         </li>
                         <li className="flex items-center gap-3 text-lg text-[#122822]/70" style={{ fontFamily: '"vaccine", serif' }}>
-                          <span className="h-2 w-2 rounded-full bg-[#D4AF37]" /> Boutique Accommodations
+                          <span className="h-2 w-2 rounded-full bg-[#D4AF37]" /> Handpicked Scenic
                         </li>
                         <li className="flex items-center gap-3 text-lg text-[#122822]/70" style={{ fontFamily: '"vaccine", serif' }}>
                           <span className="h-2 w-2 rounded-full bg-[#D4AF37]" /> Small Group Dynamics
@@ -255,7 +256,7 @@ export function Navbar() {
                     </div>
                     
                     <Link 
-                      href={isDomesticHovered ? '/trips?type=domestic' : '/trips?type=international'} 
+                      href={isDomesticHovered ? '/domestic-trips' : '/international-trips'} 
                       className="mt-8 flex items-center justify-center gap-3 bg-[#122822] text-white py-5 rounded-xl text-[12px] uppercase tracking-[0.2em] transition-all hover:bg-[#1d3d35]"
                       style={{ fontFamily: '"vaccine", serif', fontWeight: 600 }}
                     >
@@ -294,10 +295,10 @@ export function Navbar() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
                 <nav className="flex flex-col gap-4 lg:gap-6">
                   {[
-                    { label: 'Domestic Trips', href: '/trips?type=domestic' },
-                    { label: 'International Trips', href: '/trips?type=international' },
+                    { label: 'Domestic Trips', href: '/domestic-trips' },
+                    { label: 'International Trips', href: '/international-trips' },
                     { label: 'Blog and News', href: '/blogs' },
-                    { label: 'Our Story', href: '/about' },
+                    { label: 'About Us', href: '/about' },
                     { label: 'FAQ', href: '/faq' },
                     { label: 'Policies', href: '/policies' },
                     { label: 'Contact Us', href: '/contact' }

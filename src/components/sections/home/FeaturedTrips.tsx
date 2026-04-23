@@ -34,7 +34,7 @@ export function FeaturedTrips({ trips }: { trips: any[] }) {
   };
 
   return (
-    <section className="bg-white px-6 py-24 lg:px-12 lg:py-32">
+    <section className="bg-white px-6 pb-24 pt-6 lg:px-12 lg:pb-32 lg:pt-8">
       <div className="mx-auto max-w-[1440px]">
         {/* Header — matching "Where to Next?" style */}
         <div className="mb-14 flex flex-col gap-6 md:flex-row md:items-end md:justify-between lg:mb-16">
@@ -86,8 +86,8 @@ export function FeaturedTrips({ trips }: { trips: any[] }) {
               transition={{ delay: i * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               className="w-[320px] shrink-0 sm:w-[360px] lg:w-[400px]"
             >
-              <Link href={`/trips/${trip.slug}`} className="group block h-full">
-                <div className="flex h-full flex-col overflow-hidden rounded-md bg-[#eaeff2] transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+              <div className="group flex h-full flex-col overflow-hidden rounded-md bg-[#eaeff2] transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                <Link href={`/trips/${trip.slug}`} className="block">
                   {/* Image */}
                   <div className="relative aspect-[4/3] w-full overflow-hidden">
                     <Image
@@ -102,35 +102,45 @@ export function FeaturedTrips({ trips }: { trips: any[] }) {
                     </div>
                   </div>
 
-                  {/* Content */}
-                  <div className="flex flex-1 flex-col px-6 py-6 pb-5 font-sans">
+                  {/* Content Top */}
+                  <div className="px-6 pt-6 font-sans">
                     <h3 className="text-2xl font-normal tracking-tight leading-tight text-[#122822] transition-colors duration-300 group-hover:text-[#1d3d35]" style={{ fontFamily: '"vaccine", serif' }}>
                       {trip.title}
                     </h3>
+                  </div>
+                </Link>
 
-                    <div className="mt-4 flex flex-wrap gap-2 text-[11px] uppercase tracking-widest text-[#122822]" style={{ fontFamily: '"vaccine", serif' }}>
-                      <span className="rounded-sm border border-[#122822]/30 px-2.5 py-1 font-bold">{trip.badge}</span>
-                      <span className="rounded-sm border border-[#122822]/30 px-2.5 py-1 font-bold">CIRCUIT</span>
-                    </div>
+                <div className="flex flex-1 flex-col px-6 pb-5 font-sans">
+                  <div className="mt-4 flex flex-wrap gap-2 text-[11px] uppercase tracking-widest text-[#122822]" style={{ fontFamily: '"vaccine", serif' }}>
+                    <span className="rounded-sm border border-[#122822]/30 px-2.5 py-1 font-bold">{trip.badge}</span>
+                    <span className="rounded-sm border border-[#122822]/30 px-2.5 py-1 font-bold">CIRCUIT</span>
+                  </div>
 
-                    <div className="mt-auto pt-6">
-                      <div className="grid grid-cols-[1fr_auto] border-t-2 border-dotted border-[#122822]/20 pt-5">
-                        <ul className="space-y-1.5 text-sm font-normal text-[#122822] pr-4" style={{ fontFamily: '"vaccine", serif' }}>
-                          {trip.stats?.map((stat: string) => (
-                            <li key={stat} className="flex items-center gap-2.5"><span className="h-1.5 w-1.5 rounded-full bg-[#122822]"></span> {stat}</li>
-                          ))}
-                        </ul>
-                        <div className="relative flex flex-col justify-center pl-6 text-[#122822]">
-                          <div className="text-[12px] mb-1 text-[#122822]/80 font-bold uppercase tracking-widest" style={{ fontFamily: '"vaccine", serif' }}>From :</div>
-                          <div className="text-2xl font-bold tracking-tight" style={{ fontFamily: '"vaccine", serif' }}>
-                            ₹{trip.price?.toLocaleString('en-IN') || 'N/A'}*
-                          </div>
+                  <div className="mt-auto pt-6">
+                    <div className="grid grid-cols-[1fr_auto] border-t-2 border-dotted border-[#122822]/20 pt-5">
+                      <ul className="space-y-1.5 text-sm font-normal text-[#122822] pr-4" style={{ fontFamily: '"vaccine", serif' }}>
+                        {trip.stats?.map((stat: string) => (
+                          <li key={stat} className="flex items-center gap-2.5"><span className="h-1.5 w-1.5 rounded-full bg-[#122822]"></span> {stat}</li>
+                        ))}
+                      </ul>
+                      <div className="relative flex flex-col justify-center pl-6 text-[#122822]">
+                        <div className="text-[12px] mb-1 text-[#122822]/80 font-bold uppercase tracking-widest" style={{ fontFamily: '"vaccine", serif' }}>From :</div>
+                        <div className="text-2xl font-bold tracking-tight" style={{ fontFamily: '"vaccine", serif' }}>
+                          ₹{trip.price?.toLocaleString('en-IN') || 'N/A'}*
                         </div>
                       </div>
                     </div>
+                    
+                    <Link 
+                      href={`/trips/${trip.slug}`}
+                      className="mt-6 flex w-full items-center justify-center rounded-sm bg-[#122822] py-3.5 text-[12px] font-bold uppercase tracking-[0.2em] text-white transition-all hover:bg-[#1d3d35] active:scale-[0.98]"
+                      style={{ fontFamily: '"vaccine", serif' }}
+                    >
+                      Book Now
+                    </Link>
                   </div>
                 </div>
-              </Link>
+              </div>
             </motion.div>
           ))}
         </div>

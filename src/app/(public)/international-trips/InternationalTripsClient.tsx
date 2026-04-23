@@ -38,7 +38,7 @@ export default function InternationalTripsClient({ initialTrips }: { initialTrip
         >
           <Image src="/international_hero.png" alt="International trips" fill className="object-cover object-bottom" sizes="100vw" priority />
         </motion.div>
-        <div className="absolute inset-0 bg-gradient-to-t from-[#122822] via-[#122822]/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#122822] via-[#122822]/30 to-transparent" />
         
         <div className="relative z-10 w-full px-6 pb-20 lg:px-12 mx-auto max-w-[1440px]">
           <motion.div
@@ -51,12 +51,18 @@ export default function InternationalTripsClient({ initialTrips }: { initialTrip
               <span className="h-px w-16 bg-[#D4AF37]"></span>
               <p className="text-[0.7rem] font-bold uppercase tracking-[0.4em] text-[#D4AF37]">Wanderlust</p>
             </div>
-            <h1 className="font-[family-name:var(--font-heading)] text-5xl md:text-7xl lg:text-[6rem] leading-[1.1] text-white tracking-tight">
+            <h1 className="text-6xl md:text-8xl lg:text-[7rem] leading-none text-white tracking-tight" style={{ fontFamily: '"vaccine", serif' }}>
               International Trips.
             </h1>
             <p className="mt-8 max-w-xl text-lg text-white/80 font-light leading-relaxed">
               Discover completely tailored luxury and adventure travel connecting you with incredible destinations globally.
             </p>
+            <div className="mt-8 flex items-center gap-6 text-white/50 text-sm" style={{ fontFamily: '"vaccine", serif' }}>
+              <span className="flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-[#D4AF37]"></span>
+                {initialTrips.length} trips available
+              </span>
+            </div>
           </motion.div>
         </div>
       </section>
@@ -64,13 +70,16 @@ export default function InternationalTripsClient({ initialTrips }: { initialTrip
       {/* Filters + Grid */}
       <section className="relative z-20 -mt-8 px-6 pb-32 lg:px-12">
         <div className="mx-auto max-w-[1440px]">
-          {/* Search + Filters Box */}
+          {/* Search Box */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="rounded-lg bg-white p-6 shadow-[0_20px_40px_rgba(0,0,0,0.06)] ring-1 ring-slate-100 flex flex-col md:flex-row md:items-center justify-end gap-6"
+            className="rounded-lg bg-white p-6 shadow-[0_20px_40px_rgba(0,0,0,0.06)] ring-1 ring-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-6"
           >
+            <p className="text-[#122822]/60 text-sm" style={{ fontFamily: '"vaccine", serif' }}>
+              Showing {filteredTrips.length} of {initialTrips.length} international trips
+            </p>
             <div className="flex items-center gap-3">
               <div className="relative w-full md:w-80">
                 <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
@@ -91,14 +100,11 @@ export default function InternationalTripsClient({ initialTrips }: { initialTrip
                 key={trip.slug}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-10%" }}
-                transition={{ delay: i * 0.1, duration: 0.6, ease: "easeOut" }}
+                viewport={{ once: true, margin: '-10%' }}
+                transition={{ delay: i * 0.08, duration: 0.6, ease: 'easeOut' }}
               >
-                <Link
-                  href={`/trips/${trip.slug}`}
-                  className="group relative block h-full"
-                >
-                  <div className="flex h-full flex-col overflow-hidden rounded-md bg-[#eaeff2] transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                <div className="group flex h-full flex-col overflow-hidden rounded-md bg-[#eaeff2] transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                  <Link href={`/trips/${trip.slug}`} className="block">
                     {/* Image */}
                     <div className="relative aspect-[4/3] w-full overflow-hidden">
                       <Image
@@ -106,49 +112,58 @@ export default function InternationalTripsClient({ initialTrips }: { initialTrip
                         alt={trip.title}
                         fill
                         className="object-cover transition-transform duration-700 ease-in-out group-hover:scale-105"
-                        sizes="(max-width: 640px) 320px, (max-width: 1024px) 360px, 400px"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       />
                       <div className="absolute bottom-3 left-3 rounded-sm bg-white/95 px-2.5 py-1.5 text-[11px] font-bold uppercase tracking-widest text-[#122822] shadow-sm backdrop-blur-sm" style={{ fontFamily: '"vaccine", serif' }}>
                         {trip.badge || 'FEATURED'}
                       </div>
                     </div>
 
-                    {/* Content */}
-                    <div className="flex flex-1 flex-col px-6 py-6 pb-5 font-sans">
+                    {/* Title */}
+                    <div className="px-6 pt-6 font-sans">
                       <h3 className="text-2xl font-normal tracking-tight leading-tight text-[#122822] transition-colors duration-300 group-hover:text-[#1d3d35]" style={{ fontFamily: '"vaccine", serif' }}>
                         {trip.title}
                       </h3>
+                    </div>
+                  </Link>
 
-                      <div className="mt-4 flex flex-wrap gap-2 text-[11px] uppercase tracking-widest text-[#122822]" style={{ fontFamily: '"vaccine", serif' }}>
-                        <span className="rounded-sm border border-[#122822]/30 px-2.5 py-1 font-bold">{trip.category || 'GROUP TRIP'}</span>
-                        <span className="rounded-sm border border-[#122822]/30 px-2.5 py-1 font-bold">CIRCUIT</span>
-                      </div>
+                  <div className="flex flex-1 flex-col px-6 pb-5 font-sans">
+                    <div className="mt-4 flex flex-wrap gap-2 text-[11px] uppercase tracking-widest text-[#122822]" style={{ fontFamily: '"vaccine", serif' }}>
+                      <span className="rounded-sm border border-[#122822]/30 px-2.5 py-1 font-bold">{trip.category || 'GROUP TRIP'}</span>
+                    </div>
 
-                      <div className="mt-auto pt-6">
-                        <div className="grid grid-cols-[1fr_auto] border-t-2 border-dotted border-[#122822]/20 pt-5">
-                          <ul className="space-y-1.5 text-sm font-normal text-[#122822] pr-4" style={{ fontFamily: '"vaccine", serif' }}>
-                            <li className="flex items-center gap-2.5"><span className="h-1.5 w-1.5 rounded-full bg-[#122822]"></span> {trip.durationDays || 0} days</li>
-                            <li className="flex items-center gap-2.5"><span className="h-1.5 w-1.5 rounded-full bg-[#122822]"></span> {trip.durationNights || 0} nights</li>
-                            <li className="flex items-center gap-2.5"><span className="h-1.5 w-1.5 rounded-full bg-[#122822]"></span> {Math.max(2, (trip.durationDays || 0) * 2)} meals</li>
-                          </ul>
-                          <div className="relative flex flex-col justify-center pl-6 text-[#122822]">
-                            <div className="text-[12px] mb-1 text-[#122822]/80 font-bold uppercase tracking-widest" style={{ fontFamily: '"vaccine", serif' }}>From :</div>
-                            <div className="text-2xl font-bold tracking-tight" style={{ fontFamily: '"vaccine", serif' }}>
-                              ₹{trip.pricing.length > 0 ? Math.min(...trip.pricing.map(p => p.price)).toLocaleString('en-IN') : 'N/A'}*
-                            </div>
+                    <div className="mt-auto pt-6">
+                      <div className="grid grid-cols-[1fr_auto] border-t-2 border-dotted border-[#122822]/20 pt-5">
+                        <ul className="space-y-1.5 text-sm font-normal text-[#122822] pr-4" style={{ fontFamily: '"vaccine", serif' }}>
+                          <li className="flex items-center gap-2.5"><span className="h-1.5 w-1.5 rounded-full bg-[#122822]"></span> {trip.durationDays || 0} days</li>
+                          <li className="flex items-center gap-2.5"><span className="h-1.5 w-1.5 rounded-full bg-[#122822]"></span> {trip.durationNights || 0} nights</li>
+                          <li className="flex items-center gap-2.5"><span className="h-1.5 w-1.5 rounded-full bg-[#122822]"></span> {Math.max(2, (trip.durationDays || 0) * 2)} meals</li>
+                        </ul>
+                        <div className="relative flex flex-col justify-center pl-6 text-[#122822]">
+                          <div className="text-[12px] mb-1 text-[#122822]/80 font-bold uppercase tracking-widest" style={{ fontFamily: '"vaccine", serif' }}>From :</div>
+                          <div className="text-2xl font-bold tracking-tight" style={{ fontFamily: '"vaccine", serif' }}>
+                            ₹{trip.pricing.length > 0 ? Math.min(...trip.pricing.map(p => p.price)).toLocaleString('en-IN') : 'N/A'}*
                           </div>
                         </div>
                       </div>
+
+                      <Link
+                        href={`/trips/${trip.slug}`}
+                        className="mt-6 flex w-full items-center justify-center rounded-sm bg-[#122822] py-3.5 text-[12px] font-bold uppercase tracking-[0.2em] text-white transition-all hover:bg-[#1d3d35] active:scale-[0.98]"
+                        style={{ fontFamily: '"vaccine", serif' }}
+                      >
+                        Book Now
+                      </Link>
                     </div>
                   </div>
-                </Link>
+                </div>
               </motion.div>
             ))}
           </div>
 
           {filteredTrips.length === 0 && (
             <div className="py-32 text-center">
-              <p className="font-[family-name:var(--font-heading)] text-2xl text-[#122822]/50">No destinations found matching your criteria.</p>
+              <p className="text-2xl text-[#122822]/50" style={{ fontFamily: '"vaccine", serif' }}>No destinations found matching your criteria.</p>
             </div>
           )}
         </div>

@@ -20,7 +20,7 @@ export async function GET() {
       .map(c => ({
         name: c.name,
         slug: c.slug,
-        href: `/trips?category=${c.slug}`,
+        href: `/domestic-trips/${c.slug}`,
         image: c.cover_image || 'https://images.unsplash.com/photo-1544161515-436cefd54c3e?q=80&w=2070&auto=format&fit=crop'
       }));
 
@@ -30,7 +30,7 @@ export async function GET() {
       .map(c => ({
         name: c.name,
         slug: c.slug,
-        href: `/trips?category=${c.slug}`,
+        href: `/international-trips/${c.slug}`,
         image: c.cover_image || 'https://images.unsplash.com/photo-1528181304800-2f140819898f?q=80&w=2070&auto=format&fit=crop'
       }));
 

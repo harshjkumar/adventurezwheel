@@ -60,6 +60,40 @@ export async function getTripsByCategory(categorySlug: string) {
   return data || [];
 }
 
+export async function getTripsByParentType(parentType: 'domestic' | 'international') {
+  const supabase = createServerSupabase();
+  // Get all category IDs for this parent type
+  const { data: cats } = await supabase
+    .from('trip_categories')
+    .select('id')
+    .eq('parent_type', parentType);
+
+  if (!cats || cats.length === 0) return [];
+  const catIds = cats.map(c => c.id);
+
+  const { data, error } = await supabase
+    .from('trips')
+    .select('*, trip_pricing(*), trip_categories(*)')
+    .in('category_id', catIds)
+    .eq('is_active', true)
+    .order('created_at', { ascending: false });
+
+  if (error) { console.error('getTripsByParentType error:', error); return []; }
+  return data || [];
+}
+
+export async function getCategoryBySlug(slug: string) {
+  const supabase = createServerSupabase();
+  const { data, error } = await supabase
+    .from('trip_categories')
+    .select('*')
+    .eq('slug', slug)
+    .single();
+
+  if (error) { console.error('getCategoryBySlug error:', error); return null; }
+  return data;
+}
+
 // ─── Categories ──────────────────────────────────────────────
 
 export async function getCategories() {

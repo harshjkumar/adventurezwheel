@@ -16,7 +16,7 @@ export function Footer() {
   return (
     <footer>
       {/* Footer links — NO "Ready to explore?" CTA */}
-      <div className="bg-[#25361d] px-6 py-16 lg:px-12">
+      <div className="bg-[#122822] px-6 py-16 lg:px-12">
         <div className="mx-auto max-w-[1440px]">
           <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-5">
             {/* Brand */}
@@ -36,7 +36,7 @@ export function Footer() {
               <div className="mt-6 space-y-3">
                 <div className="flex items-center gap-3 text-sm text-white/50">
                   <Phone className="h-4 w-4 text-white/70" />
-                  <span>+91 99999 99999</span>
+                  <span>+91 70157 60563</span>
                 </div>
                 <div className="flex items-center gap-3 text-sm text-white/50">
                   <Mail className="h-4 w-4 text-white/70" />

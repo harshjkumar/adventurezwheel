@@ -11,7 +11,7 @@ export function CTABanner() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const msg = `Hi Adventures Wheel! I'm ${form.name}. ${form.trip ? `Interested in: ${form.trip}. ` : ''}${form.message || 'I want to know more about your trips.'}`;
-    const url = `https://wa.me/919999999999?text=${encodeURIComponent(msg)}`;
+    const url = `https://wa.me/917015760563?text=${encodeURIComponent(msg)}`;
     window.open(url, '_blank');
   };
 
