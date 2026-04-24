@@ -18,7 +18,7 @@ export function AboutStory() {
             className="relative h-[50vh] w-full overflow-hidden rounded-[2rem] shadow-2xl lg:h-full"
           >
             <Image
-              src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop"
+              src="/c8adc763-a691-488d-ab1c-a2fdccda6380.jpg"
               alt="Adventures Wheel Journey"
               fill
               className="object-cover transition-transform duration-[10s] hover:scale-110"
@@ -55,7 +55,7 @@ export function AboutStory() {
               className="text-4xl sm:text-5xl lg:text-[56px] font-normal leading-[1.15] text-[#122822] tracking-tight mb-8"
               style={{ fontFamily: '"vaccine", serif' }}
             >
-              Launched in <span className="font-bold text-[#122822]">2021</span>, we set out to make the world's most breathtaking landscapes accessible.
+              We didn't just want to travel; we wanted to <span className="italic font-bold">feel</span> the world.
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 30 }}
@@ -64,7 +64,7 @@ export function AboutStory() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-xl sm:text-2xl text-slate-500 font-light leading-relaxed max-w-2xl"
             >
-              We believe travel isn't just about seeing new places, but about the profound transformations and memories that happen along the way. Every journey is crafted to leave an indelible mark on your soul.
+              Adventures Wheel was born from a desire to escape the ordinary. We believe that true travel is a conversation between the soul and the horizon. Since 2021, we've been crafting expeditions that prioritize depth over distance and connection over sightseeing.
             </motion.p>
           </div>
 

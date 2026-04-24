@@ -99,25 +99,29 @@ export default function TripDetailClient({ trip }: { trip: TripData }) {
                </h1>
             </div>
 
-            {/* Quick Links */}
-            <div className="flex flex-wrap justify-center gap-3 mt-8 px-4 relative z-20">
-               {['Overview', 'Itinerary', 'Pricing', 'Book Now'].map((item, i) => (
-                  <button 
-                    key={i} 
-                    onClick={(e) => {
-                       e.preventDefault();
-                       const id = item === 'Book Now' ? 'booking' : item.toLowerCase();
-                       const el = document.getElementById(id);
-                       if (el) {
-                         const y = el.getBoundingClientRect().top + window.scrollY - 100;
-                         window.scrollTo({ top: y, behavior: 'smooth' });
-                       }
-                    }}
-                    className="px-5 py-2.5 sm:px-6 sm:py-3 text-[11px] sm:text-xs font-bold uppercase tracking-[0.15em] bg-white/80 backdrop-blur-sm text-[#122822] border border-[#122822]/10 rounded-sm hover:bg-[#122822] hover:text-[#faf7f2] transition-colors shadow-sm"
-                  >
-                    {item}
-                  </button>
-               ))}
+            {/* Quick Links - Sticky on scroll */}
+            <div className="sticky top-[64px] sm:top-[72px] md:top-[80px] z-[40] w-full py-4 bg-[#faf7f2]/90 backdrop-blur-md border-y border-[#122822]/5 shadow-sm mt-8">
+               <div className="flex flex-wrap justify-center gap-2 sm:gap-3 px-4">
+                  {['Overview', 'Itinerary', 'Pricing', 'Book Now'].map((item, i) => (
+                     <button 
+                       key={i} 
+                       onClick={(e) => {
+                          e.preventDefault();
+                          const id = item === 'Book Now' ? 'booking' : item.toLowerCase();
+                          const el = document.getElementById(id);
+                          if (el) {
+                            // Adjusting for navbar height + sticky buttons height
+                            const offset = window.innerWidth < 768 ? 140 : 160;
+                            const y = el.getBoundingClientRect().top + window.scrollY - offset;
+                            window.scrollTo({ top: y, behavior: 'smooth' });
+                          }
+                       }}
+                       className="px-4 py-2 sm:px-6 sm:py-3 text-[10px] sm:text-xs font-bold uppercase tracking-[0.15em] bg-white text-[#122822] border border-[#122822]/10 rounded-sm hover:bg-[#122822] hover:text-[#faf7f2] transition-all shadow-sm active:scale-95"
+                     >
+                       {item}
+                     </button>
+                  ))}
+               </div>
             </div>
           </div>
         </div>
