@@ -18,8 +18,10 @@ export function HeroSlider({ initialSlides }: { initialSlides: any[] }) {
   const videoSrc = videoSlide?.image || 'https://pub-d188086126f842e88f76855b16e973b0.r2.dev/wheels1%20(1).mp4';
 
   const titles = [
-    slide.title || "Built by a destination expert who has traveled, ridden, and led journeys across India and beyond."
-  ].filter(t => t);
+    "Built by a destination expert who has traveled, ridden, and led journeys across India and beyond.",
+    "From roads we’ve ridden to stays we’ve lived — this is travel done right.",
+    "Planned by pros. Led by experience. Felt for life."
+  ];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -43,6 +45,7 @@ export function HeroSlider({ initialSlides }: { initialSlides: any[] }) {
         muted
         loop
         playsInline
+        preload="auto"
         onLoadedData={() => setVideoLoaded(true)}
         onCanPlay={() => setVideoLoaded(true)}
         className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 z-0 ${videoLoaded ? 'opacity-100' : 'opacity-0'
@@ -112,7 +115,7 @@ export function HeroSlider({ initialSlides }: { initialSlides: any[] }) {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.7 }}
-          className="absolute bottom-6 left-5 sm:bottom-20 sm:left-12 lg:left-24 w-[calc(100%-40px)] sm:w-[90%] max-w-3xl"
+          className="absolute bottom-12 left-5 sm:bottom-28 sm:left-12 lg:left-24 w-[calc(100%-40px)] sm:w-[90%] max-w-3xl"
         >
           <form
             onSubmit={(e) => {

@@ -6,26 +6,7 @@ import { Phone, MessageCircle } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 
 export function CTABanner() {
-  const [form, setForm] = useState({ name: '', phone: '', trip: '', message: '' });
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  const handleMetadataLoaded = () => {
-    if (videoRef.current) {
-      videoRef.current.playbackRate = 1.25;
-      // Skip the first half of the video
-      if (videoRef.current.duration) {
-        videoRef.current.currentTime = videoRef.current.duration / 2;
-      }
-    }
-  };
-
-  const handleVideoEnded = () => {
-    if (videoRef.current && videoRef.current.duration) {
-      // Loop back to the 50% mark instead of the beginning
-      videoRef.current.currentTime = videoRef.current.duration / 2;
-      videoRef.current.play();
-    }
-  };
+    const [form, setForm] = useState({ name: '', phone: '', trip: '', message: '' });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -96,13 +77,12 @@ export function CTABanner() {
           {/* Video side */}
           <div className="relative min-h-[28rem] lg:min-h-[34rem] overflow-hidden flex items-center justify-center bg-[#0a1512]">
             <video
-              ref={videoRef}
-              onLoadedMetadata={handleMetadataLoaded}
-              onEnded={handleVideoEnded}
-              src="/IMG_4061.MOV"
+              src="https://pub-d188086126f842e88f76855b16e973b0.r2.dev/IMG_4061%20-%20Trim.mp4"
               autoPlay
               muted
+              loop
               playsInline
+              preload="auto"
               className="absolute w-auto h-[135%] max-w-none object-contain -rotate-90"
             />
             

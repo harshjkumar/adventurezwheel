@@ -92,8 +92,8 @@ export function Navbar() {
         <div className="mx-auto flex max-w-[1440px] items-center justify-between px-6 lg:px-12">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <div className={`relative transition-all duration-500 ${isScrolled || !isHome ? 'h-12 w-48' : 'h-20 w-64'}`}>
-              <Image src="/logo/Artboard 1@3x-8.png" alt="Adventures Wheel Logo" fill className="object-contain" priority />
+            <div className={`relative transition-all duration-500 ${isScrolled || !isHome ? 'h-10 w-36 sm:h-12 sm:w-48' : 'h-12 w-40 sm:h-20 sm:w-64'}`}>
+              <Image src="/logo/Artboard 1@3x-8.png" alt="Adventures Wheel Logo" fill className="object-contain object-left lg:object-center" priority />
             </div>
           </Link>
 
