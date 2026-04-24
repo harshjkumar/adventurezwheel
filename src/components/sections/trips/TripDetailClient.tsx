@@ -4,7 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Clock, Mountain, Map, Info, Star, Phone, Instagram, Mail } from 'lucide-react';
+import { Clock, Mountain, Map, Info, Star, Phone, Instagram, Mail, ChevronDown } from 'lucide-react';
 import type { TripData } from '@/data/trips';
 import { TripItinerary } from './TripItinerary';
 import { TripPricing } from './TripPricing';
@@ -14,6 +14,8 @@ import { TripGallery } from './TripGallery';
 export default function TripDetailClient({ trip }: { trip: TripData }) {
   const heroImg = trip.heroImage || '/1b5b2c1e-434e-4ee7-8559-453e6fb84421.JPG';
   const coverImg = trip.coverImage || heroImg;
+  const [showFullOverview, setShowFullOverview] = React.useState(false);
+
   return (
     <div className="relative min-h-screen bg-[#faf7f2]">
       <div className="relative z-10">
@@ -82,9 +84,9 @@ export default function TripDetailClient({ trip }: { trip: TripData }) {
 
                 {/* Price */}
                 <div className="w-full sm:w-1/2 flex flex-col justify-center sm:items-start sm:pl-8">
-                  <span className="text-[#122822]/70 text-[12px] font-bold uppercase tracking-widest mb-1" style={{ fontFamily: '"vaccine", serif' }}>From:</span>
+                  <span className="text-[#122822]/70 text-[12px] font-bold uppercase tracking-widest mb-1" style={{ fontFamily: '"vaccine", serif' }}>Starting from:</span>
                   <div className="text-4xl md:text-5xl font-bold text-[#122822]" style={{ fontFamily: '"vaccine", serif' }}>
-                    ₹{trip.pricing[0]?.price.toLocaleString()}*
+                    ₹{(trip.pricing.length > 0 ? Math.min(...trip.pricing.map(p => p.price)) : 0).toLocaleString()}*
                   </div>
                 </div>
               </div>
@@ -95,6 +97,27 @@ export default function TripDetailClient({ trip }: { trip: TripData }) {
                <h1 className="text-5xl md:text-7xl lg:text-8xl font-normal text-[#122822] drop-shadow-sm leading-[1.1]" style={{ fontFamily: '"vaccine", serif' }}>
                  {trip.title}
                </h1>
+            </div>
+
+            {/* Quick Links */}
+            <div className="flex flex-wrap justify-center gap-3 mt-8 px-4 relative z-20">
+               {['Overview', 'Itinerary', 'Pricing', 'Book Now'].map((item, i) => (
+                  <button 
+                    key={i} 
+                    onClick={(e) => {
+                       e.preventDefault();
+                       const id = item === 'Book Now' ? 'booking' : item.toLowerCase();
+                       const el = document.getElementById(id);
+                       if (el) {
+                         const y = el.getBoundingClientRect().top + window.scrollY - 100;
+                         window.scrollTo({ top: y, behavior: 'smooth' });
+                       }
+                    }}
+                    className="px-5 py-2.5 sm:px-6 sm:py-3 text-[11px] sm:text-xs font-bold uppercase tracking-[0.15em] bg-white/80 backdrop-blur-sm text-[#122822] border border-[#122822]/10 rounded-sm hover:bg-[#122822] hover:text-[#faf7f2] transition-colors shadow-sm"
+                  >
+                    {item}
+                  </button>
+               ))}
             </div>
           </div>
         </div>
@@ -148,9 +171,18 @@ export default function TripDetailClient({ trip }: { trip: TripData }) {
                   <Info className="text-[#122822]" size={32} strokeWidth={1.5} />
                   Overview
                 </h2>
-                <p className="whitespace-pre-line text-xl leading-relaxed text-[#122822]/70 font-medium" style={{ fontFamily: '"vaccine", serif' }}>
-                  {trip.description}
-                </p>
+                <div className="relative">
+                  <p className={`whitespace-pre-line text-xl leading-relaxed text-[#122822]/70 font-medium transition-all duration-300 ${!showFullOverview ? 'line-clamp-2' : ''}`} style={{ fontFamily: '"vaccine", serif' }}>
+                    {trip.description}
+                  </p>
+                  <button 
+                    onClick={() => setShowFullOverview(!showFullOverview)} 
+                    className="mt-6 flex w-full items-center justify-between gap-4 rounded-2xl border border-[#122822]/10 bg-white px-6 py-4 text-sm font-semibold text-[#122822] shadow-sm transition-all hover:bg-[#faf7f2] active:scale-95"
+                  >
+                    <span>{showFullOverview ? 'Read Less' : 'Read More'}</span>
+                    <ChevronDown size={20} className={`text-[#122822]/40 transition-transform duration-300 ${showFullOverview ? 'rotate-180' : ''}`} />
+                  </button>
+                </div>
 
                 {/* Highlights */}
                 <div className="mt-8 rounded-sm border border-[#122822]/10 bg-[#122822]/5 p-8">

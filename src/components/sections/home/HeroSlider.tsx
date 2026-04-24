@@ -19,8 +19,7 @@ export function HeroSlider({ initialSlides }: { initialSlides: any[] }) {
 
   const titles = [
     "Built by a destination expert who has traveled, ridden, and led journeys across India and beyond.",
-    "From roads we’ve ridden to stays we’ve lived — this is travel done right.",
-    "Planned by pros. Led by experience. Felt for life."
+    "From roads we’ve ridden to stays we’ve lived — this is travel done right."
   ];
 
   useEffect(() => {

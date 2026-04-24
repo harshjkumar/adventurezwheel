@@ -48,7 +48,7 @@ export function TripBookingWidget({ trip }: { trip: TripData }) {
 
       {/* Price Section */}
       <div className="mb-5 rounded-2xl bg-[#faf7f2] p-4 border border-[#122822]/5">
-        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#122822]/40">Best Available Rate</span>
+        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#122822]/40">Starting from</span>
         <div className="mt-1 flex items-baseline gap-1.5">
           <span className="font-[family-name:var(--font-heading)] text-4xl font-semibold text-[#122822]">
             ₹{displayPrice.toLocaleString('en-IN')}
