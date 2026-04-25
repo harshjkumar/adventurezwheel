@@ -258,7 +258,7 @@ export function Navbar() {
                           <span className="h-2 w-2 rounded-full bg-[#D4AF37]" /> Expert Local Captains
                         </li>
                         <li className="flex items-center gap-3 text-base text-[#122822]/70" style={{ fontFamily: '"vaccine", serif' }}>
-                          <span className="h-2 w-2 rounded-full bg-[#D4AF37]" /> Handpicked Scenic Routes
+                          <span className="h-2 w-2 rounded-full bg-[#D4AF37]" /> Handpicked Scenic Stays
                         </li>
                         <li className="flex items-center gap-3 text-base text-[#122822]/70" style={{ fontFamily: '"vaccine", serif' }}>
                           <span className="h-2 w-2 rounded-full bg-[#D4AF37]" /> Small Group Dynamics

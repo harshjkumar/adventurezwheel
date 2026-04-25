@@ -16,6 +16,8 @@ const localImages = [
   '/de32a879-c278-42e1-9784-3e37d6d80664.JPG',   // 9 - snow peaks
 ] as const;
 
+const tawangWhereToNextImage = '/IMG_2581.JPG';
+
 // ── Meghalaya images ──────────────────────────────────────────
 export const meghalayaImages = [
   '/meghalaya/IMG_6757_converted.webp',
@@ -84,7 +86,7 @@ export const destinationCards = [
   { title: 'Leh Ladakh', slug: 'leh-ladakh', image: localImages[0], description: 'Where the earth meets the sky on the highest roads.' },
   { title: 'Spiti Valley', slug: 'spiti', image: spitiImages[2], description: 'The middle land — cold deserts and ancient monasteries.' },
   { title: 'Meghalaya', slug: 'meghalaya', image: meghalayaImages[0], description: 'Living root bridges and the abode of clouds.' },
-  { title: 'Tawang', slug: 'tawang', image: localImages[5], description: 'One of the last Shangri-Las of the Himalayas.' },
+  { title: 'Tawang', slug: 'tawang', image: tawangWhereToNextImage, description: 'One of the last Shangri-Las of the Himalayas.' },
 ] as const;
 
 export const featuredTrips = [

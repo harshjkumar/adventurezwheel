@@ -25,7 +25,7 @@ export function HeroSlider({ initialSlides }: { initialSlides: any[] }) {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTitleIdx((prev) => (prev + 1) % titles.length);
-    }, 5000);
+    }, 3000);
     return () => clearInterval(interval);
   }, [titles.length]);
 
@@ -85,12 +85,13 @@ export function HeroSlider({ initialSlides }: { initialSlides: any[] }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className="inline-flex items-center gap-3 backdrop-blur-sm bg-white/10 px-4 py-1.5 rounded-full border border-white/20">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#122822] animate-pulse" />
-              <p className="text-[12px] font-medium uppercase tracking-[0.4em] text-white" style={{ fontFamily: '"vaccine", serif' }}>
-                {slide.subtitle}
-              </p>
-            </div>
+            {slide.subtitle ? (
+              <div className="inline-flex items-center backdrop-blur-sm bg-white/10 px-4 py-1.5 rounded-full border border-white/20">
+                <p className="text-[12px] font-medium uppercase tracking-[0.4em] text-white" style={{ fontFamily: '"vaccine", serif' }}>
+                  {slide.subtitle}
+                </p>
+              </div>
+            ) : null}
           </motion.div>
 
           <h1 className="mt-4 text-[24px] font-normal leading-[1.2] tracking-tight text-white sm:text-4xl md:text-5xl lg:text-[44px] max-w-[90%] min-h-[80px] sm:min-h-[120px] lg:min-h-[140px]" style={{ fontFamily: '"vaccine", serif' }}>

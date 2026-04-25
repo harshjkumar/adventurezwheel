@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Phone, MessageCircle, Send, CheckCircle2 } from 'lucide-react';
+import { Send, CheckCircle2 } from 'lucide-react';
 import { useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 
@@ -30,11 +30,6 @@ export function CTABanner() {
 
       if (dbError) throw dbError;
 
-      // 2. Open WhatsApp for immediate connection
-      const msg = `Hi Adventures Wheel! I'm ${form.name}. ${form.trip ? `Interested in: ${form.trip}. ` : ''}${form.message || 'I want to know more about your trips.'}`;
-      const url = `https://wa.me/917015760563?text=${encodeURIComponent(msg)}`;
-      window.open(url, '_blank');
-      
       setSubmitted(true);
       setForm({ name: '', email: '', phone: '', trip: '', message: '' });
     } catch (err) {
@@ -65,7 +60,7 @@ export function CTABanner() {
                       Enquiry Received!
                     </h2>
                     <p className="text-[#122822]/60 text-lg mb-8" style={{ fontFamily: '"vaccine", serif' }}>
-                      We've received your request and opened a WhatsApp chat for you. Our team will get back to you shortly.
+                      Your enquiry has been received. Our travel experts will review your request and reach out to you shortly.
                     </p>
                     <button 
                       onClick={() => setSubmitted(false)}
@@ -141,8 +136,8 @@ export function CTABanner() {
                           <span>Processing...</span>
                         ) : (
                           <>
-                            <MessageCircle className="h-5 w-5" />
-                            Connect via WhatsApp
+                            <Send className="h-5 w-5 ml-1" />
+                            Submit Enquiry
                           </>
                         )}
                       </button>
@@ -183,7 +178,7 @@ export function CTABanner() {
             <div className="absolute bottom-12 left-12 right-12 z-20 hidden lg:block">
                <p className="text-white/70 text-xs tracking-[0.4em] uppercase mb-3 font-bold">Navigator by Soul</p>
                <h3 className="text-white text-4xl font-light leading-tight max-w-md" style={{ fontFamily: '"vaccine", serif' }}>
-                 Crafting <span className="font-bold italic text-[#D4AF37]">authentic</span> stories across the globe.
+                 Curated <span className="font-bold italic text-[#D4AF37]">Aesthetic</span> Route.
                </h3>
                <div className="mt-8 flex gap-8 items-center">
                  <div className="flex -space-x-3">

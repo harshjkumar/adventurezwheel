@@ -15,8 +15,18 @@ const socialIcons: Record<string, React.ElementType> = {
 export function Footer() {
   return (
     <footer>
+      {/* Banner before footer */}
+      <div className="w-full bg-[#122822] pt-16 pb-8 text-center px-4">
+        <h2 
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-[64px] font-normal tracking-tight bg-gradient-to-r from-white to-[#D4AF37] bg-clip-text text-transparent" 
+          style={{ fontFamily: '"vaccine", serif' }}
+        >
+          Take Memories, Leave Respect.
+        </h2>
+      </div>
+
       {/* Footer links — NO "Ready to explore?" CTA */}
-      <div className="bg-[#122822] px-6 py-16 lg:px-12">
+      <div className="bg-[#122822] px-6 py-8 lg:px-12">
         <div className="mx-auto max-w-[1440px]">
           <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-5">
             {/* Brand */}

@@ -55,7 +55,7 @@ export function AboutStory() {
               className="text-4xl sm:text-5xl lg:text-[56px] font-normal leading-[1.15] text-[#122822] tracking-tight mb-8"
               style={{ fontFamily: '"vaccine", serif' }}
             >
-              We didn't just want to travel; we wanted to <span className="italic font-bold">feel</span> the world.
+              Life is short, and waiting is <span className="italic font-bold">overrated</span>.
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 30 }}
@@ -64,7 +64,7 @@ export function AboutStory() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-xl sm:text-2xl text-slate-500 font-light leading-relaxed max-w-2xl"
             >
-              Adventures Wheel was born from a desire to escape the ordinary. We believe that true travel is a conversation between the soul and the horizon. Since 2021, we've been crafting expeditions that prioritize depth over distance and connection over sightseeing.
+              Started in 2021 after the world hit pause, Adventures Wheel was built to solve one real problem: finding the right people to explore with. We turn strangers into a crew, choose offbeat roads over crowded checklists, and design every journey from lived experience, not brochures.
             </motion.p>
           </div>
 

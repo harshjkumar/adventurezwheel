@@ -1,0 +1,23 @@
+[
+  {
+    "id": "482d1e11-6bf1-4a4d-a59a-29de5f1a062b",
+    "key": "contact",
+    "value": {
+      "email": "explore@adventureswheel.com",
+      "phone": "+91-7015760563",
+      "address": ""
+    },
+    "updated_at": "2026-04-21T17:36:41.11123+00:00"
+  },
+  {
+    "id": "1eacf864-1610-4c57-8656-f79f4699f8d7",
+    "key": "social",
+    "value": {
+      "youtube": "",
+      "facebook": "AdventuresWheel",
+      "whatsapp": "+917015760563",
+      "instagram": "adventureswheel"
+    },
+    "updated_at": "2026-04-21T17:36:41.11123+00:00"
+  }
+]

@@ -60,12 +60,20 @@ export default function AboutClient({ heroSlide }: { heroSlide?: any }) {
               Born from wanderlust
             </h2>
             <p className="mt-6 text-lg leading-8 text-slate-600">
-              Adventures Wheel was founded with a simple mission: to make the most breathtaking destinations accessible to every traveler.
-              From the barren beauty of Ladakh and Spiti to the lush valleys of Meghalaya and majestic international getaways, we curate journeys that go beyond sightseeing — they create stories.
+              Started by Amit Rao in 2021, right after the world hit pause, this company was built on one honest thought: life is short, and waiting is overrated.
+              Post-COVID, everyone wanted to travel, and Amit was no different. Like many, he struggled to find the right people to explore with.
             </p>
             <p className="mt-4 text-lg leading-8 text-slate-600">
-              Our team of seasoned travelers and local guides work together to craft experiences that blend adventure,
-              comfort, and cultural immersion. We believe travel should be transformative, not transactional. Every single itinerary is personally verified by our core team to ensure you get nothing short of an extraordinary experience.
+              Being a travel enthusiast at heart, he chose to leave his stable corporate career, chose the road over routine, and started building something that solved this very problem: a travel community where strangers become friends and every trip feels like it was meant to happen.
+              Amit is not just a founder. He is a rider, explorer, and someone who has personally chased roads across mountains, coastlines, and cultures.
+            </p>
+            <p className="mt-4 text-lg leading-8 text-slate-600">
+              Every trip you see here is not researched, it is lived. Routes are handpicked, rides are tested, and experiences are built from real journeys, not brochures.
+              We focus on offbeat paths, scenic drives, and meaningful experiences, less traffic and more stories.
+            </p>
+            <p className="mt-4 text-lg leading-8 text-slate-600">
+              This is not just about trips. It is about finding your people, turning strangers into a crew, and journeys into shared stories you carry back home.
+              At the same time, we believe in traveling responsibly: supporting local communities, promoting sustainable practices, and contributing to cleaner villages, sacred sites, and mountain landscapes wherever we go.
             </p>
             
             <div className="mt-8 grid grid-cols-2 gap-6">
