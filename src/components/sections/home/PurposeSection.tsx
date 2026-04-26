@@ -73,35 +73,49 @@ export function PurposeSection() {
           </motion.div>
         </div>
 
-        {/* 5-Column Grid */}
+        {/* 5-Column Square Grid */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
           {purposeItems.map((item, idx) => (
             <motion.div
               key={item.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
-              className="group relative flex flex-col overflow-hidden rounded-[2rem] bg-white border border-slate-100 shadow-sm transition-all hover:shadow-xl"
+              className="group relative flex aspect-square flex-col overflow-hidden rounded-[2.5rem] bg-white border border-slate-100 shadow-sm transition-all hover:shadow-2xl hover:-translate-y-2"
             >
-              <div className="flex flex-col p-8 pb-4 h-full">
-                <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-[#122822] text-white transition-transform group-hover:scale-110">
-                  <item.icon size={24} />
+              {/* Top Half: Content */}
+              <div className="flex h-1/2 flex-col items-center justify-center p-6 text-center">
+                <div className="mb-3 rounded-full bg-slate-50 p-3 text-[#122822] transition-colors group-hover:bg-[#122822] group-hover:text-white">
+                  <item.icon size={24} strokeWidth={1.5} />
                 </div>
-                <h3 className="mb-4 font-[family-name:var(--font-heading)] text-2xl text-[#122822]">
+                <h3 className="font-[family-name:var(--font-heading)] text-xl leading-tight text-[#122822]">
                   {item.title}
                 </h3>
-                <p className="mb-8 text-sm leading-relaxed text-slate-500 font-light flex-grow">
-                  {item.description}
-                </p>
+                <div className="mt-2 h-0 opacity-0 transition-all duration-300 group-hover:h-auto group-hover:opacity-100">
+                  <p className="text-[10px] uppercase tracking-widest text-[#D4AF37] font-bold">Explore More</p>
+                </div>
               </div>
-              <div className="relative aspect-[4/5] w-full overflow-hidden">
+
+              {/* Bottom Half: Image */}
+              <div className="relative h-1/2 w-full overflow-hidden">
                 <Image
                   src={item.image}
                   alt={item.title}
                   fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="object-cover transition-transform duration-[2s] group-hover:scale-125"
                 />
+                {/* Subtle overlay */}
+                <div className="absolute inset-0 bg-[#122822]/10 transition-opacity group-hover:opacity-0" />
+              </div>
+
+              {/* Tooltip-like description on hover (optional, but keep it clean) */}
+              <div className="absolute inset-0 z-20 flex translate-y-full flex-col items-center justify-center bg-[#122822]/95 p-6 text-center transition-transform duration-500 group-hover:translate-y-0">
+                <item.icon size={32} className="mb-4 text-[#D4AF37]" />
+                <h3 className="mb-3 font-[family-name:var(--font-heading)] text-xl text-white">{item.title}</h3>
+                <p className="text-xs leading-relaxed text-white/80 font-light">
+                  {item.description}
+                </p>
               </div>
             </motion.div>
           ))}
