@@ -192,7 +192,7 @@ export const aboutStats = [
   { value: '100+', label: 'Destinations' },
   { value: '50K+', label: 'Travelers' },
   { value: '7', label: 'Divisions' },
-  { value: '2020', label: 'Founded' },
+  { value: '2021', label: 'Founded' },
 ] as const;
 
 export const testimonials = [

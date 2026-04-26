@@ -39,7 +39,7 @@ export async function GET() {
       { value: '100+', label: 'Destinations', icon: 'mountain', order: 0 },
       { value: '50K+', label: 'Travelers', icon: 'users', order: 1 },
       { value: '7', label: 'Divisions', icon: 'grid', order: 2 },
-      { value: '2020', label: 'Founded', icon: 'calendar', order: 3 },
+      { value: '2021', label: 'Founded', icon: 'calendar', order: 3 },
     ];
     const { error: statsErr } = await supabase.from('stats').insert(stats);
     results.push(statsErr ? `Stats: ERROR - ${statsErr.message}` : `Stats: seeded ${stats.length}`);
