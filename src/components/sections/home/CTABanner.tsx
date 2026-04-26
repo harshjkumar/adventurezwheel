@@ -151,7 +151,7 @@ export function CTABanner() {
           {/* Video side */}
           <div className="relative min-h-[30rem] lg:min-h-full overflow-hidden flex items-center justify-center bg-[#0a1512]">
             <video
-              src="https://pub-d188086126f842e88f76855b16e973b0.r2.dev/IMG_4061.MOV"
+              src="https://pub-d188086126f842e88f76855b16e973b0.r2.dev/trimmed.mp4"
               autoPlay
               muted
               loop
@@ -163,7 +163,7 @@ export function CTABanner() {
             <div className="absolute inset-0 bg-gradient-to-t from-[#122822] via-[#122822]/20 to-transparent" />
             
             {/* Top Right Logo (Fixed Path) */}
-            <div className="absolute top-10 right-10 z-20 w-32 lg:w-44 opacity-100 drop-shadow-[0_12px_24px_rgba(0,0,0,0.5)]">
+            <div className="absolute top-32 right-10 z-20 w-32 lg:w-44 opacity-100 drop-shadow-[0_12px_24px_rgba(0,0,0,0.5)]">
               <div className="relative h-24 w-full">
                 <Image
                   src="/logo/Artboard 1@3x-8.png"
