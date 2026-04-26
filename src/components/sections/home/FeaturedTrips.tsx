@@ -34,7 +34,7 @@ export function FeaturedTrips({ trips }: { trips: any[] }) {
   };
 
   return (
-    <section className="relative px-6 pb-24 pt-6 lg:px-12 lg:pb-32 lg:pt-8 bg-transparent">
+    <section className="relative px-6 pb-24 pt-0 lg:px-12 lg:pb-32 lg:pt-4 bg-transparent">
       <div className="mx-auto max-w-[1440px]">
         {/* Header — matching "Where to Next?" style */}
         <div className="mb-14 flex flex-col gap-6 md:flex-row md:items-end md:justify-between lg:mb-16">

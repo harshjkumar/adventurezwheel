@@ -42,9 +42,10 @@ export function Navbar() {
   const pathname = usePathname();
 
   const isHome = pathname === '/';
+  const isTransparentNavbarPage = pathname === '/' || pathname === '/about' || pathname.includes('/road-trips');
   const isLightBgPage = pathname.includes('/book') || pathname.includes('/admin') || pathname.includes('/dashboard') || pathname.includes('/login') || pathname.includes('/register') || pathname.includes('/contact');
   
-  const useDarkText = isScrolled || !isHome || isLightBgPage;
+  const useDarkText = isScrolled || !isTransparentNavbarPage || isLightBgPage;
   const textColorClass = useDarkText ? 'text-[#122822]' : 'text-white';
   const strokeColorClass = useDarkText ? 'bg-[#122822]' : 'bg-white';
 
@@ -87,12 +88,12 @@ export function Navbar() {
   return (
     <>
       <header className={`fixed inset-x-0 top-0 z-[100] transition-all duration-500 ${
-        isScrolled || !isHome ? 'bg-white/95 backdrop-blur-md shadow-lg border-b border-slate-100 py-2' : 'bg-transparent py-4'
+        isScrolled || !isTransparentNavbarPage ? 'bg-white/95 backdrop-blur-md shadow-lg border-b border-slate-100 py-2' : 'bg-transparent py-4'
       }`}>
         <div className="mx-auto flex max-w-[1440px] items-center justify-between px-6 lg:px-12">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <div className={`relative transition-all duration-500 ${isScrolled || !isHome ? 'h-10 w-36 sm:h-12 sm:w-48' : 'h-12 w-40 sm:h-20 sm:w-64'}`}>
+            <div className={`relative transition-all duration-500 ${isScrolled || !isTransparentNavbarPage ? 'h-10 w-36 sm:h-12 sm:w-48' : 'h-12 w-40 sm:h-20 sm:w-64'}`}>
               <Image src="/logo/Artboard 1@3x-8.png" alt="Adventures Wheel Logo" fill className="object-contain object-left lg:object-center" priority />
             </div>
           </Link>

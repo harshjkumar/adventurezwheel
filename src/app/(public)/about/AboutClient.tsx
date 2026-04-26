@@ -32,10 +32,10 @@ export default function AboutClient({ heroSlide }: { heroSlide?: any }) {
   return (
     <main id="main-content">
       {/* Hero */}
-      <section className="relative min-h-[80vh] overflow-hidden">
+      <section className="relative min-h-screen overflow-hidden">
         <Image src={slide.image} alt={slide.title} fill className="object-cover" sizes="100vw" priority />
         <div className="absolute inset-0 bg-gradient-to-b from-[#122822]/60 via-[#122822]/40 to-[#122822]/80" />
-        <div className="relative z-10 mx-auto flex min-h-[80vh] max-w-[1440px] flex-col justify-center px-6 pt-20 lg:px-12">
+        <div className="relative z-10 mx-auto flex min-h-screen max-w-[1440px] flex-col justify-center px-6 pt-32 lg:px-12">
           <motion.div initial="hidden" animate="visible" variants={stagger}>
             <motion.p variants={fadeIn} className="text-xs font-semibold uppercase tracking-[0.5em] text-white/70">{slide.subtitle}</motion.p>
             <motion.h1 variants={fadeIn} className="mt-4 max-w-3xl font-[family-name:var(--font-heading)] text-[clamp(3rem,7vw,6rem)] leading-[0.92] text-white">
@@ -48,42 +48,70 @@ export default function AboutClient({ heroSlide }: { heroSlide?: any }) {
         </div>
       </section>
 
-      {/* Mission & Vision */}
-      <section className="bg-white px-6 py-20 lg:px-12">
-        <div className="mx-auto grid max-w-[1440px] gap-12 lg:grid-cols-2 lg:items-center">
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-            <Image src="/de32a879-c278-42e1-9784-3e37d6d80664.JPG" alt="Our mission" fill className="object-cover" sizes="50vw" />
-          </div>
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.4em] text-[#D4AF37]">Our Story</p>
-            <h2 className="mt-3 font-[family-name:var(--font-heading)] text-[clamp(2.5rem,5vw,4rem)] leading-none text-[#122822]">
-              Born from wanderlust
-            </h2>
-            <p className="mt-6 text-lg leading-8 text-slate-600">
-              Started by Amit Rao in 2021, right after the world hit pause, this company was built on one honest thought: life is short, and waiting is overrated.
-              Post-COVID, everyone wanted to travel, and Amit was no different. Like many, he struggled to find the right people to explore with.
-            </p>
-            <p className="mt-4 text-lg leading-8 text-slate-600">
-              Being a travel enthusiast at heart, he chose to leave his stable corporate career, chose the road over routine, and started building something that solved this very problem: a travel community where strangers become friends and every trip feels like it was meant to happen.
-              Amit is not just a founder. He is a rider, explorer, and someone who has personally chased roads across mountains, coastlines, and cultures.
-            </p>
-            <p className="mt-4 text-lg leading-8 text-slate-600">
-              Every trip you see here is not researched, it is lived. Routes are handpicked, rides are tested, and experiences are built from real journeys, not brochures.
-              We focus on offbeat paths, scenic drives, and meaningful experiences, less traffic and more stories.
-            </p>
-            <p className="mt-4 text-lg leading-8 text-slate-600">
-              This is not just about trips. It is about finding your people, turning strangers into a crew, and journeys into shared stories you carry back home.
-              At the same time, we believe in traveling responsibly: supporting local communities, promoting sustainable practices, and contributing to cleaner villages, sacred sites, and mountain landscapes wherever we go.
-            </p>
-            
-            <div className="mt-8 grid grid-cols-2 gap-6">
-              <div>
-                <h4 className="text-3xl font-bold text-[#122822]">10+</h4>
-                <p className="mt-1 text-sm font-semibold uppercase tracking-wider text-slate-500">Years Experience</p>
+      {/* Mission & Vision (Our Story) */}
+      <section className="relative w-full bg-white py-24 sm:py-32 overflow-visible">
+        <div className="mx-auto flex max-w-[1440px] flex-col px-6 lg:flex-row lg:items-start lg:gap-16 lg:px-12">
+          
+          {/* Left Side: Sticky Image */}
+          <div className="relative w-full lg:sticky lg:top-32 lg:h-[75vh] lg:w-1/2 mb-12 lg:mb-0">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="relative h-[60vh] w-full overflow-hidden rounded-[2rem] shadow-2xl lg:h-full"
+            >
+              <Image 
+                src="/IMG_2581.JPG" 
+                alt="Adventures Wheel Journey" 
+                fill 
+                className="object-cover transition-transform duration-[10s] hover:scale-110" 
+                sizes="(max-width: 1024px) 100vw, 50vw" 
+              />
+              {/* Overlay Gradient */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#122822]/60 via-transparent to-transparent" />
+              <div className="absolute bottom-10 left-10 text-white">
+                <p className="text-sm font-normal uppercase tracking-[0.4em] opacity-80" style={{ fontFamily: '"vaccine", serif' }}>Established</p>
+                <p className="mt-1 text-5xl font-normal" style={{ fontFamily: '"vaccine", serif' }}>2021</p>
               </div>
-              <div>
-                <h4 className="text-3xl font-bold text-[#122822]">5000+</h4>
-                <p className="mt-1 text-sm font-semibold uppercase tracking-wider text-slate-500">Happy Travelers</p>
+            </motion.div>
+          </div>
+
+          {/* Right Side: Scrolling Text */}
+          <div className="flex w-full flex-col lg:w-1/2">
+            <div className="max-w-xl lg:pl-10">
+              <p className="text-xs font-semibold uppercase tracking-[0.4em] text-[#D4AF37]">Our Story</p>
+              <h2 className="mt-3 font-[family-name:var(--font-heading)] text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.1] text-[#122822]">
+                Born from wanderlust
+              </h2>
+              <div className="mt-10 space-y-8">
+                <p className="text-xl leading-relaxed text-slate-600 font-light">
+                  Started by Amit Rao in 2021, right after the world hit pause, this company was built on one honest thought: life is short, and waiting is overrated.
+                  Post-COVID, everyone wanted to travel, and Amit was no different. Like many, he struggled to find the right people to explore with.
+                </p>
+                <p className="text-xl leading-relaxed text-slate-600 font-light">
+                  Being a travel enthusiast at heart, he chose to leave his stable corporate career, chose the road over routine, and started building something that solved this very problem: a travel community where strangers become friends and every trip feels like it was meant to happen.
+                  Amit is not just a founder. He is a rider, explorer, and someone who has personally chased roads across mountains, coastlines, and cultures.
+                </p>
+                <p className="text-xl leading-relaxed text-slate-600 font-light">
+                  Every trip you see here is not researched, it is lived. Routes are handpicked, rides are tested, and experiences are built from real journeys, not brochures.
+                  We focus on offbeat paths, scenic drives, and meaningful experiences, less traffic and more stories.
+                </p>
+                <p className="text-xl leading-relaxed text-slate-600 font-light">
+                  This is not just about trips. It is about finding your people, turning strangers into a crew, and journeys into shared stories you carry back home.
+                  At the same time, we believe in traveling responsibly: supporting local communities, promoting sustainable practices, and contributing to cleaner villages, sacred sites, and mountain landscapes wherever we go.
+                </p>
+              </div>
+              
+              <div className="mt-16 grid grid-cols-2 gap-12 border-t border-slate-100 pt-12">
+                <div>
+                  <h4 className="text-5xl font-normal text-[#122822]" style={{ fontFamily: '"vaccine", serif' }}>5+</h4>
+                  <p className="mt-2 text-xs font-bold uppercase tracking-widest text-slate-400">Years Experience</p>
+                </div>
+                <div>
+                  <h4 className="text-5xl font-normal text-[#122822]" style={{ fontFamily: '"vaccine", serif' }}>5000+</h4>
+                  <p className="mt-2 text-xs font-bold uppercase tracking-widest text-slate-400">Happy Travelers</p>
+                </div>
               </div>
             </div>
           </div>

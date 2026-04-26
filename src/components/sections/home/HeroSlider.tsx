@@ -80,19 +80,7 @@ export function HeroSlider({ initialSlides }: { initialSlides: any[] }) {
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           className="flex w-full max-w-5xl flex-col items-start"
         >
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            {slide.subtitle ? (
-              <div className="inline-flex items-center backdrop-blur-sm bg-white/10 px-4 py-1.5 rounded-full border border-white/20">
-                <p className="text-[12px] font-medium uppercase tracking-[0.4em] text-white" style={{ fontFamily: '"vaccine", serif' }}>
-                  {slide.subtitle}
-                </p>
-              </div>
-            ) : null}
-          </motion.div>
+
 
           <h1 className="mt-4 text-[24px] font-normal leading-[1.2] tracking-tight text-white sm:text-4xl md:text-5xl lg:text-[44px] max-w-[90%] min-h-[80px] sm:min-h-[120px] lg:min-h-[140px]" style={{ fontFamily: '"vaccine", serif' }}>
             <AnimatePresence mode="wait">
