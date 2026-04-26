@@ -62,7 +62,7 @@ export default function AboutClient({ heroSlide }: { heroSlide?: any }) {
               className="relative h-[60vh] w-full overflow-hidden rounded-[2rem] shadow-2xl lg:h-full"
             >
               <Image 
-                src="/IMG_2581.JPG" 
+                src="/img/IMG_8612.JPG.jpeg" 
                 alt="Adventures Wheel Journey" 
                 fill 
                 className="object-cover transition-transform duration-[10s] hover:scale-110" 
@@ -196,6 +196,58 @@ export default function AboutClient({ heroSlide }: { heroSlide?: any }) {
           </div>
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
             <Image src="/4713b9ed-a70e-4b71-a908-616b774b014a.JPG" alt="Responsible tourism" fill className="object-cover" sizes="50vw" />
+          </div>
+        </div>
+      </section>
+
+      {/* Community Support by Adventures Travel */}
+      <section className="bg-white px-6 py-24 lg:px-12">
+        <div className="mx-auto max-w-[1440px]">
+          <div className="flex flex-col lg:flex-row items-center gap-16">
+            <div className="w-full lg:w-1/2">
+              <p className="text-xs font-semibold uppercase tracking-[0.4em] text-[#D4AF37]">Giving Back</p>
+              <h2 className="mt-3 font-[family-name:var(--font-heading)] text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.1] text-[#122822]">
+                Community support by adventures travel
+              </h2>
+              <div className="mt-8 space-y-6">
+                <p className="text-lg leading-relaxed text-slate-600 font-light">
+                  At Adventures Wheel, we believe that travel is more than just exploring new landscapes; it's about making a positive impact on the people and places we visit. Our community support initiatives focus on empowering local communities and preserving the cultural fabric of our destinations.
+                </p>
+                <p className="text-lg leading-relaxed text-slate-600 font-light">
+                  From supporting local homestays and artisans to contributing to education and healthcare in remote areas, we strive to ensure that our journeys leave a lasting legacy of growth and sustainability. We are proud to work hand-in-hand with local leaders to create opportunities that benefit everyone.
+                </p>
+              </div>
+            </div>
+            
+            <div className="w-full lg:w-1/2 grid grid-cols-2 gap-4">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="relative aspect-[3/4] overflow-hidden rounded-2xl shadow-xl"
+              >
+                <Image 
+                  src="/img/cbdu.JPG" 
+                  alt="Community Support Impact" 
+                  fill 
+                  className="object-cover"
+                />
+              </motion.div>
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+                className="relative aspect-[3/4] overflow-hidden rounded-2xl shadow-xl mt-8"
+              >
+                <Image 
+                  src="/img/idfief.JPG" 
+                  alt="Local Community Interaction" 
+                  fill 
+                  className="object-cover"
+                />
+              </motion.div>
+            </div>
           </div>
         </div>
       </section>

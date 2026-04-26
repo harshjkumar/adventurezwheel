@@ -18,7 +18,7 @@ export function AboutStory() {
             className="relative h-[50vh] w-full overflow-hidden rounded-[2rem] shadow-2xl lg:h-full"
           >
             <Image
-              src="/c8adc763-a691-488d-ab1c-a2fdccda6380.jpg"
+              src="/img/IMG_8611.JPG.jpeg"
               alt="Adventures Wheel Journey"
               fill
               className="object-cover transition-transform duration-[10s] hover:scale-110"

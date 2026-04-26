@@ -27,7 +27,7 @@ const purposeItems = [
     title: 'Community Journeys',
     icon: Users,
     description: 'Find your tribe on the road. We bring together like-minded travelers and turn journeys into shared stories and lifelong connections.',
-    image: '/meghalaya/group pose.webp'
+    image: '/img/IMG_9426.JPG.jpeg'
   },
   {
     title: 'Transparent Travel',
