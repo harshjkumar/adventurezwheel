@@ -149,16 +149,18 @@ export function CTABanner() {
           </div>
 
           {/* Video side */}
-          <div className="relative min-h-[30rem] lg:min-h-full overflow-hidden flex items-center justify-center bg-[#0a1512]">
+          <div className="relative min-h-[30rem] lg:min-h-full overflow-hidden flex items-center justify-center bg-[#122822]">
             <video
-              src="https://pub-d188086126f842e88f76855b16e973b0.r2.dev/trimmed.mp4"
               autoPlay
               muted
               loop
               playsInline
               preload="auto"
               className="absolute w-auto h-[135%] max-w-none object-contain -rotate-90"
-            />
+            >
+              <source src="https://pub-d188086126f842e88f76855b16e973b0.r2.dev/trimmed.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
             
             <div className="absolute inset-0 bg-gradient-to-t from-[#122822] via-[#122822]/20 to-transparent" />
             
