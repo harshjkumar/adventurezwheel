@@ -9,6 +9,7 @@ import { FeaturedTrips } from '@/components/sections/home/FeaturedTrips';
 import { AboutStory } from '@/components/sections/home/AboutStory';
 import { TripShowcaseSlider } from '@/components/sections/home/TripShowcaseSlider';
 import { StatsBanner } from '@/components/sections/home/StatsBanner';
+import { PurposeSection } from '@/components/sections/home/PurposeSection';
 import { TestimonialsSection } from '@/components/sections/home/TestimonialsSection';
 
 export function Homepage({ featuredTrips, heroSlides }: { featuredTrips: any[], heroSlides: any[] }) {
@@ -52,6 +53,7 @@ export function Homepage({ featuredTrips, heroSlides }: { featuredTrips: any[], 
       <AboutStory />
       <TripShowcaseSlider />
       <StatsBanner />
+      <PurposeSection />
       <TestimonialsSection />
     </main>
   );
