@@ -151,7 +151,7 @@ export function CTABanner() {
           {/* Video side */}
           <div className="relative min-h-[30rem] lg:min-h-full overflow-hidden flex items-center justify-center bg-[#0a1512]">
             <video
-              src="https://pub-d188086126f842e88f76855b16e973b0.r2.dev/IMG_4061%20-%20Trim.mp4"
+              src="https://pub-d188086126f842e88f76855b16e973b0.r2.dev/IMG_4061.MOV"
               autoPlay
               muted
               loop
